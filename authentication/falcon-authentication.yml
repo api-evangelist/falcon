@@ -1,0 +1,67 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.falconfs.com/reference/authentication
+docs: https://docs.falconfs.com/reference/authentication
+summary:
+  types: [http, apiKey]
+  http_schemes: [bearer]
+  api_key_in: [header]
+  bearer_format: JWT
+  notes: >-
+    Falcon uses a two-step credential model. A client authenticates with a client id
+    and client secret to mint a short-lived JWT access token, then presents that token
+    as an HTTP bearer Authorization header on all subsequent calls. Requests are
+    additionally scoped to a tenant via an x-tenant-id header, and request/response
+    bodies are AES-encrypted with a pre-shared symmetric key. There is no documented
+    public OAuth authorization/scope surface; the underlying identity provider is a
+    Keycloak realm (token issuer path .../idam/realms/<tenant>).
+gateway_url: https://credituat.falconfs.com/
+login:
+  operation: POST /api/v1/login
+  request_headers:
+    - name: x-client-id
+      required: true
+      description: Client identifier issued by Falcon.
+    - name: clientSecret
+      required: true
+      description: Client secret key issued by Falcon.
+    - name: x-tenant-id
+      required: true
+      description: Tenant identifier (for example, falcon or kvb).
+  returns: JWT access token (token_type Bearer), expires in ~10 minutes (exp is Unix epoch).
+schemes:
+  - name: bearerAuth
+    type: http
+    scheme: bearer
+    bearerFormat: JWT
+    description: >-
+      JWT access token returned by POST /api/v1/login, passed as
+      "Authorization: Bearer <token>" on subsequent requests. Token lifetime ~10 minutes.
+    sources: [https://docs.falconfs.com/reference/authentication]
+  - name: tenantHeader
+    type: apiKey
+    in: header
+    name: x-tenant-id
+    description: Per-tenant routing header required on every request.
+    sources: [https://docs.falconfs.com/reference/authentication]
+  - name: clientCredentials
+    type: apiKey
+    in: header
+    name: x-client-id + clientSecret
+    description: >-
+      Client id and client secret headers used only against the login endpoint to
+      mint the JWT access token.
+    sources: [https://docs.falconfs.com/reference/authentication]
+encryption:
+  scheme: AES (symmetric, pre-shared key)
+  applies_to: [request body, response body]
+  note: >-
+    Non-production keys are shared by Falcon; in production the bank shares the key and
+    Falcon configures it. Encrypted payload is sent as a Base64 string in place of the
+    JSON body; headers remain plaintext.
+request_headers:
+  - {name: Authorization, description: "Bearer JWT access token."}
+  - {name: x-tenant-id, description: "Tenant identifier."}
+  - {name: Content-Type, description: "application/json."}
+response_headers:
+  - {name: x-trace-id, description: "Unique per-request trace identifier for support/troubleshooting."}
