@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.falconfs.com/reference/versioning
+versioning:
+  scheme: single-part major version (vX) in the URL path
+  current_examples: [v1, v2, v3, v5]
+  docs: https://docs.falconfs.com/reference/versioning
+  inspiration: Semantic Versioning
+  backward_compatible_changes:
+    - Adding new object attributes in JSON responses
+    - Reordering object attributes in JSON responses
+    - Adding new prefixed metadata attributes
+    - Introducing new functionality (operators, functions, data types) to endpoints
+    - Adding new optional parameters to API calls
+    - Introducing new HTTP response headers
+    - Adding new endpoints or new methods to existing endpoints
+deprecation:
+  policy_url: https://docs.falconfs.com/reference/versioning
+  policy: >-
+    Older API versions are marked deprecated (no longer receiving updates or support) and,
+    after a grace period, removed to reduce maintenance overhead. Developers are encouraged
+    to migrate to newer versions promptly.
+  sunset_header: false
+environments_docs: https://docs.falconfs.com/reference/api-platform-environment
+environments:
+  - {name: UAT, description: "User Acceptance Testing / staging; used throughout the docs.", base_url: "http://openqa.tab.kitecash.in/falcon/vX"}
+  - {name: Production, description: "Live environment for end users."}
+status_page: null
+sla: null
+notes: >-
+  No public status page (status.falconfs.com does not resolve) and no published SLA were
+  found as of this capture.

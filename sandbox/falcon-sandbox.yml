@@ -1,0 +1,29 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.falconfs.com/reference/api-platform-environment
+docs:
+  - https://docs.falconfs.com/reference/api-platform-environment
+  - https://docs.falconfs.com/reference/authentication
+summary: >-
+  Falcon exposes a staging (UAT) environment that does not affect live/production data.
+  The published API reference is wired to UAT so integrations can be tested end to end.
+environments:
+  - name: UAT
+    description: User Acceptance Testing / staging environment used throughout the docs.
+    base_url: http://openqa.tab.kitecash.in/falcon/vX
+    gateway_url: https://credituat.falconfs.com/
+  - name: Production
+    description: Live environment for end users.
+access:
+  note: >-
+    Each endpoint requires an API key/credential obtained by contacting the Falcon API
+    support team; onboarding/configuration is done via the Falcon Issuer Dashboard.
+test_values:
+  # Published verbatim UAT sample values from the Platform Environments reference.
+  - {name: User Id, value: 4e34b8f5-5efa-4d54-8d5c-4c4ccda50052}
+  - {name: Card Id, value: 69803648-2648-4989-8fd6-6d8de8e99303}
+  - {name: Basic Auth, value: "Basic ZmlzeWJsOmZpc3libA=="}
+  - {name: Mobile No., value: '9636626685'}
+notes: >-
+  Non-production AES encryption/decryption keys are shared by Falcon for the staging
+  environment. No test card PANs or hosted test tokens are published in the public docs.

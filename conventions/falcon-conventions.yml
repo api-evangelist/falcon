@@ -1,0 +1,47 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.falconfs.com/reference/api-basics
+docs:
+  - https://docs.falconfs.com/reference/api-basics
+  - https://docs.falconfs.com/reference/authentication
+  - https://docs.falconfs.com/reference/versioning
+  - https://docs.falconfs.com/reference/api-platform-environment
+summary: >-
+  Cross-cutting request/response semantics for the Falcon REST API, captured from the
+  published API Basics, Authentication, Versioning, and Platform Environment references.
+api_style:
+  protocol: REST
+  media_type: application/json
+  methods: [GET, POST, PUT, PATCH, DELETE]
+  parameter_types: [path, query, request-body, response-body]
+authentication:
+  style: JWT bearer (client-id/secret login) + per-tenant x-tenant-id header
+  reference: authentication/falcon-authentication.yml
+payload_encryption:
+  scheme: AES symmetric, pre-shared key
+  note: Request and response bodies are AES-encrypted and Base64-encoded; headers stay plaintext.
+request_tracing:
+  response_header: x-trace-id
+  description: Unique identifier returned per request; retain it for support and issue resolution.
+tenancy:
+  request_header: x-tenant-id
+  description: Every request is scoped to a tenant (multi-tenant platform).
+versioning:
+  scheme: single-part major (vX) in the URL path
+  current_examples: [v1, v2, v3, v5]
+  reference: lifecycle/falcon-lifecycle.yml
+idempotency:
+  supported: false
+  note: No idempotency key/header is documented in the Falcon API reference as of this capture.
+pagination:
+  documented: partial
+  note: >-
+    Several list endpoints (for example, past enterprise statements) are described as
+    paginated starting from the latest record, but a single global pagination
+    parameter/response contract is not published in the API Basics reference.
+error_envelope:
+  signalling: HTTP status codes (see errors/falcon-error-codes.yml)
+  format: JSON; not RFC 9457 application/problem+json
+rate_limiting:
+  signal: HTTP 429 Throttling Error on too many requests; retry after some time
+  note: No published quantitative rate-limit headers/values.

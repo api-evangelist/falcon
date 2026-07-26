@@ -1,0 +1,46 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.falconfs.com/reference/api-basics
+docs: https://docs.falconfs.com/reference/api-basics
+format: http-status-codes
+envelope:
+  signalling: HTTP status code
+  body: JSON (AES-encrypted in transit); not RFC 9457 application/problem+json
+success_codes:
+  - {status: 200, title: Success, meaning: The request completed successfully.}
+  - {status: 201, title: Created, meaning: The request succeeded and a new resource was created (typical for POST).}
+error_codes:
+  - status: 400
+    title: Bad Request
+    meaning: The server cannot or will not process the request due to a perceived client error.
+    action: Correct the request payload/parameters and retry.
+  - status: 401
+    title: Unauthorized
+    meaning: >-
+      Semantically unauthenticated - the client must authenticate (valid, non-expired JWT
+      bearer token) to receive the requested response.
+    action: Re-authenticate via POST /api/v1/login to obtain a fresh access token (~10 min lifetime).
+  - status: 404
+    title: Not Found
+    meaning: The server cannot find the requested resource, or hides an unauthorised resource.
+    action: Verify the endpoint path and resource identifiers.
+  - status: 429
+    title: Throttling Error
+    meaning: The server is processing too many requests and cannot process this one.
+    action: Back off and retry the request after some time.
+  - status: 500
+    title: Internal Server Error
+    meaning: The server encountered a situation it does not know how to handle.
+    action: Retry later; contact Falcon support with the x-trace-id if it persists.
+  - status: 502
+    title: Bad Gateway
+    meaning: The gateway received an invalid response from an upstream server.
+    action: Retry later; contact support with the x-trace-id if it persists.
+  - status: 503
+    title: Service Unavailable
+    meaning: The server is not ready (maintenance or overload).
+    action: Retry later using exponential backoff.
+notes: >-
+  Falcon publishes a standard HTTP-status-code error contract in its API Basics reference.
+  A structured per-code application error registry / decline-code reference was not found in
+  the public docs as of this capture; capture will be upgraded if Falcon publishes one.

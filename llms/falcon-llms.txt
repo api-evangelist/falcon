@@ -1,0 +1,197 @@
+# Falcon FS Documentation
+
+> Falcon is to issuance what Stripe has been to acquire. Falcon’s mission is to co-create the most innovative financial products of the future. We are solving a problem that we ourselves faced in our early days while launching our commercial payments vertical. Falcon is a global embedded finance platform going after a $24B+ market, equipped with its own lending and issuance licenses. It brings the speed and flexibility that these tech companies need & enables them to launch in days and not months, with an almost zero upfront cost. Falcon offers a unique combination of developer-first APIs & no-code solutions built on top of a highly flexible & scalable modular architecture.
+
+## Guides
+- [Quick Start](https://docs.falconfs.com/docs/quick-start.md): Get started quickly with Falcon. Learn why leading financial platforms choose Falcon, explore key features and benefits, and begin integrating with our APIs in minutes.
+- [Choose Falcon Products](https://docs.falconfs.com/docs/choose-falcon-products.md): Explore Falcon’s financial product offerings and learn how to integrate them via powerful APIs and SDKs.
+- [Platform Guidelines](https://docs.falconfs.com/docs/platform-guidelines.md): Building exceptional experiences for Falcon’s developer ecosystem
+- [Best Practices](https://docs.falconfs.com/docs/best-practices.md): Stay ahead with Falcon's evolving API by following these best practices to ensure seamless integration and optimal performance.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/falcon-faqs.md): Find answers to some Frequently Asked Questions (FAQs) about Falcon.
+- [Overview](https://docs.falconfs.com/docs/credit-card-overview.md): Falcon is a full-stack embedded payments and credit platform, empowering businesses to launch and manage innovative credit card programs seamlessly.
+- [Falcon Credit Card Products](https://docs.falconfs.com/docs/falcon-products.md): An introduction to Falcon’s various credit card products and their technical integration insights.
+- [Overview](https://docs.falconfs.com/docs/retail-co-branded-cc-overview.md): Learn how retail co-branded credit cards drive customer loyalty and boost sales through partnerships between retailers and financial institutions. Explore the card's ecosystem, benefits, key features, and advantages.
+- [Lifecycle](https://docs.falconfs.com/docs/retail-co-branded-credit-card-lifecycle.md): Know about retail co-branded credit cards lifecycle.
+- [Integration Guide](https://docs.falconfs.com/docs/integration-guide.md): Know how to integrate with Falcon’s platform and issue retail co-branded credit cards.
+- [Onboard Customers](https://docs.falconfs.com/docs/onboard-customers.md): Know how to onboard customers.
+- [Manage Cards and Accounts](https://docs.falconfs.com/docs/manage-credit-cards.md): Know how to manage credit cards after onboarding customers.
+- [Transactions and Statements](https://docs.falconfs.com/docs/transaction-and-statements.md): Know how to manage transactions and statements of a retail co-branded credit card.
+- [Manage Repayments and EMIs](https://docs.falconfs.com/docs/manage-repayments.md): Know how to manage credit card repayments.
+- [Overview](https://docs.falconfs.com/docs/overview.md): Manage corporate credit cards with confidence—enable seamless expense tracking, real-time rewards, simplified payments, and smart controls, all built for modern business needs.
+- [Lifecycle](https://docs.falconfs.com/docs/corporate-credit-card-lifecycle.md): Know about corporate credit cards lifecycle.
+- [About Issuer Dashboard](https://docs.falconfs.com/docs/about-issuer-dashboard.md): Introduction to the Falcon Issuer Dashboard, prerequisites, and various Dashboard actions.
+- [Get Started](https://docs.falconfs.com/docs/get-started.md): Know how to get started with the issuer dashboard.
+- [Home Page](https://docs.falconfs.com/docs/home-page.md): Know the issuer dashboard home page and all the available options.
+- [Customers](https://docs.falconfs.com/docs/customers.md): Know about customers page and actions you can perform.
+- [Accounts - Dashboard Actions](https://docs.falconfs.com/docs/accounts-dashboard-actions.md): Know actions you can perform in the accounts tab.
+- [Card - Dashboard Actions](https://docs.falconfs.com/docs/card-dashboard-actions.md): Know actions you can perform in the card tab.
+- [Transactions - Dashboard Actions](https://docs.falconfs.com/docs/transactions-dashboard-actions.md): Know actions you can perform in the transactions tab.
+- [Statements - Dashboard Actions](https://docs.falconfs.com/docs/statements-dashboard-actions.md): Know actions you can perform in the statements tab.
+- [Support](https://docs.falconfs.com/docs/audit.md): Know about support page and actions you can perform.
+- [Requests](https://docs.falconfs.com/docs/requests.md): Know about Requests page and actions you can perform.
+- [Platform Security](https://docs.falconfs.com/docs/platform-security.md): Know about Falcon's platform security.
+- [Users](https://docs.falconfs.com/docs/users.md): Know about users and their significance in the credit card ecosystem.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/faqs-users.md): Find answers to some Frequently Asked Questions (FAQs) about users.
+- [API List](https://docs.falconfs.com/docs/apis-users.md): Find the list of user APIs.
+- [KYC and Onboarding](https://docs.falconfs.com/docs/kyc-onboarding.md): Know about Falcon's KYC and onboarding process.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/faqs-kyc-onboarding.md): Find answers to some Frequently Asked Questions (FAQs) about Falcon's KYC and onboarding.
+- [Accounts](https://docs.falconfs.com/docs/account-holder.md): Know about accounts in Falcon platform.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/faqs-accounts.md): Find answers to some Frequently Asked Questions (FAQs) about accounts.
+- [API List](https://docs.falconfs.com/docs/apis-accounts.md): Find the list of user APIs.
+- [EMIs (Equated Monthly Instalments)](https://docs.falconfs.com/docs/emi.md): Learn how Falcon enables flexible credit card EMI conversion with configurable plans, real-time eligibility checks, and seamless API-driven integration.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/emi-faqs.md): Find answers to some Frequently Asked Questions (FAQs) about EMIs.
+- [API List](https://docs.falconfs.com/docs/apis-emis.md): Find the list of EMI APIs.
+- [Cards](https://docs.falconfs.com/docs/cards.md): Know about cards.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/faqs-cards.md): Find answers to some Frequently Asked Questions (FAQs) about Cards.
+- [API List](https://docs.falconfs.com/docs/apis-cards.md): Find the list of card APIs.
+- [Funding](https://docs.falconfs.com/docs/funding.md): Know more about credit cards Funding.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/faqs-funding.md): Find answers to some Frequently Asked Questions (FAQs) about Funding.
+- [API List](https://docs.falconfs.com/docs/apis-funding.md): Find the list of funding APIs.
+- [Channels](https://docs.falconfs.com/docs/channels.md)
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/faqs-channel.md): Find answers to some Frequently Asked Questions (FAQs) about channels.
+- [API List](https://docs.falconfs.com/docs/apis-channel.md): Find the list of channels APIs.
+- [Limits](https://docs.falconfs.com/docs/limits.md)
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/faqs-limits.md): Find answers to some Frequently Asked Questions (FAQs) about limits.
+- [Transactions](https://docs.falconfs.com/docs/transactions.md): Transactions represent all financial activities within Falcon, such as payments, transfers, and withdrawals.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/faqs-transactions.md): Find answers to some Frequently Asked Questions (FAQs) about transactions.
+- [API List](https://docs.falconfs.com/docs/apis-transactions.md): Find the list of transaction APIs.
+- [Statements](https://docs.falconfs.com/docs/statements.md): Discover how Falcon Financial Services delivers secure, accurate, and easy-to-access financial statements for credit cards, savings accounts, and digital lending products. Learn about statement lifecycle, API integration, and compliance.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/faqs-statements.md): Find answers to some Frequently Asked Questions (FAQs) about statements.
+- [API List](https://docs.falconfs.com/docs/apis-statements.md): Find the list of statements APIs.
+- [Repayments](https://docs.falconfs.com/docs/repayments.md): Learn how Falcon enables seamless, flexible repayments for credit cards through real-time processing, customisable billing, and multiple payment channels for both individuals and enterprises.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/faqs-repayments.md): Find answers to some Frequently Asked Questions (FAQs) about repayments.
+- [API List](https://docs.falconfs.com/docs/apis-repayments.md): Find the list of repayment APIs.
+- [Reports](https://docs.falconfs.com/docs/reports-faqs.md): Falcon Reports offer industry standard insights into financial and system activities through filters, and secure access controls.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/faqs-reports.md): Find answers to some Frequently Asked Questions (FAQs) about reports.
+- [Reconciliations](https://docs.falconfs.com/docs/reconciliations.md): Falcon Reconciliations automates and streamlines the verification of financial records, ensuring accuracy, compliance, and real-time transparency across systems.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/reconcilation-faqs.md): Find answers to some Frequently Asked Questions (FAQs) about reconciliation.
+- [Certifications](https://docs.falconfs.com/docs/certifications.md): Falcon Certifications ensure adherence to global security and compliance standards like PCI DSS, ISO 27001:2022, and SOC 2, reinforcing trust and operational integrity.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/certification-faqs.md): Find answers to some Frequently Asked Questions (FAQs) about certifications.
+- [Frequently Asked Questions (FAQs)](https://docs.falconfs.com/docs/cc-faqs.md): Find clear, comprehensive answers to all your credit card questions — from application, activation, and limits to EMI, security, and co-branded benefits. Explore Falcon-powered card FAQs for cardholders, fintechs, banks, and co-brand partners.
+- [Glossary](https://docs.falconfs.com/docs/glossary.md): Explore the complete credit card glossary from Falcon Financial Services. Understand key terms for cardholders, fintech developers, banks, and co-brand partners—covering APIs, KYC, limits, statements, virtual cards, and more.
+
+## API Reference
+- [API Basics](https://docs.falconfs.com/reference/api-basics.md): Information API basics and the various components such as HTTP methods, status codes, data types and parameter types.
+- [Authentication](https://docs.falconfs.com/reference/authentication.md): Get Started with Falcon APIs and test them. Know about gateway URL, authentication, and more.
+- [Platform Environments](https://docs.falconfs.com/reference/api-platform-environment.md): Discover Falcon platform environments, including Development, UAT, and Production, along with API access and best practices for seamless integration.
+- [Versioning](https://docs.falconfs.com/reference/versioning.md): Learn about Falcon API versioning, including versioning strategy, backward-compatible changes, deprecation policies, and best practices for seamless integration and updates.
+- [Add an Issuer](https://docs.falconfs.com/reference/add-issuer.md): Use this endpoint to add a new issuer.
+- [View Issuer Programs](https://docs.falconfs.com/reference/view-issuer-programs.md): Use this endpoint to fetch the list of programs of an issuer.
+- [View an Issuer](https://docs.falconfs.com/reference/view-issuer.md): Use this endpoint to view an issuer.
+- [Update an Issuer](https://docs.falconfs.com/reference/update-issuer.md): Use this endpoint to update issuer details.
+- [Add an Aggregator](https://docs.falconfs.com/reference/add-aggregator.md): Use this endpoint to onboard a new aggregator.
+- [View a List of Enterprises](https://docs.falconfs.com/reference/view-enterprise-list.md): Use this endpoint to fetch a list of all the enterprises onboarded by an aggregator.
+- [Onboard an Enterprise](https://docs.falconfs.com/reference/onboard-enterprise.md): This API is used by issuer/TSP to onboard an enterprise.
+- [Update Enterprise Details](https://docs.falconfs.com/reference/update-enterprise.md): Use this endpoint to update the following details of an existing enterprise (corporate): - Name - Registered Name - Mobile number - Email - GSTIN - Address - Website - Director details  **Note:** All checks about validating the new mobile number, email or address (and any other proofs like FIR, etc.) for lost SIM are done by the bank and updated in the core banking solution (CBS) before updating in cash management services (CMS).  You should only pass those values that need to be updated. You cannot update the Identifier type and value parameters, they need to be taken as an input so as to identify a specific enterprise you are trying to update.
+- [Update Enterprise Credit Limits](https://docs.falconfs.com/reference/update-enterprise-credit-limit.md): Use this endpoint to update credit limits of an enterprise.
+- [Block or Allow MCCs for Enterprise](https://docs.falconfs.com/reference/enterprise-program-action.md): Use this endpoint to block or allow MCCs for enterprise.
+- [View Enterprise Details](https://docs.falconfs.com/reference/view-enterprise-details.md): Use this endpoint to view enterprise details using CIF.
+- [View Enterprise Summary](https://docs.falconfs.com/reference/view-enterprise-summary.md): Use this endpoint to view summary of all accounts of an enterprise's employees of a program.
+- [Add an Enterprise Admin](https://docs.falconfs.com/reference/add-enterprise-admin.md): Use this endpoint to add an administrator for a particular enterprise.
+- [View a List of Users of an Enterprise](https://docs.falconfs.com/reference/view-enterprise-users.md): Use this endpoint to get list of all the users registered to a particular enterprise.
+- [Add a Program](https://docs.falconfs.com/reference/add-program.md): Use this endpoint to add a new program.
+- [View List of Programs](https://docs.falconfs.com/reference/view-programs-list.md): Use this endpoint to get a list of all programs.
+- [View Program Details](https://docs.falconfs.com/reference/view-program-details.md): Use this endpoint to fetch details of a program.
+- [Assign a Program to an Aggregator](https://docs.falconfs.com/reference/assign-program.md): Use this endpoint to assign a new program to an aggegator.
+- [View Aggregator Program Subscriptions](https://docs.falconfs.com/reference/view-aggregator-program.md): Use this endpoint to fetch a list of all the programs subscribed by an aggregator.
+- [Assign a Program to an Enterprise](https://docs.falconfs.com/reference/associate-program-enterprise.md): Use this endpoint to assign a program to an enterprise.
+- [View Enterprise Program Subscriptions](https://docs.falconfs.com/reference/view-enterprise-program.md): Use this endpoint to check all the programs subscribed by an enterprise.
+- [Assign a Program to an User](https://docs.falconfs.com/reference/assign-user-program.md): Use this endpoint to assign a program to an user.
+- [View User Program Subscriptions](https://docs.falconfs.com/reference/view-user-programs.md): Use this endpoint to fetch a list of all the programs subscribed by a user.
+- [Assign a Fee Model to a Program](https://docs.falconfs.com/reference/assign-fee-model.md): Use this endpoint to assign a fee model to a program.
+- [Create a Program Due Date](https://docs.falconfs.com/reference/create-program-due-date.md): Use this endpoint to create a due date for a program.
+- [Get Program Due Dates](https://docs.falconfs.com/reference/get-program-due-dates.md): Use this endpoint to fetch due dates of a program.
+- [Update a Program Due Date](https://docs.falconfs.com/reference/update-program-due-date.md): Use this endpoint to update a due date of a program.
+- [Program Configuration Honor](https://docs.falconfs.com/reference/program-config-honor.md): Use this endpoint to program config honor.
+- [Add a User](https://docs.falconfs.com/reference/add-user.md): Use this endpoint to add a new user.
+- [Initiate a User Registration](https://docs.falconfs.com/reference/initiate-user-registration.md): Use this endpoint to onboard a particular user by an enterprise.
+- [Confirm the User Registration](https://docs.falconfs.com/reference/confirm-user-registration.md): This endpoint can be used by TSP/ Issuer Admin to confirm user's registration by validating KYC documents and status. This API can also be used to modify or add user data in case the details provided by enterprise is not sufficient.  **Note:** The view User API will be used to first fetch available user data and then input the missing fields. User registration will not be completed till user KYC status is marked Completed by the TSP/ Issuer Admin.
+- [View User Details](https://docs.falconfs.com/reference/view-user-details.md): Use this endpoint to fetch details of a particular user.
+- [Get User Details using CIF](https://docs.falconfs.com/reference/get-user-by-cif.md): Use this endpoint to fetch details of a particular user using CIF number.
+- [Update User Details](https://docs.falconfs.com/reference/update-user-details.md): Use this endpoint to update user details.
+- [View a List of Enterprise Accounts](https://docs.falconfs.com/reference/get_account-enterpriseid.md): Use this endpoint to fetch all credit acounts opened for an enterprise.
+- [View Enterprise Account Details](https://docs.falconfs.com/reference/view-enterprise-account-details.md): Use this endpoint to fetch details of a particular enterprise account.
+- [Add a User Account](https://docs.falconfs.com/reference/add-user-account.md): Use this endpoint to create a new account for user when an user has to be added to a new program.
+- [View a List of User Accounts](https://docs.falconfs.com/reference/view-user-account-list.md): Use this endpoint to fetch a list of user accounts.
+- [Update User Accounts](https://docs.falconfs.com/reference/update-user-accounts.md): Use this endpoint to update an account's parameters like credit limit, overlimit, or billing cycle.
+- [View User Account Details](https://docs.falconfs.com/reference/view-user-account-details.md): Use this endpoint to fetch details of a particular user account.
+- [Tag or Detag an Account with the Bank-Induced NPA](https://docs.falconfs.com/reference/tag-detag-account.md): Use this endpoint to tag an enterprise (corporate) or a user as bank-induced NPA with a reason and with the following  sub-status/reason  - Sub-standard - Doubtful - 1 - Doubtful - 21 - Doubtful - 22 - Doubtful - 3 - Loss
+- [Change Due Date of an Account](https://docs.falconfs.com/reference/change-account-duedate.md): Use this endpoint to change the due date of an account.
+- [Close an Account](https://docs.falconfs.com/reference/close-account.md): Use this endpoint to close a credit card account with 0 balance and 0 accrued interest. All associated cards should be blocked before the account is closed.
+- [Add a Credit Card](https://docs.falconfs.com/reference/add-card.md): Use this endpoint to issue a new credit card (Virtual/Physical) to an active primary user.
+- [Activate a Card](https://docs.falconfs.com/reference/activate-card.md): Use this endpoint to activate a added physical or virtual card.
+- [Add an Add-on or Supplementary Card](https://docs.falconfs.com/reference/add-on-card.md): Use this endpoint to issue an add-on or a supplementary card (Virtual/Physical) to an active user.
+- [View Add-on Card Credit Limit](https://docs.falconfs.com/reference/view-add-on-card-limit.md): Use this endpoint to view the spend limits of a linked add-on card.
+- [View List of Cards](https://docs.falconfs.com/reference/get_card-card-details-accountid.md): Retrieve a list of all cards linked to an account.
+- [View Card Details (PCI)](https://docs.falconfs.com/reference/view-pci-card-details.md): Use this ebdpoint to view the details of a PCI card.
+- [View Card Details (Non-PCI)](https://docs.falconfs.com/reference/view-non-pci-card-details.md): Use this endpoint to get non-sensitive card details.
+- [View the CVV of a Card](https://docs.falconfs.com/reference/view-card-cvv.md): Use this endpoint to view the Card CVV.
+- [Enable or Disable a Card](https://docs.falconfs.com/reference/enable-disable-card.md): Use this endpoint enable or disable a card.
+- [View Channel Status](https://docs.falconfs.com/reference/view-channel-status.md): USe this endpoint to fetch the status of a particular channel for a given card.
+- [Change Channel Statuses](https://docs.falconfs.com/reference/change-channel-statuses.md): Use this endpoint to change the status of various channels.
+- [View Spend Limits](https://docs.falconfs.com/reference/view-spend-limits.md): Use the endpoint fetch the spending limits on a card.
+- [Change Spend Limits](https://docs.falconfs.com/reference/change-spend-limits.md): Use this endpoint to update the spending limits of a card.
+- [Generate an OTP](https://docs.falconfs.com/reference/generate-otp.md): Use this endpoint to generate an OTP for setting a physical card PIN.
+- [Block a Card](https://docs.falconfs.com/reference/block-card.md): Use this endpoint to block a card permanently.
+- [Replace Blocked Card](https://docs.falconfs.com/reference/replace-blocked-card.md): Use this endpoint to replace a permanently blocked card for the same user (primary or supplementary/add-on). If the blocked card is a physical card, the replaced card will be delivered at the delivery address of the user. If you want to get it to a different address, please change the delivery address before polling this API.  **Note:** Channel statuses and spend limits will  be reset for the replaced card to default.
+- [Validate Card Details](https://docs.falconfs.com/reference/validate-card-details.md): Use this endpoint to validate card details like card number, 6-digit card code, expiry date, and CVV.
+- [Set or Change Card PIN](https://docs.falconfs.com/reference/set-pin.md): Use this endpoint to set a PIN for a physical card or change an existing PIN.
+- [View Enterprise Unbilled Transactions](https://docs.falconfs.com/reference/view-enterprise-unbilled-transactions.md): Use this endpoint to fetch a list of unbilled transactions of an enterprise account.
+- [View User Account Unbilled Transactions](https://docs.falconfs.com/reference/view-user-unbilled-transactions.md): use this endpoint to fetch unbilled transactions for a user account.
+- [View Account Billed Transactions](https://docs.falconfs.com/reference/view-account-billed-transactions.md): Use this endpoint to fetch billed transactions of an account using a statement ID.
+- [Add a Manual Debit](https://docs.falconfs.com/reference/add-manual-debit.md): Use this endpoint to post a manual debit to an account.
+- [Add a Manual Credit](https://docs.falconfs.com/reference/add-manual-credit.md): Use this endpoint to post manual credit to an account, for cashback, interest reversal, surcharge reversal, tax reversal, or fee reversal.
+- [Post a Bank Refund](https://docs.falconfs.com/reference/post-bank-refund.md): Use this endpoint to post debit to account for the amount that has been refunded to the bank account of the customer by the bank.   **Note:** The transaction type of such debit will be the same as a purchase transaction. Default txn type (if txn id not provised) should be for a purchase.
+- [Post a Chargeback](https://docs.falconfs.com/reference/post-chargeback.md): Use this endpoint to post chargeback credits to an account.    **Note:** Reward reversal will automatically happen on this action.
+- [Search a Transaction](https://docs.falconfs.com/reference/get-transaction-details.md): Use this endpoint to fetch details of a transaction based on a transaction ID.
+- [Get a Credit Card Statement](https://docs.falconfs.com/reference/get-credit-card-statement.md): Use this endpoint to fetch month's credit card statement for a user's credit card.
+- [View or Download Past Enterprise Statements](https://docs.falconfs.com/reference/view-enterprise-past-statements.md): Use this endpoint to fetch list of statements for a corporate account in a paginated way, starting from the latest statement.
+- [View the Enterprise Statement List](https://docs.falconfs.com/reference/view-enterprise-statement-list.md): Use this endpoint to fetch list of statements for an enterprise account.
+- [View or Download Past User Account Statements](https://docs.falconfs.com/reference/view-past-user-account-statement.md): Use this endpoint to fetch or dowload particular statement for a user account.
+- [View or Download Enterprise Statement](https://docs.falconfs.com/reference/view-enterprise-statement.md): Use this endpoint to fetch/download particular statement for a corporate account.
+- [View the User Account Statement List](https://docs.falconfs.com/reference/view-user-statement-list.md): Use this endpoint to fetch a list of statements for a user account.
+- [View or Download User Account Statement](https://docs.falconfs.com/reference/get-user-account-statement.md): Use this endpoint to fetch/dowload particular statement for a user account.
+- [Email an Enterprise Statement](https://docs.falconfs.com/reference/email-enterprise-statement.md): Use this endpoint to send PDF statement to corporate on their registered email ID.
+- [Repay a User Account](https://docs.falconfs.com/reference/repay-user-account.md): Use this endpoint to pay a credit card bill.
+- [Repayment via a Payment Gateway](https://docs.falconfs.com/reference/repayment-via-pg.md): Use this endpoint to make repayment using a payment gateway.
+- [Repayment via Netbanking](https://docs.falconfs.com/reference/repayment-via-netbanking.md): Use this endpoint to initiate a payment via Netbanking.
+- [Reverse a Repayment Transaction](https://docs.falconfs.com/reference/reverse-repayment-transaction.md): Use this endpoint to reverse a repayment transaction.
+- [Set or Change Auto-Debit Configuration of an User Account](https://docs.falconfs.com/reference/set-auto-debit-configuration.md): Use this endpoint to set a configuration of auto-pay/ standing instruction for an account.
+- [Set or Change Auto-Debit Configuration of an Enterprise Account](https://docs.falconfs.com/reference/set-auto-debit-configuration-enterprise.md): Use this endpoint to set a configuration of auto-pay/ standing instruction for an enterprise account.
+- [View Auto-Debit Configuration of a User Account](https://docs.falconfs.com/reference/view-user-auto-debit-configuration.md): Use this endpoint to view configuration of auto-pay/ standing instruction for an account.
+- [View Enterprise Account Auto-Debit Configuration](https://docs.falconfs.com/reference/view-enterprise-auto-debit-configuration.md): Use this endpoint to view configuration of auto-pay/ standing instruction of an enterprise account.
+- [Get All Repayments](https://docs.falconfs.com/reference/get-all-repayments.md): Use this endpoint to fetch all repayments of an account.
+- [Post Repayments](https://docs.falconfs.com/reference/post-repayment.md): Use this endpoint to post a repayment to a user's credit card account.
+- [Fetch Payment Options](https://docs.falconfs.com/reference/fetch-payment-options.md): Use this endpoint to fetch all the payment modes available for the payment.
+- [Validate Virtual Payment Address](https://docs.falconfs.com/reference/validate-vpa.md): Use this endpoint to validate the virtual payment address entered by the user.
+- [Fetch Payment Status](https://docs.falconfs.com/reference/fetch-payment-status.md): Use this endpoint to fetch the payment status.
+- [Add a New EMI Plan](https://docs.falconfs.com/reference/add-emi-plan.md): Use this endpoint to create a new EMI plan.
+- [Update EMI Plan Status](https://docs.falconfs.com/reference/put_update-status-emi-plan.md): Use this endpoint to update the status of the EMI plan.
+- [View an EMI Plan Using a program ID](https://docs.falconfs.com/reference/view-emi-plan.md): Use this endpoint to view an EMI plan using a program ID.
+- [Convert Transaction(s) to EMI](https://docs.falconfs.com/reference/convert-transactions-emi.md): Use this endpoint to convert a transaction into the EMI.
+- [Convert Outstanding Balance to EMI](https://docs.falconfs.com/reference/convert-outstanding-balance.md): Use this endpoint to convert an outstanding user balance to EMI.
+- [Foreclosure Quote](https://docs.falconfs.com/reference/foreclosure-quote.md): Use this endpoint to view the details related to the foreclose quote.
+- [Foreclose an EMI](https://docs.falconfs.com/reference/foreclose-emi.md): Use this endpoint to raise a foreclosure request.
+- [View List of EMIs](https://docs.falconfs.com/reference/view-emi-list.md): Use this endpoint to view a list of all EMI running under a parameter.
+- [View EMI Details](https://docs.falconfs.com/reference/view-emi-details.md): Use this endpoint to view details of an EMI.
+- [View Amortisation Schedule](https://docs.falconfs.com/reference/view-amortisation-schedule.md): Use this endpoint to view the amortization schedules.
+- [View Transaction Eligibility](https://docs.falconfs.com/reference/view-transaction-eligibility.md): Use this endpoint to determine whether a transaction is available for the EMI conversion.
+- [Post a Fee](https://docs.falconfs.com/reference/post-fee.md): Use this endpoint to post a fee to an account. Configured GST will be posted to the account automatically.
+- [Add a Fee Model](https://docs.falconfs.com/reference/add-fee-model.md): Use this endpoint to create a new fee model with configurations approved by issuer.
+- [View a Fee Model](https://docs.falconfs.com/reference/view-fee-model.md): Use this endpoint to fetch details of fees and charges in a particular fee model.
+- [Get the Fees of an Account](https://docs.falconfs.com/reference/get-account-fees.md): Use this endpoint to fetch details of fees of an account.
+- [View Yet to be Posted Fee](https://docs.falconfs.com/reference/view-yet-to-be-posted-fee.md): Use this endpoint to view fees that should be charged if a customer requests for account closure.
+- [Reverse a Fee](https://docs.falconfs.com/reference/reverse-fee.md): Use this endpoint to reverse either an already posted fee or interest, or post a fee or interest credit to an account.
+- [Post a Pending Fee](https://docs.falconfs.com/reference/post-pending-fee.md): Use this endpoint to post fee which is yet to be posted. This is only relevant for account closure purpose. Once this is posted, it should not be posted again for that reason. For example, If it is a overlimit fee which is to be charged once a month, it can only be charged in the next month if for any reason account is still not closed.
+- [Add a Dispute](https://docs.falconfs.com/reference/add-dispute.md): Use this endpoint to raise dispute for a given user transaction.
+- [Update a Dispute Status](https://docs.falconfs.com/reference/update-dispute-status.md): Use this endpoint to update status of a dispute raised by a user.
+- [View List of All Disputes](https://docs.falconfs.com/reference/view-dispute-list.md): Use this endpoint to fetch all the disputes raised by a given user.
+- [View Dispute Details](https://docs.falconfs.com/reference/view-dispute-details.md): Use this endpoint to fetch details of a dispute.
+- [View Reward Point Balance](https://docs.falconfs.com/reference/view-reward-point-balance.md): Use this endpoint to fetch reward point balance for an account.
+- [View Reward Point Details](https://docs.falconfs.com/reference/view-reward-point-details.md): Use this endpoint to fetch reward point details for an account.
+- [View Redemption History](https://docs.falconfs.com/reference/view-reward-redemption-history.md): Fetch redemption history for an account
+- [View an Accrued Interest](https://docs.falconfs.com/reference/view-accrued-interest.md): Use this endpoint to view total interest that is accrued on an account.
+- [Post an Accrued Interest](https://docs.falconfs.com/reference/post-accrued-interest.md): Use this endpoint to post the accrued interest to an account.
+- [Fund a User Account](https://docs.falconfs.com/reference/fund-user-account.md): Use this endpoint to add money to user account.
+- [Reverse a Funding](https://docs.falconfs.com/reference/reverse-funding.md): Use this endpoint to reverse funds from a user account to an enterprise account.
+- [Credit Card Integration Guide](https://docs.falconfs.com/reference/credit-card-integration-guide.md): Falcon Credit Card Integration – API documentation and setup guide for authorized banks to connect, issue, and manage credit card programs securely.

@@ -1,22 +1,73 @@
 aid: falcon
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/falcon.png
 name: Falcon
-description: 'Falcon is a company surfaced as a portfolio company of sierra-ventures and added to the
-  API Evangelist network as a stub for enrichment. Sector: infrastructure. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: 'Falcon (Falcon Financial Services, falconfs.com) is a global embedded-finance
+  and Banking-as-a-Service platform that lets fintechs, banks, and enterprises launch credit
+  and payment products in days rather than months. Its developer-first REST APIs and no-code
+  tooling cover the full issuance and lending lifecycle: issuer and program onboarding,
+  enterprise and user KYC, credit-card issuance (virtual, physical, add-on, co-branded,
+  corporate), accounts and credit limits, transactions, statements, repayments and
+  auto-debit, EMI conversion and amortisation, disputes, rewards, interest, fees, funding,
+  and reconciliations. Falcon holds its own lending and issuance licenses, is built on a
+  modular multi-tenant architecture, and is certified against PCI DSS, ISO 27001:2022, and
+  SOC 2. Product lines include Falcon CardFX (issuance), CreditFX (lending), WalletFX
+  (prepaid/wallets), and SurgeFX (AI growth and portfolio tools).'
 url: https://raw.githubusercontent.com/api-evangelist/falcon/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - sierra-ventures
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Infrastructure
-apis: []
+- Financial Services
+- Banking
+- Payments
+- Credit Cards
+- Embedded Finance
+- Fintech
+- Card Issuing
+- Lending
+- Banking as a Service
+- India
+apis:
+- name: Falcon API
+  description: 'Falcon''s RESTful embedded-finance API for card issuance, lending, and
+    program management. All responses are JSON; authentication is a JWT bearer token
+    obtained from a client-id/client-secret login, with per-tenant routing via an
+    x-tenant-id header and AES request/response encryption. Versioned with a one-part
+    major scheme (v1, v2, v3, v5).'
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Payments
+  - Credit Cards
+  - Card Issuing
+  - Lending
+  properties:
+  - type: Documentation
+    url: https://docs.falconfs.com/docs/quick-start
+  - type: APIReference
+    url: https://docs.falconfs.com/reference
+  - type: Authentication
+    url: https://docs.falconfs.com/reference/authentication
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +76,44 @@ maintainers:
 common:
 - type: Website
   url: https://falconfs.com/
+- type: DeveloperPortal
+  url: https://docs.falconfs.com/
+- type: Documentation
+  url: https://docs.falconfs.com/docs/quick-start
+- type: APIReference
+  url: https://docs.falconfs.com/reference
+- type: GettingStarted
+  url: https://docs.falconfs.com/docs/quick-start
+- type: Blog
+  url: https://falconfs.com/blog
+- type: Support
+  url: https://falconfs.com/contact-us
+- type: TermsOfService
+  url: https://falconfs.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://falconfs.com/privacy-policy
+- type: Compliance
+  url: https://docs.falconfs.com/docs/certifications
+- type: Deprecation
+  url: https://docs.falconfs.com/reference/versioning
+- type: Authentication
+  url: authentication/falcon-authentication.yml
+- type: Conventions
+  url: conventions/falcon-conventions.yml
+- type: Lifecycle
+  url: lifecycle/falcon-lifecycle.yml
+- type: Conformance
+  url: conformance/falcon-conformance.yml
+- type: ErrorCatalog
+  url: errors/falcon-error-codes.yml
+- type: Sandbox
+  url: sandbox/falcon-sandbox.yml
+- type: DomainSecurity
+  url: security/falcon-domain-security.yml
+- type: LLMsTxt
+  url: llms/falcon-llms.txt
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
