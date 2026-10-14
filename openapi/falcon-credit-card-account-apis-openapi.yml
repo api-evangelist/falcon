@@ -1,0 +1,472 @@
+openapi: 3.0.1
+info:
+  title: Falcon Credit Card Account APIs
+  description: API endpoints for managing user accounts in the Falcon credit card lifecycle.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+paths:
+  /account:
+    put:
+      summary: Update User Accounts
+      description: Use this endpoint to update an account's parameters like credit limit, overlimit, or billing cycle.
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - creditLimit
+              - dueDate
+              - overLimit
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account to be updated.
+                  example: ACC123456
+                creditLimit:
+                  type: string
+                  description: The new credit limit for the account.
+                  example: '40000'
+                dueDate:
+                  type: string
+                  description: The new due date for the account.
+                  example: '2023-10-15'
+                nomineeName:
+                  type: string
+                  description: The name of the nominee for the account.
+                  example: Jane Doe
+                nomineeRelationship:
+                  type: string
+                  description: The relationship of the nominee to the account holder.
+                  example: Sister
+                overLimit:
+                  type: object
+                  properties:
+                    consent:
+                      type: boolean
+                      description: Indicates if the user consents to over-limit transactions.
+                      example: true
+                      enum:
+                      - true
+                      - false
+                    consentRemarks:
+                      type: string
+                      description: Remarks regarding the user's consent for over-limit transactions.
+                      example: User has agreed to over-limit transactions.
+                    flag:
+                      type: boolean
+                      description: Indicates if the account is flagged for over-limit transactions.
+                      example: true
+                      enum:
+                      - true
+                      - false
+                    percent:
+                      type: integer
+                      description: The percentage of the credit limit that can be exceeded.
+                      example: 15
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+  /account/users:
+    get:
+      summary: View List of User Accounts
+      description: Use this endpoint to fetch a list of user accounts.
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    description: The ID of the user whose accounts are being fetched.
+                    example: USR123456
+                  enterpriseId:
+                    type: string
+                    description: The ID of the enterprise associated with the user.
+                    example: ENT123456
+                  accountList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        programID:
+                          type: string
+                          description: The ID of the program associated with the account.
+                          example: SF001
+                        accountId:
+                          type: string
+                          description: The ID of the account.
+                          example: ACC123456
+                        programName:
+                          type: string
+                          description: The name of the program associated with the account.
+                          example: Super Finance Program
+                        primaryCardNumberMasked:
+                          type: string
+                          description: The masked primary card number.
+                          example: XXXX-XXXX-XXXX-1234
+                        availableCreditLimit:
+                          type: integer
+                          description: The available credit limit for the account.
+                          example: 20000
+                        outstandingAmount:
+                          type: integer
+                          description: The outstanding amount on the account.
+                          example: 5000
+                  totalCount:
+                    type: integer
+                    description: The total number of accounts associated with the user.
+                    example: 1
+  /account/{accountId}:
+    get:
+      summary: View User Account Details
+      description: Use this endpoint to fetch details of a particular user account.
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique ID of the account.
+        example: ACC123456
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                    description: The ID of the account.
+                    example: ACC123456
+                  status:
+                    type: string
+                    description: The status of the account.
+                    example: active
+                    enum:
+                    - active
+                    - inactive
+                    - closed
+                  programID:
+                    type: string
+                    description: The ID of the program associated with the account.
+                    example: SF001
+                  openingDate:
+                    type: string
+                    description: The date the account was opened.
+                    example: '2023-01-01'
+                  billingCycleFrequency:
+                    type: string
+                    description: The frequency of the billing cycle.
+                    example: monthly
+                  linkedFormFactors:
+                    type: string
+                    description: The linked form factors.
+                    example: physical
+                    enum:
+                    - physical
+                    - virtual
+                  primaryCardId:
+                    type: string
+                    description: The primary card ID.
+                    example: CARD123456
+                  primaryCardNumberMasked:
+                    type: string
+                    description: The masked primary card number.
+                    example: XXXX-XXXX-XXXX-1234
+                  currency:
+                    type: string
+                    description: The currency of the account.
+                    example: INR
+                  grantedCreditLimit:
+                    type: string
+                    description: The granted credit limit for the account.
+                    example: '30000'
+                  availableCreditLimit:
+                    type: string
+                    description: The available credit limit for the account.
+                    example: '20000'
+                  outstandingAmount:
+                    type: string
+                    description: The outstanding amount on the account.
+                    example: '5000'
+  /close/account/{accountId}/{bankCode}:
+    post:
+      summary: Close an Account
+      description: Use this endpoint to close a credit card account with 0 balance and 0 accrued interest. All associated cards should be blocked before the account is closed.
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bankCode
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - remark
+              - closeStatus
+              properties:
+                remark:
+                  type: string
+                  description: The account closing remarks.
+                  example: close this account remark 1234 checking for special characters !@#$
+                closeStatus:
+                  type: string
+                  description: The close status.
+                  example: closed
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+  /npa/bank-induce-status:
+    post:
+      summary: Tag or Detag an Account with the Bank-Induced NPA
+      description: "Use this endpoint to tag an enterprise (corporate) or a user as bank-induced NPA with a reason and with the following  sub-status/reason \n- Sub-standard\n- Doubtful - 1\n- Doubtful - 21\n- Doubtful - 22\n- Doubtful - 3\n- Loss\n"
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                npaStatus:
+                  type: string
+                  description: The NPA status to be set.
+                  example: bank-induced
+                reason:
+                  type: string
+                  description: The reason for tagging the account as NPA.
+                  example: Sub-standard
+                npaSubStatus:
+                  type: string
+                  description: The sub-status of the NPA.
+                  example: Sub-standard
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+  /user/{userId}/account:
+    post:
+      summary: Add a User Account
+      description: Use this endpoint to create a new account for user when an user has to be added to a new program.
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - userId
+              - programId
+              - isAutoDebit
+              - autoDebitType
+              - savingsAccountNumber
+              - maxCreditLimit
+              - creditLimit
+              - enterpriseIdentifierType
+              - enterpriseIdentifierValue
+              - dueDate
+              properties:
+                programId:
+                  type: string
+                  description: The ID of the program to which the account belongs.
+                  example: SF001
+                isAutoDebit:
+                  type: string
+                  description: Indicates if auto debit is enabled for the account.
+                  example: 'true'
+                autoDebitType:
+                  type: string
+                  description: The type of auto debit.
+                  example: full
+                  enum:
+                  - full
+                  - partial
+                savingsAccountNumber:
+                  type: string
+                  description: The savings account number linked to the credit card.
+                  example: '123456789012'
+                maxCreditLimit:
+                  type: string
+                  description: The maximum credit limit for the account.
+                  example: '50000'
+                creditLimit:
+                  type: string
+                  description: The credit limit for the account.
+                  example: '30000'
+                nomineeName:
+                  type: string
+                  description: The name of the nominee for the account.
+                  example: John Doe
+                nomineeRelationship:
+                  type: string
+                  description: The relationship of the nominee to the account holder.
+                  example: Brother
+                overLimit:
+                  type: object
+                  properties:
+                    consent:
+                      type: boolean
+                      description: Indicates if the user consents to over-limit transactions.
+                      example: true
+                      enum:
+                      - 'true'
+                      - 'false'
+                    consentRemarks:
+                      type: string
+                      description: Remarks regarding the user's consent for over-limit transactions.
+                      example: User has agreed to over-limit transactions.
+                    flag:
+                      type: boolean
+                      description: Indicates if the account is flagged for over-limit transactions.
+                      example: true
+                      enum:
+                      - 'true'
+                      - 'true'
+                    percent:
+                      type: integer
+                      description: The percentage of the credit limit that can be exceeded.
+                      example: 10
+                branchId:
+                  type: string
+                  description: The ID of the branch where the account is opened.
+                  example: BR001
+                applicationReferenceNumber:
+                  type: string
+                  description: The reference number for the account application.
+                  example: APP123456
+                customInfo:
+                  type: object
+                  properties:
+                    additionalProperties:
+                      type: string
+                      description: Custom information related to the account.
+                      example: Custom data
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                    description: The ID of the newly created account.
+                    example: ACC123456
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-user-account.md
+  - https://docs.falconfs.com/reference/close-account.md
+  - https://docs.falconfs.com/reference/tag-detag-account.md
+  - https://docs.falconfs.com/reference/update-user-accounts.md
+  - https://docs.falconfs.com/reference/view-user-account-details.md
+  - https://docs.falconfs.com/reference/view-user-account-list.md
+  merge:
+    pages: 6
+    deduped: 0
+    conflicts_kept_first: 0

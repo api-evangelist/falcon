@@ -1,0 +1,16 @@
+generated: '2026-10-14'
+method: none
+source:
+- https://zapier.com/apps/falcon/integrations
+- https://n8n.io/integrations/falcon/
+- https://composio.dev/toolkits/falcon
+- https://monid.ai/tools/falcon
+checked:
+- https://composio.dev/toolkits/falcon
+- https://monid.ai/tools/falcon
+- https://n8n.io/integrations/falcon/
+- https://zapier.com/apps/falcon/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

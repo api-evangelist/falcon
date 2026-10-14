@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-enterprise-summary-request-schema.json",
+  "title": "EnterpriseSummaryRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-view-enterprise-summary-openapi.yml#/components/schemas/EnterpriseSummaryRequest",
+  "type": "object",
+  "properties": {
+    "identifierType": {
+      "type": "string",
+      "description": "The type of identifier used to identify the enterprise. It can be either CIF or ENTERPRISE_ID.",
+      "enum": [
+        "CIF",
+        "ENTERPRISE_ID"
+      ]
+    },
+    "identifierValue": {
+      "type": "string",
+      "description": "The value of the identifier used to identify the enterprise."
+    },
+    "programId": {
+      "type": "string",
+      "description": "The ID of the program for which the enterprise summary is being requested."
+    }
+  }
+}

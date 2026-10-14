@@ -1,0 +1,252 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/falcon-add-a-program-openapi.yml
+- openapi/falcon-add-a-user-openapi.yml
+- openapi/falcon-add-an-aggregator-openapi.yml
+- openapi/falcon-add-an-enterprise-admin-openapi.yml
+- openapi/falcon-add-an-issuer-openapi.yml
+- openapi/falcon-assign-a-fee-model-to-a-program-openapi.yml
+- openapi/falcon-assign-a-program-to-an-aggregator-openapi.yml
+- openapi/falcon-assign-a-program-to-an-enterprise-openapi.yml
+- openapi/falcon-assign-a-program-to-an-user-openapi.yml
+- openapi/falcon-block-or-allow-mccs-for-enterprise-openapi.yml
+- openapi/falcon-change-due-date-of-an-account-openapi.yml
+- openapi/falcon-confirm-the-user-registration-openapi.yml
+- openapi/falcon-create-a-program-due-date-openapi.yml
+- openapi/falcon-credit-card-account-apis-openapi.yml
+- openapi/falcon-credit-card-apis-openapi.yml
+- openapi/falcon-dispute-apis-openapi.yml
+- openapi/falcon-emi-api-openapi.yml
+- openapi/falcon-fee-apis-openapi.yml
+- openapi/falcon-funding-apis-openapi.yml
+- openapi/falcon-get-program-due-dates-openapi.yml
+- openapi/falcon-get-user-details-using-cif-openapi.yml
+- openapi/falcon-initiate-a-user-registration-openapi.yml
+- openapi/falcon-interest-apis-openapi.yml
+- openapi/falcon-onboard-an-enterprise-openapi.yml
+- openapi/falcon-program-configuration-honor-openapi.yml
+- openapi/falcon-repayment-apis-openapi.yml
+- openapi/falcon-rewards-api-openapi.yml
+- openapi/falcon-statements-api-openapi.yml
+- openapi/falcon-transaction-apis-openapi.yml
+- openapi/falcon-update-a-program-due-date-openapi.yml
+- openapi/falcon-update-an-issuer-openapi.yml
+- openapi/falcon-update-enterprise-credit-limits-openapi.yml
+- openapi/falcon-update-enterprise-details-openapi.yml
+- openapi/falcon-update-user-details-openapi.yml
+- openapi/falcon-view-a-list-of-enterprises-openapi.yml
+- openapi/falcon-view-a-program-openapi.yml
+- openapi/falcon-view-aggregator-program-subscriptions-openapi.yml
+- openapi/falcon-view-an-issuer-openapi.yml
+- openapi/falcon-view-enterprise-account-details-openapi.yml
+- openapi/falcon-view-enterprise-details-openapi.yml
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 118 operation(s) in the provider's own
+  OpenAPI (40 listed); they describe what a server WOULD expose, not one that exists.
+tools:
+- name: add_program
+  operationId: add-program
+  method: POST
+  path: /program
+  description: Add a Program
+- name: add_user
+  operationId: add-user
+  method: POST
+  path: /user
+  description: Add a User
+- name: create_aggregator
+  operationId: POST /aggregator
+  method: POST
+  path: /aggregator
+  description: POST /aggregator
+- name: add_enterprise_admin
+  operationId: add-enterprise-admin
+  method: POST
+  path: /enterprise
+  description: Add an Enterprise Admin
+- name: add_issuer
+  operationId: add-issuer
+  method: POST
+  path: /issuer
+  description: Add an Issuer
+- name: assign_fee_model
+  operationId: assign-fee-model
+  method: POST
+  path: /fee/assign
+  description: Assign a Fee Model to a Program
+- name: assign_program_aggregator
+  operationId: assign-program-aggregator
+  method: POST
+  path: /product
+  description: Assign a Program to an Aggregator
+- name: associate_enterprise_with_program
+  operationId: associate-enterprise-with-program
+  method: POST
+  path: /product
+  description: Assign a Program to an Enterprise
+- name: assign_user_program
+  operationId: assign-user-program
+  method: POST
+  path: /user
+  description: Assign a Program to an User
+- name: manage_enterprise_program_action
+  operationId: manageEnterpriseProgramAction
+  method: POST
+  path: /enterprise
+  description: Block or Allow MCCs for Enterprise
+- name: change_account_duedate
+  operationId: change-account-duedate
+  method: POST
+  path: /{accountId}/due-date
+  description: Change Due Date of an Account
+- name: confirm_user_registration
+  operationId: confirm-user-registration
+  method: POST
+  path: /user
+  description: Confirm the User Registration
+- name: create_duedate
+  operationId: create-duedate
+  method: POST
+  path: /program/{programId}/due-dates
+  description: Create a Program Due date
+- name: update_account
+  operationId: PUT /account
+  method: PUT
+  path: /account
+  description: Update User Accounts
+- name: add_card
+  operationId: add-card
+  method: POST
+  path: /account/{accountId}/card
+  description: Add a Credit Card
+- name: add_dispute
+  operationId: add-dispute
+  method: POST
+  path: /dispute
+  description: Add a Dispute
+- name: convert_outstanding_balance
+  operationId: convert-outstanding-balance
+  method: POST
+  path: /balance
+  description: Convert Outstanding Balance to EMI
+- name: post_fee
+  operationId: post-fee
+  method: POST
+  path: /account/debit
+  description: Post a Fee
+- name: fund_user_account
+  operationId: fund-user-account
+  method: POST
+  path: /account
+  description: Fund a User Account
+- name: get_program_duedates
+  operationId: get-program-duedates
+  method: GET
+  path: /program/{programId}/due-dates
+  description: Get Program Due Dates
+- name: get_user_by_cif
+  operationId: get-user-by-cif
+  method: GET
+  path: /user/cif-number/{cifNumber}
+  description: Get User Details using CIF
+- name: initiate_user_registration
+  operationId: initiate-user-registration
+  method: POST
+  path: /user
+  description: Initiate a User Registration
+- name: post_accrued_interest
+  operationId: post-accrued-interest
+  method: POST
+  path: /interest
+  description: Post an Accrued Interest
+- name: create_enterprise
+  operationId: POST /enterprise
+  method: POST
+  path: /enterprise
+  description: POST /enterprise
+- name: program_config_honor
+  operationId: program-config-honor
+  method: POST
+  path: /program/{programId}/config
+  description: Program Configuration Honor
+- name: fetch_payment_status
+  operationId: fetch-payment-status
+  method: GET
+  path: /FD/payment/PHONEPE/inquiry/order/{oderID}
+  description: Fetch Payment Status
+- name: get_reward_point_balance
+  operationId: get-reward-point-balance
+  method: GET
+  path: /reward/balance/{accountID}
+  description: View Reward Point Balance
+- name: get_past_user_account_statement
+  operationId: get-past-user-account-statement
+  method: GET
+  path: /statement-past/user/{statementId}
+  description: View or Download Past User Account Statements
+- name: post_chargeback
+  operationId: post-chargeback
+  method: POST
+  path: /account/chargeback
+  description: Post a Chargeback
+- name: update_duedate
+  operationId: update-duedate
+  method: PATCH
+  path: /programs/{programId}/due-dates/{dueDateId}
+  description: Update a Program Due Date
+- name: update_issuer
+  operationId: update-issuer
+  method: PATCH
+  path: /issuer
+  description: Update an Issuer
+- name: set_enterprise_credit_limit
+  operationId: setEnterpriseCreditLimit
+  method: POST
+  path: /enterprise
+  description: Update Enterprise Credit Limits
+- name: update_enterprise
+  operationId: updateEnterprise
+  method: PUT
+  path: /enterprise
+  description: Update Enterprise Details
+- name: update_user_details
+  operationId: update-user-details
+  method: PUT
+  path: /user/{userId}
+  description: Update User Details
+- name: view_enterprise_list
+  operationId: view-enterprise-list
+  method: GET
+  path: /aggregator/{aggregatorId}
+  description: View a List of Enterprises
+- name: view_program_details
+  operationId: view-program-details
+  method: GET
+  path: /program/{programId}
+  description: View a Program
+- name: view_aggregator_program
+  operationId: view-aggregator-program
+  method: GET
+  path: /product/{aggregatorID}
+  description: View Aggregator Program Subscriptions
+- name: view_issuer
+  operationId: view-issuer
+  method: GET
+  path: /issuer/{issuerType}
+  description: View an Issuer
+- name: view_enterprise_account_details
+  operationId: view-enterprise-account-details
+  method: GET
+  path: /account/{programID}/{enterpriseID}
+  description: View Enterprise Account Details
+- name: get_enterprise_details
+  operationId: getEnterpriseDetails
+  method: GET
+  path: /enterprise-details/cif/{cifNumber}
+  description: View Enterprise Details

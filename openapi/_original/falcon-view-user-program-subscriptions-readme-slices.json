@@ -1,0 +1,135 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/view-user-programs.md",
+  "definition": {
+   "openapi": "3.0.1",
+   "info": {
+    "title": "View User Program Subscriptions",
+    "description": "Use this endpoint to fetch a list of all the programs subscribed by a user.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1"
+    }
+   ],
+   "paths": {
+    "/product/{userID}": {
+     "get": {
+      "summary": "View User Program Subscriptions",
+      "description": "Use this endpoint to fetch a list of all the programs subscribed by a user.",
+      "operationId": "view-user-programs",
+      "parameters": [
+       {
+        "name": "userID",
+        "in": "path",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "format": "uuid",
+         "description": "The unique identifier of the user.",
+         "example": "9824c2dc-65ac-417a-a11c-43e47e8dfa7a"
+        }
+       },
+       {
+        "in": "header",
+        "name": "x-tenant-id",
+        "schema": {
+         "type": "string"
+        },
+        "required": true,
+        "example": "falcon"
+       },
+       {
+        "in": "header",
+        "name": "Authorization",
+        "schema": {
+         "type": "string"
+        },
+        "required": true,
+        "example": "Bearer {access_token}"
+       }
+      ],
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "properties": {
+            "userId": {
+             "type": "string",
+             "format": "uuid",
+             "description": "Unique identifier of the user.",
+             "example": "9824c2dc-65ac-417a-a11c-43e47e8dfa7a"
+            },
+            "products": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "product": {
+                "type": "string",
+                "description": "The name of the product.",
+                "example": "Commercial Credit Card"
+               },
+               "productVariant": {
+                "type": "string",
+                "description": "The variant of the product.",
+                "example": "Shivalik Falcon Credit Card"
+               },
+               "program": {
+                "type": "string",
+                "description": "The name of the program.",
+                "example": "Classic Credit Card"
+               },
+               "programeID": {
+                "type": "string",
+                "description": "The unique identifier of the program.",
+                "example": "SFCC01"
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "Bad Request - Invalid input parameters."
+       },
+       "401": {
+        "description": "Unauthorized - Invalid or missing authentication token."
+       },
+       "500": {
+        "description": "Internal Server Error - Unexpected server-side failure."
+       }
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 104,
+     "1": 128,
+     "2": 203,
+     "3": 194,
+     "4": 120,
+     "5": 30,
+     "6": 177,
+     "7": 232,
+     "8": 9,
+     "9": 153,
+     "10": 32,
+     "11": 188
+    }
+   }
+  }
+ }
+]

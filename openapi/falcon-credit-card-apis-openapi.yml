@@ -1,0 +1,1553 @@
+openapi: 3.0.1
+info:
+  title: Credit Card APIs
+  description: APIs for managing credit cards, including issuance, activation, limits, and transactions.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+paths:
+  /account/{accountId}/card:
+    post:
+      summary: Add a Credit Card
+      description: Use this endpoint to issue a new credit card (Virtual/Physical) to an active primary user.
+      operationId: add-card
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique account ID to which the card will be issued.
+        example: 202000004784
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - formFactor
+              properties:
+                formFactor:
+                  type: string
+                  description: The type of card to be issued.
+                  example: PHYSICAL
+                  enum:
+                  - VIRTUAL
+                  - PHYSICAL
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cardId:
+                    type: string
+                    description: The unique identifier for the card.
+                    example: 83f1492f-d00a-4417-bfbf-7de7e13507f9
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /card:
+    get:
+      summary: View Add-on Card Credit Limit
+      description: Use this endpoint to view the spend limits of a linked add-on card.
+      operationId: view-add-on-card-limit
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  secondaryCardId:
+                    type: string
+                    description: The unique identifier of the add-on card.
+                    example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+                  domestic:
+                    type: object
+                    description: Domestic transaction limit details.
+                    properties:
+                      online:
+                        type: object
+                        description: Online transaction limit details.
+                        properties:
+                          perTransactionLimit:
+                            type: integer
+                            description: Per transaction limit for online transactions.
+                            example: 1000
+                          dailyTransactionAmount:
+                            type: integer
+                            description: Daily transaction amount limit for online transactions.
+                            example: 2000
+                          dailyTransactionCount:
+                            type: integer
+                            description: Daily transaction count limit for online transactions.
+                            example: 10
+                          monthlyTransactionAmount:
+                            type: integer
+                            description: Monthly transaction amount limit for online transactions.
+                            example: 60000
+                          monthlyTransactionCount:
+                            type: integer
+                            description: Monthly transaction count limit for online transactions.
+                            example: 300
+                      pos:
+                        type: object
+                        description: POS transaction limit details.
+                        properties:
+                          perTransactionLimit:
+                            type: integer
+                            description: Per transaction limit for POS transactions.
+                            example: 1000
+                          dailyTransactionAmount:
+                            type: integer
+                            description: Daily transaction amount limit for POS transactions.
+                            example: 2000
+                          dailyTransactionCount:
+                            type: integer
+                            description: Daily transaction count limit for POS transactions.
+                            example: 10
+                          monthlyTransactionAmount:
+                            type: integer
+                            description: Monthly transaction amount limit for POS transactions.
+                            example: 60000
+                          monthlyTransactionCount:
+                            type: integer
+                            description: Monthly transaction count limit for POS transactions.
+                            example: 300
+                      atm:
+                        type: object
+                        description: ATM transaction limit details.
+                        properties:
+                          perTransactionLimit:
+                            type: integer
+                            description: Per transaction limit for ATM transactions.
+                            example: 1000
+                          dailyTransactionAmount:
+                            type: integer
+                            description: Daily transaction amount limit for ATM transactions.
+                            example: 2000
+                          dailyTransactionCount:
+                            type: integer
+                            description: Daily transaction count limit for ATM transactions.
+                            example: 10
+                          monthlyTransactionAmount:
+                            type: integer
+                            description: Monthly transaction amount limit for ATM transactions.
+                            example: 60000
+                          monthlyTransactionCount:
+                            type: integer
+                            description: Monthly transaction count limit for ATM transactions.
+                            example: 300
+                      contactless:
+                        type: object
+                        description: Contactless transaction limit details.
+                        properties:
+                          perTransactionLimit:
+                            type: integer
+                            description: Per transaction limit for contactless transactions.
+                            example: 1000
+                          dailyTransactionAmount:
+                            type: integer
+                            description: Daily transaction amount limit for contactless transactions.
+                            example: 2000
+                          dailyTransactionCount:
+                            type: integer
+                            description: Daily transaction count limit for contactless transactions.
+                            example: 10
+                          monthlyTransactionAmount:
+                            type: integer
+                            description: Monthly transaction amount limit for contactless transactions.
+                            example: 60000
+                          monthlyTransactionCount:
+                            type: integer
+                            description: Monthly transaction count limit for contactless transactions.
+                            example: 300
+                  international:
+                    type: object
+                    description: International transaction limit details.
+                    properties:
+                      online:
+                        type: object
+                        description: Online transaction limit details.
+                        properties:
+                          perTransactionLimit:
+                            type: integer
+                            description: Per transaction limit for online transactions.
+                            example: 1000
+                          dailyTransactionAmount:
+                            type: integer
+                            description: Daily transaction amount limit for online transactions.
+                            example: 2000
+                          dailyTransactionCount:
+                            type: integer
+                            description: Daily transaction count limit for online transactions.
+                            example: 10
+                          monthlyTransactionAmount:
+                            type: integer
+                            description: Monthly transaction amount limit for online transactions.
+                            example: 60000
+                          monthlyTransactionCount:
+                            type: integer
+                            description: Monthly transaction count limit for online transactions.
+                            example: 300
+                      pos:
+                        type: object
+                        description: POS transaction limit details.
+                        properties:
+                          perTransactionLimit:
+                            type: integer
+                            description: Per transaction limit for POS transactions.
+                            example: 1000
+                          dailyTransactionAmount:
+                            type: integer
+                            description: Daily transaction amount limit for POS transactions.
+                            example: 2000
+                          dailyTransactionCount:
+                            type: integer
+                            description: Daily transaction count limit for POS transactions.
+                            example: 10
+                          monthlyTransactionAmount:
+                            type: integer
+                            description: Monthly transaction amount limit for POS transactions.
+                            example: 60000
+                          monthlyTransactionCount:
+                            type: integer
+                            description: Monthly transaction count limit for POS transactions.
+                            example: 300
+                      atm:
+                        type: object
+                        description: ATM transaction limit details.
+                        properties:
+                          perTransactionLimit:
+                            type: integer
+                            description: Per transaction limit for ATM transactions.
+                            example: 1000
+                          dailyTransactionAmount:
+                            type: integer
+                            description: Daily transaction amount limit for ATM transactions.
+                            example: 2000
+                          dailyTransactionCount:
+                            type: integer
+                            description: Daily transaction count limit for ATM transactions.
+                            example: 10
+                          monthlyTransactionAmount:
+                            type: integer
+                            description: Monthly transaction amount limit for ATM transactions.
+                            example: 60000
+                          monthlyTransactionCount:
+                            type: integer
+                            description: Monthly transaction count limit for ATM transactions.
+                            example: 300
+                      contactless:
+                        type: object
+                        description: Contactless transaction limit details.
+                        properties:
+                          perTransactionLimit:
+                            type: integer
+                            description: Per transaction limit for contactless transactions.
+                            example: 1000
+                          dailyTransactionAmount:
+                            type: integer
+                            description: Daily transaction amount limit for contactless transactions.
+                            example: 2000
+                          dailyTransactionCount:
+                            type: integer
+                            description: Daily transaction count limit for contactless transactions.
+                            example: 10
+                          monthlyTransactionAmount:
+                            type: integer
+                            description: Monthly transaction amount limit for contactless transactions.
+                            example: 60000
+                          monthlyTransactionCount:
+                            type: integer
+                            description: Monthly transaction count limit for contactless transactions.
+                            example: 300
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /card-cvv/{cardId}:
+    post:
+      summary: View the CVV of a Card
+      description: Use this endpoint to view the Card CVV.
+      operationId: view-card-cvv
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the non-PCI card.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  encryptedCVV:
+                    type: string
+                    description: The encrypted CVV of the card.
+                    example: /tRqpi3aVf41+nitzRrdTQ==
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /card/add-on:
+    post:
+      summary: Add an Add-on or Supplementary Card
+      description: Use this endpoint to issue an add-on or a supplementary card (Virtual/Physical) to an active user.
+      operationId: add-on-card
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - userId
+              - accountId
+              properties:
+                userId:
+                  type: string
+                  description: The unique identifier of the user to whom the add-on card will be issued.
+                  example: 83f1492f-d00a-4417-bfbf-7de7e13507f9
+                accountId:
+                  type: integer
+                  description: The unique account ID to which the add-on card will be issued.
+                  example: 202000004784
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  addOnCardId:
+                    type: string
+                    description: The unique identifier of the add-on card.
+                    example: 83f1492f-d00a-4417-bfbf-7de7e13507f9
+                  accountId:
+                    type: integer
+                    description: The unique account ID to which the add-on card is linked.
+                    example: 202000004784
+                  primaryCardId:
+                    type: string
+                    description: The unique identifier of the primary card to which the add-on card is linked.
+                    example: 83f1492f-d00a-4417-bfbf-7de7e13507f9
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /card/card-details/{accountId}:
+    get:
+      summary: View List of Cards
+      description: Retrieve a list of all cards linked to an account.
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: The unique account ID to which the cards are linked.
+        example: 202000004782
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: integer
+                    description: The unique account ID to which the cards are linked.
+                    example: 202000004782
+                  programID:
+                    type: string
+                    description: The unique identifier of the card program.
+                    example: SFC01
+                  cardList:
+                    type: array
+                    description: List of cards linked to the account.
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The unique identifier of the card.
+                          example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+                        maskedCardNumber:
+                          type: string
+                          description: The masked card number for security.
+                          example: 807470XXXXXX3967
+                        cardHolderName:
+                          type: string
+                          description: The name of the cardholder.
+                          example: SOMNATH TRIPATHI
+                        cardStatus:
+                          type: string
+                          description: The status of the card.
+                          example: ACTIVE
+                          enum:
+                          - ACTIVE
+                          - BLOCKED
+                          - INACTIVE
+                          - EXPIRED
+                  totalCount:
+                    type: integer
+                    description: The total number of cards associated with the account.
+                    example: 1
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /card/generate-otp:
+    post:
+      summary: Generate an OTP
+      description: Use this endpoint to generate an OTP for setting a physical card PIN.
+      operationId: generate-otp
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {access_token}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - cardId
+              - reason
+              properties:
+                cardId:
+                  type: string
+                  description: The unique identifier of the card for which the OTP is being generated.
+                  format: uuid
+                  example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+                reason:
+                  type: string
+                  description: The reason for generating the OTP.
+                  example: Set Card PIN
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  otp:
+                    type: string
+                    description: The generated OTP for setting the card PIN.
+                    example: '123456'
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Card not found
+  /card/policy:
+    post:
+      summary: Change Spend Limits
+      description: Use this endpoint to update the spending limits of a card.
+      operationId: change-spend-limits
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {access_token}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - cardId
+              - domesticSpendLimits
+              - internationalSpendLimits
+              properties:
+                cardId:
+                  type: string
+                  description: The unique identifier of the card.
+                  example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+                  format: uuid
+                domesticSpendLimits:
+                  type: object
+                  description: Domestic transaction limit details.
+                  properties:
+                    online:
+                      $ref: '#/components/schemas/SpendLimits'
+                    pos:
+                      $ref: '#/components/schemas/SpendLimits'
+                    atm:
+                      $ref: '#/components/schemas/SpendLimits'
+                    contactless:
+                      $ref: '#/components/schemas/SpendLimits'
+                internationalSpendLimits:
+                  type: object
+                  description: International transaction limit details.
+                  properties:
+                    online:
+                      $ref: '#/components/schemas/SpendLimits'
+                    pos:
+                      $ref: '#/components/schemas/SpendLimits'
+                    atm:
+                      $ref: '#/components/schemas/SpendLimits'
+                    contactless:
+                      $ref: '#/components/schemas/SpendLimits'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /card/set-pin:
+    post:
+      summary: Set or Change Card PIN
+      description: Use this endpoint to set a PIN for a physical card or change an existing PIN.
+      operationId: set-pin
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - otp
+              - encryptedPin
+              - cardId
+              properties:
+                otp:
+                  type: string
+                  description: One-Time Password for authentication.
+                  example: 194ac57f-8baf-41d8-9fae-7390698cf698
+                encryptedPin:
+                  type: string
+                  description: Encrypted PIN to be set for the card.
+                  example: B92CF4D17214CE2C7124EFB864BDF2B9F78CFAEF52FA39F235219E09AF9A4DB5
+                cardId:
+                  type: string
+                  description: The unique identifier of the card for which the PIN is being set.
+                  example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /card/{cardId}:
+    post:
+      summary: Enable or Disable a Card
+      description: Use this endpoint enable or disable a card.
+      operationId: enable-disable-card
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the non-PCI card.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - usageStatus
+              properties:
+                usageStatus:
+                  type: string
+                  description: The status to set for the card.
+                  example: ENABLED
+                  enum:
+                  - ENABLED
+                  - DISABLED
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /card/{cardId}/channel:
+    post:
+      summary: Change Channel Statuses
+      description: Use this endpoint to change the status of various channels.
+      operationId: change-channel-statuses
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the card.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {access_token}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domestic:
+                  type: object
+                  description: Domestic transaction status details.
+                  properties:
+                    online:
+                      type: string
+                      description: Online transaction status.
+                      example: 'ON'
+                      enum:
+                      - 'ON'
+                      - 'OFF'
+                    pos:
+                      type: string
+                      description: POS transaction status.
+                      example: 'ON'
+                      enum:
+                      - 'ON'
+                      - 'OFF'
+                    atm:
+                      type: string
+                      description: ATM transaction status.
+                      example: 'ON'
+                      enum:
+                      - 'ON'
+                      - 'OFF'
+                    contactless:
+                      type: string
+                      description: Contactless transaction status.
+                      example: 'ON'
+                      enum:
+                      - 'ON'
+                      - 'OFF'
+                international:
+                  type: object
+                  description: International transaction status details.
+                  properties:
+                    online:
+                      type: string
+                      description: Online transaction status.
+                      example: 'ON'
+                      enum:
+                      - 'ON'
+                      - 'OFF'
+                    pos:
+                      type: string
+                      description: POS transaction status.
+                      example: 'ON'
+                      enum:
+                      - 'ON'
+                      - 'OFF'
+                    atm:
+                      type: string
+                      description: ATM transaction status.
+                      example: 'ON'
+                      enum:
+                      - 'ON'
+                      - 'OFF'
+                    contactless:
+                      type: string
+                      description: Contactless transaction status.
+                      example: 'ON'
+                      enum:
+                      - 'ON'
+                      - 'OFF'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /card/{cardId}/policies/limits:
+    get:
+      summary: View Spend Limits
+      description: Use the endpoint fetch the spending limits on a card.
+      operationId: view-spend-limits
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the card.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cardId:
+                    type: string
+                    description: The unique identifier of the card.
+                    example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+                  domestic:
+                    type: object
+                    description: Domestic transaction limit details.
+                    properties:
+                      online:
+                        $ref: '#/components/schemas/TransactionLimits'
+                      pos:
+                        $ref: '#/components/schemas/TransactionLimits'
+                      atm:
+                        $ref: '#/components/schemas/TransactionLimits'
+                      contactless:
+                        $ref: '#/components/schemas/TransactionLimits'
+                  international:
+                    type: object
+                    description: International transaction limit details.
+                    properties:
+                      online:
+                        $ref: '#/components/schemas/TransactionLimits'
+                      pos:
+                        $ref: '#/components/schemas/TransactionLimits'
+                      atm:
+                        $ref: '#/components/schemas/TransactionLimits'
+                      contactless:
+                        $ref: '#/components/schemas/TransactionLimits'
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /cc-open-api/falcon/v1/card/{cardId}:
+    post:
+      summary: Block a Card
+      description: Use this endpoint to block a card permanently.
+      operationId: block-card
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the card to block.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {access_token}
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+        description: The user ID performing the action.
+        example: 123456789
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - reason
+              properties:
+                reason:
+                  type: string
+                  description: The reason for blocking the card.
+                  example: stolen
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: Invalid request, bad input or missing fields.
+        '401':
+          description: Unauthorized, invalid access token.
+        '404':
+          description: Card not found.
+  /cc-open-api/falcon/v1/card/{cardId}/policy:
+    get:
+      summary: View Channel Status
+      description: USe this endpoint to fetch the status of a particular channel for a given card.
+      operationId: view-channel-status
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the card.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {access_token}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cardId:
+                    type: string
+                    description: The unique identifier of the card.
+                    example: 0cad620c-ebd7-4b52-b079-7d351ec86c13
+                  domestic:
+                    type: object
+                    description: Domestic transaction status details.
+                    properties:
+                      atm:
+                        type: string
+                        description: ATM transaction status.
+                        example: 'ON'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      online:
+                        type: string
+                        description: Online transaction status.
+                        example: 'OFF'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      pos:
+                        type: string
+                        description: POS transaction status.
+                        example: 'ON'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      contactless:
+                        type: string
+                        description: Contactless transaction status.
+                        example: 'OFF'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                  international:
+                    type: object
+                    description: International transaction status details.
+                    properties:
+                      atm:
+                        type: string
+                        description: ATM transaction status.
+                        example: 'ON'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      online:
+                        type: string
+                        description: Online transaction status.
+                        example: 'OFF'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      pos:
+                        type: string
+                        description: POS transaction status.
+                        example: 'ON'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      contactless:
+                        type: string
+                        description: Contactless transaction status.
+                        example: 'OFF'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /cc-open-api/falcon/v2/card/replace:
+    post:
+      summary: Replace Blocked Card
+      description: 'Use this endpoint to replace a permanently blocked card for the same user (primary or supplementary/add-on). If the blocked card is a physical card, the replaced card will be delivered at the delivery address of the user. If you want to get it to a different address, please change the delivery address before polling this API.
+
+
+        **Note:**
+
+        Channel statuses and spend limits will  be reset for the replaced card to default.
+
+        '
+      operationId: replace-blocked-card
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {access_token}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - oldCardId
+              properties:
+                oldCardId:
+                  type: string
+                  description: The ID of the blocked card to be replaced.
+                  example: 83f1492f-d00a-4417-bfbf-7de7e13507f9
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cardId:
+                    type: string
+                    description: The ID of the newly issued card.
+                    example: 83f1492f-d00a-4417-bfbf-7de7e13507f9
+        '400':
+          description: Invalid request, bad input or missing fields.
+        '401':
+          description: Unauthorized, invalid access token.
+        '404':
+          description: Blocked card not found.
+  /cc-open-api/falcon/v2/card/{cardID}:
+    post:
+      summary: Validate Card Details
+      description: Use this endpoint to validate card details like card number, 6-digit card code, expiry date, and CVV.
+      operationId: validate-card-details
+      parameters:
+      - name: cardID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The card ID for which the validation is being performed.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {access_token}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - cardnumber
+              - card6digit
+              - Card4digit
+              - expiry
+              - Cvv
+              properties:
+                cardnumber:
+                  type: string
+                  description: The full 16-digit card number to validate.
+                  example: '1234567890123456'
+                card6digit:
+                  type: string
+                  description: The 6-digit code associated with the card.
+                  example: '123456'
+                Card4digit:
+                  type: string
+                  description: The last 4 digits of the card number.
+                  example: '3456'
+                expiry:
+                  type: string
+                  description: The expiry date of the card.
+                  example: ''
+                Cvv:
+                  type: string
+                  description: The CVV code for the card.
+                  example: '159'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  match:
+                    type: string
+                    description: The validation result, indicating whether the card details match.
+                    example: 'yes'
+        '400':
+          description: Invalid request or missing required fields.
+        '401':
+          description: Unauthorized, invalid access token.
+        '404':
+          description: Card not found.
+  /issuer/card/activateCard:
+    post:
+      summary: Activate a Card
+      description: Use this endpoint to activate a added physical or virtual card.
+      operationId: activate-card
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - cardId
+              properties:
+                cardId:
+                  type: string
+                  description: The unique identifier for the card to be activated.
+                  example: 83f1492f-d00a-4417-bfbf-7de7e13507f9
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /non-pci-card/{cardId}:
+    post:
+      summary: View Card Details (Non-PCI)
+      description: Use this endpoint to get non-sensitive card details.
+      operationId: view-non-pci-card-details
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the non-PCI card.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  maskedCardNumber:
+                    type: string
+                    description: The masked card number.
+                    example: 807470XXXXXX3967
+                  encryptedExpiry:
+                    type: string
+                    description: The encrypted expiry of the card.
+                    example: bOI4YJU+QV3d8BBqXg4pFQ==
+                  cardHolderName:
+                    type: string
+                    description: The name of the cardholder.
+                    example: SOMNATH TRIPATHI
+                  cardStatus:
+                    type: string
+                    description: The status of the card.
+                    example: ACTIVE
+                    enum:
+                    - ACTIVE
+                    - BLOCKED
+                    - INACTIVE
+                    - EXPIRED
+                  usageStatus:
+                    type: string
+                    description: The usage status of the card.
+                    example: ACTIVE
+                    enum:
+                    - ACTIVE
+                    - BLOCKED
+                    - INACTIVE
+                    - EXPIRED
+                  deliveryStatus:
+                    type: string
+                    description: The delivery status of the card.
+                    example: DELIVERED
+                    enum:
+                    - DELIVERED
+                    - PENDING
+                    - RETURNED
+                  isPrimary:
+                    type: boolean
+                    description: Indicates if the card is a primary card.
+                    example: true
+                    enum:
+                    - true
+                    - false
+                  balance:
+                    type: string
+                    description: The balance available on the card.
+                    example: 1000
+                  cardType:
+                    type: string
+                    description: The type of card.
+                    example: PERSONALIZED
+                    enum:
+                    - PERSONALIZED
+                    - NON_PERSONALIZED
+                  formFactor:
+                    type: string
+                    description: The form factor of the card.
+                    example: PHYSICAL
+                    enum:
+                    - VIRTUAL
+                    - PHYSICAL
+                  cardMaterial:
+                    type: string
+                    description: The material of the card.
+                    example: METAL
+                    enum:
+                    - PLASTIC
+                    - METAL
+                  blockedReason:
+                    type: string
+                    description: The reason for blocking the card.
+                    example: LOST
+                    enum:
+                    - LOST
+                    - STOLEN
+                    - FRAUD
+                    - OTHER
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+  /pci-card/{cardId}:
+    post:
+      summary: View Card Details (PCI)
+      description: Use this ebdpoint to view the details of a PCI card.
+      operationId: view-pci-card-details
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the PCI card.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  encryptedCardNumber:
+                    type: string
+                    description: The encrypted card number.
+                    example: 807470XXXXXX3967
+                  encryptedExpiry:
+                    type: string
+                    description: The expiry date of the encryption.
+                    example: '2025-12-31T00:00:00.000Z'
+                  cardHolderName:
+                    type: string
+                    description: The name of the cardholder.
+                    example: SOMNATH TRIPATHI
+                  cardStatus:
+                    type: string
+                    description: The status of the card.
+                    example: ACTIVE
+                    enum:
+                    - ACTIVE
+                    - BLOCKED
+                    - INACTIVE
+                    - EXPIRED
+                  usageStatus:
+                    type: string
+                    description: The usage status of the card.
+                    example: ACTIVE
+                    enum:
+                    - ACTIVE
+                    - BLOCKED
+                    - INACTIVE
+                    - EXPIRED
+                  deliveryStatus:
+                    type: string
+                    description: The delivery status of the card.
+                    example: DELIVERED
+                    enum:
+                    - DELIVERED
+                    - PENDING
+                    - RETURNED
+                  isPrimary:
+                    type: boolean
+                    description: Indicates if the card is a primary card.
+                    example: true
+                    enum:
+                    - true
+                    - false
+                  balance:
+                    type: string
+                    description: The balance available on the card.
+                    example: 1000
+                  cardType:
+                    type: string
+                    description: The type of card.
+                    example: PERSONALIZED
+                    enum:
+                    - PERSONALIZED
+                    - NON_PERSONALIZED
+                  formFactor:
+                    type: string
+                    description: The form factor of the card.
+                    example: PHYSICAL
+                    enum:
+                    - VIRTUAL
+                    - PHYSICAL
+                  cardMaterial:
+                    type: string
+                    description: The material of the card.
+                    example: METAL
+                    enum:
+                    - PLASTIC
+                    - METAL
+                  blockedReason:
+                    type: string
+                    description: The reason for blocking the card.
+                    example: LOST
+                    enum:
+                    - LOST
+                    - STOLEN
+                    - FRAUD
+                    - OTHER
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+components:
+  schemas:
+    TransactionLimits:
+      type: object
+      properties:
+        perTransactionLimit:
+          type: integer
+          description: Per transaction limit of the card.
+          example: 1000
+        dailyTransactionAmount:
+          type: integer
+          description: Daily transaction amount limit of the card.
+          example: 2000
+        dailyTransactionCount:
+          type: integer
+          description: Daily transaction count limit of the card.
+          example: 10
+        monthlyTransactionAmount:
+          type: integer
+          description: Monthly transaction amount limit of the card.
+          example: 60000
+        monthlyTransactionCount:
+          type: integer
+          description: Monthly transaction count limit of the card.
+          example: 300
+    SpendLimits:
+      type: object
+      properties:
+        perTransactionLimit:
+          type: integer
+          description: Per transaction limit of the card.
+          example: 1000
+        dailyTransactionAmount:
+          type: integer
+          description: Daily transaction amount limit of the card.
+          example: 2000
+        dailyTransactionCount:
+          type: integer
+          description: Daily transaction count limit of the card.
+          example: 10
+        monthlyTransactionAmount:
+          type: integer
+          description: Monthly transaction amount limit of the card.
+          example: 60000
+        monthlyTransactionCount:
+          type: integer
+          description: Monthly transaction count limit of the card.
+          example: 300
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/activate-card.md
+  - https://docs.falconfs.com/reference/add-card.md
+  - https://docs.falconfs.com/reference/add-on-card.md
+  - https://docs.falconfs.com/reference/block-card.md
+  - https://docs.falconfs.com/reference/change-channel-statuses.md
+  - https://docs.falconfs.com/reference/change-spend-limits.md
+  - https://docs.falconfs.com/reference/enable-disable-card.md
+  - https://docs.falconfs.com/reference/generate-otp.md
+  - https://docs.falconfs.com/reference/get_card-card-details-accountid.md
+  - https://docs.falconfs.com/reference/replace-blocked-card.md
+  - https://docs.falconfs.com/reference/set-pin.md
+  - https://docs.falconfs.com/reference/validate-card-details.md
+  - https://docs.falconfs.com/reference/view-add-on-card-limit.md
+  - https://docs.falconfs.com/reference/view-card-cvv.md
+  - https://docs.falconfs.com/reference/view-channel-status.md
+  - https://docs.falconfs.com/reference/view-non-pci-card-details.md
+  - https://docs.falconfs.com/reference/view-pci-card-details.md
+  - https://docs.falconfs.com/reference/view-spend-limits.md
+  merge:
+    pages: 18
+    deduped: 0
+    conflicts_kept_first: 0

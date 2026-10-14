@@ -1,0 +1,199 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/view-user-details.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "title": "View User Details",
+    "description": "Use this endpoint to fetch details of a particular user.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1"
+    }
+   ],
+   "paths": {
+    "/user/{userId}": {
+     "get": {
+      "summary": "View User Details",
+      "description": "Use this endpoint to fetch details of a particular user.",
+      "operationId": "view-user-details",
+      "parameters": [
+       {
+        "name": "userId",
+        "in": "path",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "description": "The unique ID of the user to fetch details for.",
+         "example": "9824c2dc-65ac-417a-a11c-43e47e8dfa7a"
+        }
+       },
+       {
+        "name": "x-tenant-id",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "falcon"
+        }
+       },
+       {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "Bearer {{access_token}}"
+        }
+       }
+      ],
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "properties": {
+            "enterpriseID": {
+             "type": "string",
+             "description": "The unique ID of the enterprise.",
+             "example": "Wework"
+            },
+            "aggregatorName": {
+             "type": "string",
+             "description": "The name of the aggregator.",
+             "example": "VoloPay"
+            },
+            "programeID": {
+             "type": "string",
+             "description": "The program ID under which the user is registered.",
+             "example": "SFCC01"
+            },
+            "creditLimit": {
+             "type": "string",
+             "description": "The assigned credit limit.",
+             "example": "10000"
+            },
+            "cashAdvanceLimit": {
+             "type": "string",
+             "description": "The assigned cash advance limit.",
+             "example": "500"
+            },
+            "personalDetails": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "userFullName": {
+                "type": "string",
+                "description": "The full name of the user.",
+                "example": "Abhinav"
+               },
+               "userMiddleName": {
+                "type": "string",
+                "description": "The middle name of the user.",
+                "example": "M S"
+               },
+               "userLastName": {
+                "type": "string",
+                "description": "The last name of the user.",
+                "example": "Sharma"
+               },
+               "userPAN": {
+                "type": "string",
+                "description": "The PAN of the user.",
+                "example": "ABHPS1234C"
+               },
+               "userMobileNumber": {
+                "type": "string",
+                "description": "The mobile number of the user.",
+                "example": "9876543210"
+               },
+               "userDOB": {
+                "type": "string",
+                "description": "The date of birth of the user.",
+                "example": "22-01-1990"
+               },
+               "userGender": {
+                "type": "string",
+                "description": "The gender of the user.",
+                "example": "Male",
+                "enum": [
+                 "Male",
+                 "Female",
+                 "Other"
+                ]
+               },
+               "fatherName": {
+                "type": "string",
+                "description": "The name of the user's father.",
+                "example": "B. P. Sharma"
+               },
+               "motherName": {
+                "type": "string",
+                "description": "The name of the user's mother.",
+                "example": "Shikha Sharma"
+               },
+               "userOVDType": {
+                "type": "string",
+                "description": "The type of Officially Valid Document (OVD).",
+                "example": "Driving License"
+               },
+               "userOVDID": {
+                "type": "string",
+                "description": "The ID of the provided OVD.",
+                "example": "DL1234567890"
+               },
+               "userKYCAddress": {
+                "type": "string",
+                "description": "The KYC address of the user.",
+                "example": "1206/C2 Gurgaon"
+               },
+               "deliveryAddress": {
+                "type": "string",
+                "description": "The delivery address of the user.",
+                "example": "1206/C2 Gurgaon"
+               }
+              }
+             }
+            },
+            "CIFNumber": {
+             "type": "string",
+             "description": "The Customer Information File (CIF) number.",
+             "example": "231313298"
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 104,
+     "1": 128,
+     "2": 211,
+     "3": 221,
+     "4": 27,
+     "5": 61,
+     "6": 248,
+     "7": 243,
+     "8": 88,
+     "9": 77,
+     "10": 69,
+     "11": 43
+    }
+   }
+  }
+ }
+]

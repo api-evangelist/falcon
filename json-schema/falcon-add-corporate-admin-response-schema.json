@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-add-corporate-admin-response-schema.json",
+  "title": "AddCorporateAdminResponse",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-add-an-enterprise-admin-openapi.yml#/components/schemas/AddCorporateAdminResponse",
+  "type": "object",
+  "properties": {
+    "Message": {
+      "type": "string",
+      "description": "A message indicating the result of the operation."
+    }
+  }
+}

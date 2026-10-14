@@ -1,0 +1,119 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/assign-program.md",
+  "definition": {
+   "openapi": "3.0.3",
+   "info": {
+    "title": "Assign a Program to an Aggregator",
+    "description": "Use this endpoint to assign a new program to an aggegator.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1",
+     "variables": {
+      "serverBaseURL": {
+       "default": "https://api.example.com"
+      }
+     }
+    }
+   ],
+   "paths": {
+    "/product": {
+     "post": {
+      "summary": "Assign a Program to an Aggregator",
+      "description": "Use this endpoint to assign a new program to an aggegator.",
+      "operationId": "assign-program-aggregator",
+      "parameters": [
+       {
+        "name": "x-tenant-id",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "falcon"
+        }
+       },
+       {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "Bearer {{access_token}}"
+        }
+       }
+      ],
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "aggregatorID",
+           "programeID"
+          ],
+          "properties": {
+           "aggregatorID": {
+            "type": "string",
+            "description": "The unique ID of the aggregator to which the program will be assigned.",
+            "example": "Volopay"
+           },
+           "programeID": {
+            "type": "string",
+            "description": "The unique ID of the program to be assigned.",
+            "example": "SFCC01"
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "example": {}
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "Bad request"
+       },
+       "401": {
+        "description": "Unauthorized"
+       },
+       "500": {
+        "description": "Internal server error"
+       }
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 103,
+     "1": 233,
+     "2": 57,
+     "3": 223,
+     "4": 22,
+     "5": 35,
+     "6": 131,
+     "7": 66,
+     "8": 29,
+     "9": 143,
+     "10": 8,
+     "11": 173
+    }
+   }
+  }
+ }
+]

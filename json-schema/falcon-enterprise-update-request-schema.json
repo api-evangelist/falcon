@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-enterprise-update-request-schema.json",
+  "title": "EnterpriseUpdateRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-update-enterprise-details-openapi.yml#/components/schemas/EnterpriseUpdateRequest",
+  "type": "object",
+  "properties": {
+    "identifierType": {
+      "type": "string",
+      "description": "The type of identifier used to identify the enterprise. This can be a PAN, GSTIN, or any other identifier."
+    },
+    "identifierValue": {
+      "type": "string",
+      "description": "The value of the identifier used to identify the enterprise. This can be a PAN number, GSTIN number, or any other identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the enterprise."
+    },
+    "registeredName": {
+      "type": "string",
+      "description": "The registered name of the enterprise."
+    },
+    "website": {
+      "type": "string",
+      "description": "The website of the enterprise.",
+      "format": "uri"
+    },
+    "mobile": {
+      "type": "string",
+      "description": "The mobile number of the admin/POC of the enterprise."
+    },
+    "email": {
+      "type": "string",
+      "description": "The email address of the admin/POC of the enterprise.",
+      "format": "email"
+    },
+    "gstin": {
+      "type": "string",
+      "description": "The GSTIN of the enterprise."
+    },
+    "directors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the director."
+          },
+          "pan": {
+            "type": "string",
+            "description": "The PAN of the director."
+          },
+          "mobile": {
+            "type": "string",
+            "description": "The mobile number of the director."
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the director.",
+            "format": "email"
+          }
+        }
+      }
+    }
+  }
+}

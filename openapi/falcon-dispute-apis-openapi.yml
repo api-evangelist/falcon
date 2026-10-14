@@ -1,0 +1,321 @@
+openapi: 3.0.1
+info:
+  title: Dispute APIs
+  description: APIs for managing transaction disputes in the credit card lifecycle.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+paths:
+  /dispute:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Add a Dispute
+      description: Use this endpoint to raise dispute for a given user transaction.
+      operationId: add-dispute
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: userId
+        in: header
+        required: true
+        schema:
+          type: string
+          description: User ID of the person raising the dispute.
+          example: user123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - maskedCardNumber
+              - amount
+              - reason
+              - transactionId
+              - disputeType
+              properties:
+                accountId:
+                  type: integer
+                  description: Account ID of the user.
+                  example: 123456
+                maskedCardNumber:
+                  type: string
+                  description: Masked card number of the user.
+                  example: XXXX-XXXX-XXXX-1234
+                amount:
+                  type: number
+                  description: Amount involved in the dispute.
+                  example: 100
+                reason:
+                  type: string
+                  description: Reason for the dispute.
+                  example: Unauthorized transaction
+                description:
+                  type: string
+                  description: Detailed description of the dispute.
+                  example: Transaction was not authorized by the user.
+                transactionId:
+                  type: string
+                  description: Transaction ID of the disputed transaction.
+                  example: txn_123456789
+                disputeType:
+                  type: string
+                  description: Type of dispute.
+                  example: Fraudulent transaction
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  disputeId:
+                    type: integer
+                    description: Unique identifier for the dispute.
+                    example: 987654
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  /dispute/update:
+    patch:
+      security:
+      - bearerAuth: []
+      summary: Update a Dispute Status
+      description: Use this endpoint to update status of a dispute raised by a user.
+      operationId: update-dispute-status
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+          description: User ID of the person raising the dispute.
+          example: user123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - disputeId
+              - disputeStatus
+              properties:
+                disputeStatus:
+                  type: string
+                  description: Status of the dispute.
+                  example: Resolved
+                disputeId:
+                  type: integer
+                  description: Unique identifier for the dispute.
+                  example: 987654
+                statusDescription:
+                  type: string
+                  description: Detailed description of the dispute status.
+                  example: The dispute has been resolved successfully.
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+  /dispute/{disputeId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Dispute Details
+      description: Use this endpoint to fetch details of a dispute.
+      operationId: view-dispute-details
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: disputeId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Unique identifier for the dispute.
+          example: '123456'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    description: User ID of the person raising the dispute.
+                    example: user123
+                  accountId:
+                    type: integer
+                    description: Account ID of the user.
+                    example: 123456
+                  maskedCardNumber:
+                    type: string
+                    description: Masked card number of the user.
+                    example: XXXX-XXXX-XXXX-1234
+                  amount:
+                    type: number
+                    description: Amount involved in the dispute.
+                    example: 100
+                  reason:
+                    type: string
+                    description: Reason for the dispute.
+                    example: Unauthorized transaction
+                  description:
+                    type: string
+                    description: Detailed description of the dispute.
+                    example: Transaction was not authorized by the user.
+                  transactionId:
+                    type: string
+                    description: Transaction ID of the disputed transaction.
+                    example: txn_123456789
+                  disputeType:
+                    type: string
+                    description: Type of dispute.
+                    example: Fraudulent transaction
+                  disputeStatus:
+                    type: string
+                    description: Status of the dispute.
+                    example: Resolved
+                  statusDescription:
+                    type: string
+                    description: Detailed description of the dispute status.
+                    example: The dispute has been resolved successfully.
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  /dispute?userId=9824c2dc-65ac-417a-a11c-43e47e8dfa7a:
+    get:
+      summary: View List of All Disputes
+      description: Use this endpoint to fetch all the disputes raised by a given user.
+      operationId: view-dispute-list
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+          description: User ID of the person raising the dispute.
+          example: user123
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    description: User ID of the person raising the dispute.
+                    example: user123
+                  accountId:
+                    type: integer
+                    description: Account ID of the user.
+                    example: 123456
+                  maskedCardNumber:
+                    type: string
+                    description: Masked card number of the user.
+                    example: XXXX-XXXX-XXXX-1234
+                  amount:
+                    type: number
+                    description: Amount involved in the dispute.
+                    example: 100
+                  reason:
+                    type: string
+                    description: Reason for the dispute.
+                    example: Unauthorized transaction
+                  description:
+                    type: string
+                    description: Detailed description of the dispute.
+                    example: Transaction was not authorized by the user.
+                  transactionId:
+                    type: string
+                    description: Transaction ID of the disputed transaction.
+                    example: txn_123456789
+                  disputeType:
+                    type: string
+                    description: Type of dispute.
+                    example: Fraudulent transaction
+                  disputeStatus:
+                    type: string
+                    description: Status of the dispute.
+                    example: Resolved
+                  statusDescription:
+                    type: string
+                    description: Detailed description of the dispute status.
+                    example: The dispute has been resolved successfully.
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-dispute.md
+  - https://docs.falconfs.com/reference/update-dispute-status.md
+  - https://docs.falconfs.com/reference/view-dispute-details.md
+  - https://docs.falconfs.com/reference/view-dispute-list.md
+  merge:
+    pages: 4
+    deduped: 0
+    conflicts_kept_first: 0

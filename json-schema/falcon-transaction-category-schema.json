@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-transaction-category-schema.json",
+  "title": "TransactionCategory",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-program-configuration-honor-openapi.yml#/components/schemas/TransactionCategory",
+  "type": "object",
+  "properties": {
+    "programCategory": {
+      "type": "string",
+      "description": "The program category."
+    },
+    "refinancingRateAfterDueDate": {
+      "type": "number",
+      "description": "The refinancing rate after the due date."
+    },
+    "defaultRate": {
+      "type": "number",
+      "description": "The default rate for the transaction category."
+    },
+    "fineRate": {
+      "type": "number",
+      "description": "The fine rate for the transaction category."
+    },
+    "overdueRateAfterDueDate": {
+      "type": "number",
+      "description": "The overdue rate after the due date."
+    },
+    "minimumValue": {
+      "type": "number",
+      "description": "The minimum value for the transaction category."
+    },
+    "chargeOrder": {
+      "type": "number",
+      "description": "The order in which the charge is applied."
+    },
+    "npaChargeOrder": {
+      "type": "number",
+      "description": "The order in which the NPA charge is applied."
+    }
+  }
+}

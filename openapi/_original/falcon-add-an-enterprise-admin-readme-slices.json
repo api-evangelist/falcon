@@ -1,0 +1,149 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/add-enterprise-admin.md",
+  "definition": {
+   "openapi": "3.0.3",
+   "info": {
+    "title": "Add an Enterprise Admin",
+    "description": "Use this endpoint to add administrator for a particular enterprise.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1"
+    }
+   ],
+   "paths": {
+    "/enterprise": {
+     "post": {
+      "summary": "Add an Enterprise Admin",
+      "description": "Use this endpoint to add administrator for a particular enterprise.",
+      "operationId": "add-enterprise-admin",
+      "parameters": [
+       {
+        "name": "x-tenant-id",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "falcon"
+        }
+       },
+       {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "Bearer {{access_token}}"
+        }
+       }
+      ],
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "enterpriseID",
+           "adminFullName",
+           "adminContactNumber",
+           "adminEmail"
+          ],
+          "$ref": "#/components/schemas/AddCorporateAdminRequest"
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "$ref": "#/components/schemas/AddCorporateAdminResponse"
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "Bad request"
+       },
+       "401": {
+        "description": "Unauthorized"
+       },
+       "500": {
+        "description": "Internal server error"
+       }
+      }
+     }
+    }
+   },
+   "components": {
+    "schemas": {
+     "AddCorporateAdminRequest": {
+      "type": "object",
+      "properties": {
+       "enterpriseID": {
+        "type": "string",
+        "description": "The ID of the enterprise for which the admin is being added.",
+        "example": 1234567890
+       },
+       "adminFullName": {
+        "type": "string",
+        "description": "The full name of the administrator being added.",
+        "example": "Rachit Gupta"
+       },
+       "adminContactNumber": {
+        "type": "string",
+        "description": "The contact number of the administrator being added.",
+        "example": "9910010101"
+       },
+       "adminType": {
+        "type": "string",
+        "description": "The type of administrator being added.",
+        "example": "CORPORATE_ADMIN"
+       },
+       "adminEmail": {
+        "type": "string",
+        "description": "The email address of the administrator being added.",
+        "format": "email",
+        "example": "rachiit@wework.com"
+       }
+      }
+     },
+     "AddCorporateAdminResponse": {
+      "type": "object",
+      "properties": {
+       "Message": {
+        "type": "string",
+        "description": "A message indicating the result of the operation.",
+        "example": "Corporate Administrator added successfully."
+       }
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 103,
+     "1": 232,
+     "2": 246,
+     "3": 216,
+     "4": 4,
+     "5": 140,
+     "6": 104,
+     "7": 16,
+     "8": 91,
+     "9": 218,
+     "10": 58,
+     "11": 170
+    }
+   }
+  }
+ }
+]

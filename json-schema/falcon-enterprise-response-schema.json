@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-enterprise-response-schema.json",
+  "title": "EnterpriseResponse",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-onboard-an-enterprise-openapi.yml#/components/schemas/EnterpriseResponse",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "enterpriseId": {
+      "type": "string",
+      "description": "The unique ID of the onboarded enterprise.",
+      "format": "uuid"
+    }
+  }
+}

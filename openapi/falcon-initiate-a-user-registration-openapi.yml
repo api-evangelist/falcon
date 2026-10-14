@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+  title: Initiate a User Registration
+  description: Use this endpoint to onboard a particular user by an enterprise.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+paths:
+  /user:
+    post:
+      summary: Initiate a User Registration
+      description: Use this endpoint to onboard a particular user by an enterprise.
+      operationId: initiate-user-registration
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - aggregatorName
+              - programID
+              properties:
+                enterpriseID:
+                  type: string
+                  description: The unique ID of the enterprise requesting the registration.
+                  example: Wework
+                aggregatorName:
+                  type: string
+                  description: The name of the aggregator through which the registration is being initiated.
+                  example: VoloPay
+                programID:
+                  type: string
+                  description: The unique ID of the program under which the user is being registered.
+                  example: SFCC01
+                creditLimit:
+                  type: string
+                  description: The credit limit assigned to the user.
+                  example: '10000'
+                cashAdvanceLimit:
+                  type: string
+                  description: The cash advance limit assigned to the user.
+                  example: '500'
+                personalDetails:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - userFullName
+                    - userPAN
+                    - countryCode
+                    - userMobileNumber
+                    - userKYCAddress
+                    properties:
+                      userFullName:
+                        type: string
+                        description: The full name of the user being registered.
+                        example: Abhinav
+                      userMiddleName:
+                        type: string
+                        description: The middle name of the user being registered.
+                        example: M S
+                      userLastName:
+                        type: string
+                        description: The last name of the user being registered.
+                        example: Sharma
+                      userPAN:
+                        type: string
+                        description: The PAN (Permanent Account Number) of the user.
+                        example: ABCDE1234F
+                      countryCode:
+                        type: string
+                        description: The country code for the user's mobile number.
+                        example: '+91'
+                      userMobileNumber:
+                        type: string
+                        description: The mobile number of the user being registered.
+                        example: '9876543210'
+                      userDOB:
+                        type: string
+                        description: The date of birth of the user.
+                        example: '1990-01-01'
+                      userGender:
+                        type: string
+                        description: The user gender.
+                        enum:
+                        - Male
+                        - Female
+                        - Others
+                        example: Male
+                      fatherName:
+                        type: string
+                        description: The name of the user's father.
+                        example: Rakesh
+                      motherName:
+                        type: string
+                        description: The name of the user's mother.
+                        example: Suman
+                      userOVDType:
+                        type: string
+                        description: The type of OVD (Officially Valid Document) provided by the user.
+                        example: Passport
+                      userOVDID:
+                        type: string
+                        description: The ID of the OVD provided by the user.
+                        example: A1234567
+                      userKYCAddress:
+                        type: string
+                        description: The address provided by the user for KYC (Know Your Customer) purposes.
+                        example: 123 Main St, City, State, ZIP
+                      userOfficeAddress:
+                        type: string
+                        description: The office address of the user.
+                        example: 456 Corporate Ave, City, State, ZIP
+                      deliveryAddress:
+                        type: string
+                        description: The delivery address for sending the card.
+                        example: 789 Delivery St, City, State, ZIP
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Request for user registration raised successfully
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/initiate-user-registration.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

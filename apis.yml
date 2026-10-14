@@ -1,4 +1,5 @@
 aid: falcon
+
 deliveryModel:
   model: saas
   open_source: false
@@ -10,6 +11,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -24,32 +26,44 @@ accessModel:
   - sandbox
   generated: '2026-09-03'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/falcon.png
+
 name: Falcon
-description: 'Falcon (Falcon Financial Services, falconfs.com) is a global embedded-finance
-  and Banking-as-a-Service platform that lets fintechs, banks, and enterprises launch credit
-  and payment products in days rather than months. Its developer-first REST APIs and no-code
-  tooling cover the full issuance and lending lifecycle: issuer and program onboarding,
-  enterprise and user KYC, credit-card issuance (virtual, physical, add-on, co-branded,
-  corporate), accounts and credit limits, transactions, statements, repayments and
-  auto-debit, EMI conversion and amortisation, disputes, rewards, interest, fees, funding,
-  and reconciliations. Falcon holds its own lending and issuance licenses, is built on a
-  modular multi-tenant architecture, and is certified against PCI DSS, ISO 27001:2022, and
-  SOC 2. Product lines include Falcon CardFX (issuance), CreditFX (lending), WalletFX
-  (prepaid/wallets), and SurgeFX (AI growth and portfolio tools).'
+
+description: 'Falcon (Falcon Financial Services, falconfs.com) is a global embedded-finance and Banking-as-a-Service platform that lets fintechs,
+  banks, and enterprises launch credit and payment products in days rather than months. Its developer-first REST APIs and no-code tooling cover
+  the full issuance and lending lifecycle: issuer and program onboarding, enterprise and user KYC, credit-card issuance (virtual, physical, add-on,
+  co-branded, corporate), accounts and credit limits, transactions, statements, repayments and auto-debit, EMI conversion and amortisation, disputes,
+  rewards, interest, fees, funding, and reconciliations. Falcon holds its own lending and issuance licenses, is built on a modular multi-tenant
+  architecture, and is certified against PCI DSS, ISO 27001:2022, and SOC 2. Product lines include Falcon CardFX (issuance), CreditFX (lending),
+  WalletFX (prepaid/wallets), and SurgeFX (AI growth and portfolio tools).'
+
 url: https://raw.githubusercontent.com/api-evangelist/falcon/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: vc-portfolio
+
 x-backed-by:
 - sierra-ventures
+
 x-tier: enriched
+
 x-tier-reason: portfolio-lead
+
 specificationVersion: '0.23'
+
 created: '2026-07-17'
+
 modified: '2026-07-19'
+
 x-docs-platform: readme
+
 x-docs-platform-confidence: high
+
 x-docs-platform-checked: 2026-10-03
+
 tags:
 - Company
 - Infrastructure
@@ -63,6 +77,7 @@ tags:
 - Lending
 - Banking as a Service
 - India
+
 tags_raw:
 - Company
 - Infrastructure
@@ -77,33 +92,32 @@ tags_raw:
 - Banking as a Service
 - India
 - Financial-Services
-apis:
-- name: Falcon API
-  description: 'Falcon''s RESTful embedded-finance API for card issuance, lending, and
-    program management. All responses are JSON; authentication is a JWT bearer token
-    obtained from a client-id/client-secret login, with per-tenant routing via an
-    x-tenant-id header and AES request/response encryption. Versioned with a one-part
-    major scheme (v1, v2, v3, v5).'
-  humanURL: https://docs.falconfs.com/reference
-  baseURL: https://credituat.falconfs.com
-  tags:
-  - Payments
-  - Credit Cards
-  - Card Issuing
-  - Lending
-  properties:
-  - type: Documentation
-    url: https://docs.falconfs.com/docs/quick-start
-  - type: APIReference
-    url: https://docs.falconfs.com/reference
-  - type: Authentication
-    url: https://docs.falconfs.com/reference/authentication
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: AgenticAccess
+  url: agentic-access/falcon-agentic-access.yml
+- type: Spectral
+  url: rules/falcon-rules.yml
+- type: JSONLD
+  url: json-ld/falcon-context.jsonld
+- type: Vocabulary
+  url: vocabulary/falcon-vocabulary.yml
+- type: DataModel
+  url: data-model/falcon-data-model.yml
+- type: ErrorCatalog
+  url: errors/falcon-problem-types.yml
+- type: WellKnown
+  url: well-known/falcon-well-known.yml
+- type: Hosts
+  url: hosts/falcon-hosts.yml
+- type: Vendors
+  url: vendors/falcon-vendors.yml
 - type: Website
   url: https://falconfs.com/
 - type: DeveloperPortal
@@ -142,8 +156,560 @@ common:
   url: security/falcon-domain-security.yml
 - type: LLMsTxt
   url: llms/falcon-llms.txt
+
+apis:
+- name: Falcon API
+  description: Falcon's RESTful embedded-finance API for card issuance, lending, and program management. All responses are JSON; authentication
+    is a JWT bearer token obtained from a client-id/client-secret login, with per-tenant routing via an x-tenant-id header and AES request/response
+    encryption. Versioned with a one-part major scheme (v1, v2, v3, v5).
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Payments
+  - Credit Cards
+  - Card Issuing
+  - Lending
+  properties:
+  - type: Documentation
+    url: https://docs.falconfs.com/docs/quick-start
+  - type: APIReference
+    url: https://docs.falconfs.com/reference
+  - type: Authentication
+    url: https://docs.falconfs.com/reference/authentication
+  aid: falcon:falcon-api
+- aid: falcon:falcon-add-a-program
+  name: Falcon Add A Program Openapi.Yml API
+  description: The Add A Program Openapi.Yml API from Falcon — 1 operation(s) for add a program openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Add A Program Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-add-a-program-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-product-request-schema.json
+  - type: JSONSchema
+    url: json-schema/falcon-product-response-schema.json
+- aid: falcon:falcon-add-a-user
+  name: Falcon Add A User Openapi.Yml API
+  description: The Add A User Openapi.Yml API from Falcon — 1 operation(s) for add a user openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Add A User Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-add-a-user-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-address-schema.json
+- aid: falcon:falcon-add-an-aggregator
+  name: Falcon Add An Aggregator Openapi.Yml API
+  description: The Add An Aggregator Openapi.Yml API from Falcon — 1 operation(s) for add an aggregator openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Add An Aggregator Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-add-an-aggregator-openapi.yml
+- aid: falcon:falcon-add-an-enterprise-admin
+  name: Falcon Add An Enterprise Admin Openapi.Yml API
+  description: The Add An Enterprise Admin Openapi.Yml API from Falcon — 1 operation(s) for add an enterprise admin openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Add An Enterprise Admin Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-add-an-enterprise-admin-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-add-corporate-admin-request-schema.json
+  - type: JSONSchema
+    url: json-schema/falcon-add-corporate-admin-response-schema.json
+- aid: falcon:falcon-add-an-issuer
+  name: Falcon Add An Issuer Openapi.Yml API
+  description: The Add An Issuer Openapi.Yml API from Falcon — 1 operation(s) for add an issuer openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Add An Issuer Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-add-an-issuer-openapi.yml
+- aid: falcon:falcon-assign-a-fee-model-to-a-program
+  name: Falcon Assign A Fee Model To A Program Openapi.Yml API
+  description: The Assign A Fee Model To A Program Openapi.Yml API from Falcon — 1 operation(s) for assign a fee model to a program openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Assign A Fee Model To A Program Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-assign-a-fee-model-to-a-program-openapi.yml
+- aid: falcon:falcon-assign-a-program-to-an-aggregator
+  name: Falcon Assign A Program To An Aggregator Openapi.Yml API
+  description: The Assign A Program To An Aggregator Openapi.Yml API from Falcon — 1 operation(s) for assign a program to an aggregator openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Assign A Program To An Aggregator Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-assign-a-program-to-an-aggregator-openapi.yml
+- aid: falcon:falcon-assign-a-program-to-an-enterprise
+  name: Falcon Assign A Program To An Enterprise Openapi.Yml API
+  description: The Assign A Program To An Enterprise Openapi.Yml API from Falcon — 1 operation(s) for assign a program to an enterprise openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Assign A Program To An Enterprise Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-assign-a-program-to-an-enterprise-openapi.yml
+- aid: falcon:falcon-assign-a-program-to-an-user
+  name: Falcon Assign A Program To An User Openapi.Yml API
+  description: The Assign A Program To An User Openapi.Yml API from Falcon — 1 operation(s) for assign a program to an user openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Assign A Program To An User Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-assign-a-program-to-an-user-openapi.yml
+- aid: falcon:falcon-block-or-allow-mccs-for-enterprise
+  name: Falcon Block Or Allow Mccs For Enterprise Openapi.Yml API
+  description: The Block Or Allow Mccs For Enterprise Openapi.Yml API from Falcon — 1 operation(s) for block or allow mccs for enterprise openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Block Or Allow Mccs For Enterprise Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-block-or-allow-mccs-for-enterprise-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-enterprise-program-action-request-schema.json
+  - type: JSONSchema
+    url: json-schema/falcon-success-response-schema.json
+- aid: falcon:falcon-change-due-date-of-an-account
+  name: Falcon Change Due Date Of An Account Openapi.Yml API
+  description: The Change Due Date Of An Account Openapi.Yml API from Falcon — 1 operation(s) for change due date of an account openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Change Due Date Of An Account Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-change-due-date-of-an-account-openapi.yml
+- aid: falcon:falcon-confirm-the-user-registration
+  name: Falcon Confirm The User Registration Openapi.Yml API
+  description: The Confirm The User Registration Openapi.Yml API from Falcon — 1 operation(s) for confirm the user registration openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Confirm The User Registration Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-confirm-the-user-registration-openapi.yml
+- aid: falcon:falcon-create-a-program-due-date
+  name: Falcon Create A Program Due Date Openapi.Yml API
+  description: The Create A Program Due Date Openapi.Yml API from Falcon — 1 operation(s) for create a program due date openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Create A Program Due Date Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-create-a-program-due-date-openapi.yml
+- aid: falcon:falcon-credit-card-account-apis
+  name: Falcon Credit Card Account Apis Openapi.Yml API
+  description: The Credit Card Account Apis Openapi.Yml API from Falcon — 6 operation(s) for credit card account apis openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Credit Card Account Apis Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-credit-card-account-apis-openapi.yml
+- aid: falcon:falcon-credit-card-apis
+  name: Falcon Credit Card Apis Openapi.Yml API
+  description: The Credit Card Apis Openapi.Yml API from Falcon — 18 operation(s) for credit card apis openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Credit Card Apis Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-credit-card-apis-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-spend-limits-schema.json
+  - type: JSONSchema
+    url: json-schema/falcon-transaction-limits-schema.json
+- aid: falcon:falcon-dispute-apis
+  name: Falcon Dispute Apis Openapi.Yml API
+  description: The Dispute Apis Openapi.Yml API from Falcon — 4 operation(s) for dispute apis openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Dispute Apis Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-dispute-apis-openapi.yml
+- aid: falcon:falcon-emi-api
+  name: Falcon Emi API
+  description: The Emi API from Falcon — 11 operation(s) for emi.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Emi
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-emi-api-openapi.yml
+- aid: falcon:falcon-fee-apis
+  name: Falcon Fee Apis Openapi.Yml API
+  description: The Fee Apis Openapi.Yml API from Falcon — 7 operation(s) for fee apis openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Fee Apis Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-fee-apis-openapi.yml
+- aid: falcon:falcon-funding-apis
+  name: Falcon Funding Apis Openapi.Yml API
+  description: The Funding Apis Openapi.Yml API from Falcon — 2 operation(s) for funding apis openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Funding Apis Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-funding-apis-openapi.yml
+- aid: falcon:falcon-get-program-due-dates
+  name: Falcon Get Program Due Dates Openapi.Yml API
+  description: The Get Program Due Dates Openapi.Yml API from Falcon — 1 operation(s) for get program due dates openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Get Program Due Dates Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-get-program-due-dates-openapi.yml
+- aid: falcon:falcon-get-user-details-using-cif
+  name: Falcon Get User Details Using Cif Openapi.Yml API
+  description: The Get User Details Using Cif Openapi.Yml API from Falcon — 1 operation(s) for get user details using cif openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Get User Details Using Cif Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-get-user-details-using-cif-openapi.yml
+- aid: falcon:falcon-initiate-a-user-registration
+  name: Falcon Initiate A User Registration Openapi.Yml API
+  description: The Initiate A User Registration Openapi.Yml API from Falcon — 1 operation(s) for initiate a user registration openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Initiate A User Registration Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-initiate-a-user-registration-openapi.yml
+- aid: falcon:falcon-interest-apis
+  name: Falcon Interest Apis Openapi.Yml API
+  description: The Interest Apis Openapi.Yml API from Falcon — 2 operation(s) for interest apis openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Interest Apis Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-interest-apis-openapi.yml
+- aid: falcon:falcon-onboard-an-enterprise
+  name: Falcon Onboard An Enterprise Openapi.Yml API
+  description: The Onboard An Enterprise Openapi.Yml API from Falcon — 1 operation(s) for onboard an enterprise openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Onboard An Enterprise Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-onboard-an-enterprise-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-enterprise-request-schema.json
+  - type: JSONSchema
+    url: json-schema/falcon-enterprise-response-schema.json
+- aid: falcon:falcon-program-configuration-honor
+  name: Falcon Program Configuration Honor Openapi.Yml API
+  description: The Program Configuration Honor Openapi.Yml API from Falcon — 1 operation(s) for program configuration honor openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Program Configuration Honor Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-program-configuration-honor-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-transaction-category-schema.json
+  - type: JSONSchema
+    url: json-schema/falcon-fee-waiver-schema.json
+- aid: falcon:falcon-repayment-apis
+  name: Falcon Repayment Apis Openapi.Yml API
+  description: The Repayment Apis Openapi.Yml API from Falcon — 13 operation(s) for repayment apis openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Repayment Apis Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-repayment-apis-openapi.yml
+- aid: falcon:falcon-rewards-api
+  name: Falcon Rewards API
+  description: The Rewards API from Falcon — 3 operation(s) for rewards.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Rewards
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-rewards-api-openapi.yml
+- aid: falcon:falcon-statements-api
+  name: Falcon Statements API
+  description: The Statements API from Falcon — 8 operation(s) for statements.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Statements
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-statements-api-openapi.yml
+- aid: falcon:falcon-transaction-apis
+  name: Falcon Transaction Apis Openapi.Yml API
+  description: The Transaction Apis Openapi.Yml API from Falcon — 8 operation(s) for transaction apis openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Transaction Apis Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-transaction-apis-openapi.yml
+- aid: falcon:falcon-update-a-program-due-date
+  name: Falcon Update A Program Due Date Openapi.Yml API
+  description: The Update A Program Due Date Openapi.Yml API from Falcon — 1 operation(s) for update a program due date openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Update A Program Due Date Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-update-a-program-due-date-openapi.yml
+- aid: falcon:falcon-update-an-issuer
+  name: Falcon Update An Issuer Openapi.Yml API
+  description: The Update An Issuer Openapi.Yml API from Falcon — 1 operation(s) for update an issuer openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Update An Issuer Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-update-an-issuer-openapi.yml
+- aid: falcon:falcon-update-enterprise-credit-limits
+  name: Falcon Update Enterprise Credit Limits Openapi.Yml API
+  description: The Update Enterprise Credit Limits Openapi.Yml API from Falcon — 1 operation(s) for update enterprise credit limits openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Update Enterprise Credit Limits Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-update-enterprise-credit-limits-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-enterprise-credit-limit-request-schema.json
+- aid: falcon:falcon-update-enterprise-details
+  name: Falcon Update Enterprise Details Openapi.Yml API
+  description: The Update Enterprise Details Openapi.Yml API from Falcon — 1 operation(s) for update enterprise details openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Update Enterprise Details Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-update-enterprise-details-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-enterprise-update-request-schema.json
+  - type: JSONSchema
+    url: json-schema/falcon-enterprise-response-schema.json
+- aid: falcon:falcon-update-user-details
+  name: Falcon Update User Details Openapi.Yml API
+  description: The Update User Details Openapi.Yml API from Falcon — 1 operation(s) for update user details openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - Update User Details Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-update-user-details-openapi.yml
+- aid: falcon:falcon-view-a-list-of-enterprise-accounts
+  name: Falcon View A List Of Enterprise Accounts Openapi.Yml API
+  description: The View A List Of Enterprise Accounts Openapi.Yml API from Falcon — 1 operation(s) for view a list of enterprise accounts openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View A List Of Enterprise Accounts Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-a-list-of-enterprise-accounts-openapi.yml
+- aid: falcon:falcon-view-a-list-of-enterprises
+  name: Falcon View A List Of Enterprises Openapi.Yml API
+  description: The View A List Of Enterprises Openapi.Yml API from Falcon — 1 operation(s) for view a list of enterprises openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View A List Of Enterprises Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-a-list-of-enterprises-openapi.yml
+- aid: falcon:falcon-view-a-program
+  name: Falcon View A Program Openapi.Yml API
+  description: The View A Program Openapi.Yml API from Falcon — 1 operation(s) for view a program openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View A Program Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-a-program-openapi.yml
+- aid: falcon:falcon-view-aggregator-program-subscriptions
+  name: Falcon View Aggregator Program Subscriptions Openapi.Yml API
+  description: The View Aggregator Program Subscriptions Openapi.Yml API from Falcon — 1 operation(s) for view aggregator program subscriptions
+    openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View Aggregator Program Subscriptions Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-aggregator-program-subscriptions-openapi.yml
+- aid: falcon:falcon-view-an-issuer
+  name: Falcon View An Issuer Openapi.Yml API
+  description: The View An Issuer Openapi.Yml API from Falcon — 1 operation(s) for view an issuer openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View An Issuer Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-an-issuer-openapi.yml
+- aid: falcon:falcon-view-enterprise-account-details
+  name: Falcon View Enterprise Account Details Openapi.Yml API
+  description: The View Enterprise Account Details Openapi.Yml API from Falcon — 1 operation(s) for view enterprise account details openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View Enterprise Account Details Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-enterprise-account-details-openapi.yml
+- aid: falcon:falcon-view-enterprise-details
+  name: Falcon View Enterprise Details Openapi.Yml API
+  description: The View Enterprise Details Openapi.Yml API from Falcon — 1 operation(s) for view enterprise details openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View Enterprise Details Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-enterprise-details-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-enterprise-response-schema.json
+- aid: falcon:falcon-view-enterprise-program-subscriptions
+  name: Falcon View Enterprise Program Subscriptions Openapi.Yml API
+  description: The View Enterprise Program Subscriptions Openapi.Yml API from Falcon — 1 operation(s) for view enterprise program subscriptions
+    openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View Enterprise Program Subscriptions Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-enterprise-program-subscriptions-openapi.yml
+- aid: falcon:falcon-view-enterprise-summary
+  name: Falcon View Enterprise Summary Openapi.Yml API
+  description: The View Enterprise Summary Openapi.Yml API from Falcon — 1 operation(s) for view enterprise summary openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View Enterprise Summary Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-enterprise-summary-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-enterprise-summary-response-schema.json
+  - type: JSONSchema
+    url: json-schema/falcon-enterprise-summary-request-schema.json
+- aid: falcon:falcon-view-issuer-programs
+  name: Falcon View Issuer Programs Openapi.Yml API
+  description: The View Issuer Programs Openapi.Yml API from Falcon — 1 operation(s) for view issuer programs openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View Issuer Programs Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-issuer-programs-openapi.yml
+- aid: falcon:falcon-view-list-of-programs
+  name: Falcon View List Of Programs Openapi.Yml API
+  description: The View List Of Programs Openapi.Yml API from Falcon — 1 operation(s) for view list of programs openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View List Of Programs Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-list-of-programs-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-product-response-schema.json
+- aid: falcon:falcon-view-list-of-users-of-an-enterprise
+  name: Falcon View List Of Users Of An Enterprise Openapi.Yml API
+  description: The View List Of Users Of An Enterprise Openapi.Yml API from Falcon — 1 operation(s) for view list of users of an enterprise openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View List Of Users Of An Enterprise Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-list-of-users-of-an-enterprise-openapi.yml
+  - type: JSONSchema
+    url: json-schema/falcon-employee-response-schema.json
+- aid: falcon:falcon-view-user-details
+  name: Falcon View User Details Openapi.Yml API
+  description: The View User Details Openapi.Yml API from Falcon — 1 operation(s) for view user details openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View User Details Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-user-details-openapi.yml
+- aid: falcon:falcon-view-user-program-subscriptions
+  name: Falcon View User Program Subscriptions Openapi.Yml API
+  description: The View User Program Subscriptions Openapi.Yml API from Falcon — 1 operation(s) for view user program subscriptions openapi.yml.
+  humanURL: https://docs.falconfs.com/reference
+  baseURL: https://credituat.falconfs.com
+  tags:
+  - View User Program Subscriptions Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/falcon-view-user-program-subscriptions-openapi.yml
+
 x-enrichment:
   date: '2026-07-19'
   status: backfilled
   pass: local-v1
   note: backfilled from .gitignore signal + verified work evidence
+
+x-readme-harvest:
+  date: '2026-10-14'
+  ops: 119
+  tool: harvest-readme-openapi.py
+  portal: https://docs.falconfs.com

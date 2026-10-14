@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-address-schema.json",
+  "title": "Address",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-add-a-user-openapi.yml#/components/schemas/Address",
+  "type": "object",
+  "properties": {
+    "address1": {
+      "type": "string",
+      "description": "The first line of the address."
+    },
+    "address2": {
+      "type": "string",
+      "description": "The second line of the address."
+    },
+    "address3": {
+      "type": "string",
+      "description": "The third line of the address."
+    },
+    "city": {
+      "type": "string",
+      "description": "The city of the address."
+    },
+    "state": {
+      "type": "string",
+      "description": "The state of the address."
+    },
+    "pinCode": {
+      "type": "string",
+      "description": "The postal code of the address."
+    }
+  }
+}

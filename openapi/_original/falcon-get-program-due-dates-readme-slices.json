@@ -1,0 +1,142 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/get-program-due-dates.md",
+  "definition": {
+   "openapi": "3.0.1",
+   "info": {
+    "title": "Get Program Due Dates",
+    "description": "Use this endpoint to fetch due dates of a program.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/"
+    }
+   ],
+   "paths": {
+    "/program/{programId}/due-dates": {
+     "get": {
+      "summary": "Get Program Due Dates",
+      "description": "Use this endpoint to fetch due dates of a program.",
+      "operationId": "get-program-duedates",
+      "parameters": [
+       {
+        "name": "programId",
+        "in": "path",
+        "required": true,
+        "schema": {
+         "type": "string"
+        },
+        "description": "Unique identifier for the credit card program.",
+        "example": "e4328fbe-db7b-4b7a-9b38-912b0e05a849"
+       },
+       {
+        "name": "day",
+        "in": "query",
+        "required": false,
+        "schema": {
+         "type": "integer"
+        },
+        "description": "The day of the month for which to retrieve due dates.",
+        "example": 18
+       },
+       {
+        "name": "pageNo",
+        "in": "query",
+        "required": false,
+        "schema": {
+         "type": "integer"
+        },
+        "description": "The page number for pagination.",
+        "example": 1
+       },
+       {
+        "name": "pageSize",
+        "in": "query",
+        "required": false,
+        "schema": {
+         "type": "integer"
+        },
+        "description": "The number of items per page for pagination.",
+        "example": 3
+       },
+       {
+        "in": "header",
+        "name": "x-tenant-id",
+        "schema": {
+         "type": "string"
+        },
+        "required": true,
+        "example": "falcon"
+       },
+       {
+        "in": "header",
+        "name": "Authorization",
+        "schema": {
+         "type": "string"
+        },
+        "required": true,
+        "example": "Bearer {access_token}"
+       }
+      ],
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "properties": {
+            "dueDates": {
+             "type": "array",
+             "description": "List of due dates for the program.",
+             "items": {
+              "type": "object"
+             }
+            },
+            "hasNextElement": {
+             "type": "boolean",
+             "description": "Indicates if there are more elements to fetch.",
+             "example": false
+            }
+           }
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "Invalid request parameters."
+       },
+       "401": {
+        "description": "Unauthorized access."
+       },
+       "500": {
+        "description": "Internal server error."
+       }
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 103,
+     "1": 233,
+     "2": 91,
+     "3": 104,
+     "4": 22,
+     "5": 35,
+     "6": 131,
+     "7": 66,
+     "8": 29,
+     "9": 143,
+     "10": 66,
+     "11": 5
+    }
+   }
+  }
+ }
+]

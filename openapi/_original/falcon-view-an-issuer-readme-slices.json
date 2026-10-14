@@ -1,0 +1,190 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/view-issuer.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "title": "View an Issuer",
+    "description": "Use this endpoint to fetch details of an issuer.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1"
+    }
+   ],
+   "paths": {
+    "/issuer/{issuerType}": {
+     "get": {
+      "summary": "View an Issuer",
+      "description": "Use this endpoint to view an issuer.",
+      "security": [
+       {
+        "bearerAuth": []
+       }
+      ],
+      "operationId": "view-issuer",
+      "parameters": [
+       {
+        "name": "x-tenant-id",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "falcon"
+        }
+       },
+       {
+        "name": "issuerType",
+        "in": "path",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "Small Finance Bank",
+         "description": "The issuer type you want to see the details."
+        }
+       }
+      ],
+      "responses": {
+       "200": {
+        "description": "OK",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "properties": {
+            "issuerName": {
+             "type": "string",
+             "description": "The issuer name you want to add.",
+             "example": "Shivalik"
+            },
+            "issuerType": {
+             "type": "string",
+             "description": "The issuer type you want to add.",
+             "example": "Small Finance Bank"
+            },
+            "productCategories": {
+             "type": "string",
+             "description": "The card category.",
+             "example": "Credit"
+            },
+            "registeredName": {
+             "type": "string",
+             "description": "The issuer registered name.",
+             "example": "Shivalik Small Finance Bank"
+            },
+            "brandName": {
+             "type": "string",
+             "description": "The issuer brand name.",
+             "example": "Shivalik Small Finance Bank"
+            },
+            "brandLogo": {
+             "type": "string",
+             "description": "The issuer logo.",
+             "example": "ssfb.png"
+            },
+            "address": {
+             "type": "string",
+             "description": "The complete address of the issuer.",
+             "example": "6th Floor Infotech Tower Greater Noida"
+            },
+            "country": {
+             "type": "string",
+             "description": "The issuer country.",
+             "example": "India"
+            },
+            "website": {
+             "type": "string",
+             "format": "uri",
+             "description": "The issuer website.",
+             "example": "https://shivalikbank.com/"
+            },
+            "title": {
+             "type": "string",
+             "description": "The title of the administrator/POC.",
+             "example": "Mr."
+            },
+            "personalDetails": {
+             "type": "object",
+             "description": "The personal details of the point of contact of the issuer.",
+             "properties": {
+              "contactName": {
+               "type": "string",
+               "description": "The name of the administrator/POC of the issuer.",
+               "example": "Keshav"
+              },
+              "contactEmail": {
+               "type": "string",
+               "format": "email",
+               "description": "The contact email of the administrator/POC of the issuer.",
+               "example": "keshav@shivalikb.com"
+              },
+              "contactNumber": {
+               "type": "string",
+               "description": "The contact number of the administrator/POC of the issuer.",
+               "example": 9871323241
+              },
+              "supportEmail": {
+               "type": "string",
+               "format": "email",
+               "description": "The support email ID of the issuer.",
+               "example": "support@shivalikb.com"
+              },
+              "supportNumber": {
+               "type": "string",
+               "description": "The support contact number of the issuer.",
+               "example": 1206756543
+              }
+             }
+            },
+            "agreement": {
+             "type": "string",
+             "description": "The duly signed agreement file.",
+             "example": "ShivalikSOP.pdf"
+            }
+           }
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "Bad Request"
+       },
+       "401": {
+        "description": "Unauthorized"
+       }
+      }
+     }
+    }
+   },
+   "components": {
+    "securitySchemes": {
+     "bearerAuth": {
+      "type": "http",
+      "scheme": "bearer"
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 104,
+     "1": 121,
+     "2": 246,
+     "3": 228,
+     "4": 133,
+     "5": 163,
+     "6": 73,
+     "7": 61,
+     "8": 38,
+     "9": 34,
+     "10": 22,
+     "11": 244
+    }
+   }
+  }
+ }
+]

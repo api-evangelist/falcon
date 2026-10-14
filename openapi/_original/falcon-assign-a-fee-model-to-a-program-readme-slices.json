@@ -1,0 +1,114 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/assign-fee-model.md",
+  "definition": {
+   "openapi": "3.0.1",
+   "info": {
+    "title": "Assign a Fee Model to a Program",
+    "description": "Use this endpoint to assign a fee model to a program.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1"
+    }
+   ],
+   "paths": {
+    "/fee/assign": {
+     "post": {
+      "summary": "Assign a Fee Model to a Program",
+      "description": "Use this endpoint to assign a fee model to a program.",
+      "operationId": "assign-fee-model",
+      "parameters": [
+       {
+        "in": "header",
+        "name": "x-tenant-id",
+        "schema": {
+         "type": "string"
+        },
+        "required": true,
+        "example": "falcon"
+       },
+       {
+        "in": "header",
+        "name": "Authorization",
+        "schema": {
+         "type": "string"
+        },
+        "required": true,
+        "example": "Bearer {access_token}"
+       }
+      ],
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "programeID",
+           "feeModelID"
+          ],
+          "properties": {
+           "programeID": {
+            "type": "string",
+            "description": "The unique ID of the program to which the fee model will be assigned.",
+            "example": "SFCC01"
+           },
+           "feeModelID": {
+            "type": "string",
+            "description": "The unique ID of the fee model to be assigned.",
+            "example": "FEE01"
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "example": {}
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "Invalid request parameters."
+       },
+       "401": {
+        "description": "Unauthorized access."
+       },
+       "500": {
+        "description": "Internal server error."
+       }
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 103,
+     "1": 233,
+     "2": 73,
+     "3": 48,
+     "4": 113,
+     "5": 189,
+     "6": 110,
+     "7": 161,
+     "8": 148,
+     "9": 76,
+     "10": 77,
+     "11": 46
+    }
+   }
+  }
+ }
+]

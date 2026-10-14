@@ -1,0 +1,224 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/confirm-user-registration.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "title": "Confirm the User Registration",
+    "description": "This endpoint can be used by TSP/ Issuer Admin to confirm user's registration by validating KYC documents and status. This API can also be used to modify or add user data in case the details provided by enterprise is not sufficient.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1"
+    }
+   ],
+   "paths": {
+    "/user": {
+     "post": {
+      "summary": "Confirm the User Registration",
+      "description": "This endpoint can be used by TSP/ Issuer Admin to confirm user's registration by validating KYC documents and status. This API can also be used to modify or add user data in case the details provided by enterprise is not sufficient.\n\n**Note:**\nThe view User API will be used to first fetch available user data and then input the missing fields. User registration will not be completed till user KYC status is marked Completed by the TSP/ Issuer Admin.\n",
+      "operationId": "confirm-user-registration",
+      "parameters": [
+       {
+        "name": "x-tenant-id",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string"
+        },
+        "example": "falcon"
+       },
+       {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string"
+        },
+        "example": "Bearer {{access_token}}"
+       }
+      ],
+      "requestBody": {
+       "required": true,
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "aggregatorName",
+           "programID",
+           "CIFNumber"
+          ],
+          "properties": {
+           "enterpriseID": {
+            "type": "string",
+            "description": "The unique identifier for the enterprise.",
+            "example": "Wework"
+           },
+           "aggregatorName": {
+            "type": "string",
+            "description": "The name of the aggregator managing the registration.",
+            "example": "VoloPay"
+           },
+           "programID": {
+            "type": "string",
+            "description": "The program ID under which the user is being registered.",
+            "example": "SFCC01"
+           },
+           "creditLimit": {
+            "type": "string",
+            "description": "The assigned credit limit.",
+            "example": "10000"
+           },
+           "cashAdvanceLimit": {
+            "type": "string",
+            "description": "The assigned cash advance limit.",
+            "example": "500"
+           },
+           "personalDetails": {
+            "type": "array",
+            "items": {
+             "type": "object",
+             "required": [
+              "userPAN",
+              "userMobileNumber",
+              "userOVDType",
+              "userOVDID",
+              "userKYCAddress",
+              "deliveryAddress"
+             ],
+             "properties": {
+              "userFullName": {
+               "type": "string",
+               "description": "The full name of the user.",
+               "example": "Abhinav"
+              },
+              "userMiddleName": {
+               "type": "string",
+               "description": "The middle name of the user.",
+               "example": "M S"
+              },
+              "userLastName": {
+               "type": "string",
+               "description": "The last name of the user.",
+               "example": "Sharma"
+              },
+              "userPAN": {
+               "type": "string",
+               "description": "The PAN (Permanent Account Number) of the user.",
+               "example": "ABCDE1234F"
+              },
+              "userMobileNumber": {
+               "type": "string",
+               "description": "The mobile number of the user.",
+               "example": "9876543210"
+              },
+              "userDOB": {
+               "type": "string",
+               "description": "The date of birth of the user.",
+               "example": "22-01-1990"
+              },
+              "userGender": {
+               "type": "string",
+               "description": "The gender of the user.",
+               "enum": [
+                "Male",
+                "Female",
+                "Others"
+               ],
+               "example": "Male"
+              },
+              "fatherName": {
+               "type": "string",
+               "description": "The name of the user's father.",
+               "example": "B. P. Sharma"
+              },
+              "motherName": {
+               "type": "string",
+               "description": "The name of the user's mother.",
+               "example": "Shikha Sharma"
+              },
+              "userOVDType": {
+               "type": "string",
+               "description": "The type of OVD (Officially Valid Document) provided by the user.",
+               "enum": [
+                "Aadhaar",
+                "Passport",
+                "Voter ID",
+                "Driving License"
+               ],
+               "example": "Driving License"
+              },
+              "userOVDID": {
+               "type": "string",
+               "description": "The ID of the OVD provided by the user.",
+               "example": "DL-1234567890123"
+              },
+              "userKYCAddress": {
+               "type": "string",
+               "description": "The address provided by the user for KYC.",
+               "example": "1206/C2 Gurgaon"
+              },
+              "deliveryAddress": {
+               "type": "string",
+               "description": "The delivery address for the user.",
+               "example": "1206/C2 Gurgaon"
+              }
+             }
+            }
+           },
+           "CIFNumber": {
+            "type": "string",
+            "description": "The Customer Information File (CIF) number.",
+            "example": 231313298
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "properties": {
+            "userId": {
+             "type": "string",
+             "example": "9824c2dc-65ac-417a-a11c-43e47e8dfa7a"
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 103,
+     "1": 234,
+     "2": 54,
+     "3": 154,
+     "4": 181,
+     "5": 188,
+     "6": 253,
+     "7": 139,
+     "8": 120,
+     "9": 212,
+     "10": 184,
+     "11": 169
+    }
+   }
+  }
+ }
+]

@@ -1,0 +1,162 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/create-program-due-date.md",
+  "definition": {
+   "openapi": "3.0.1",
+   "info": {
+    "title": "Create a Program Due date",
+    "description": "Use this endpoint to create a due date for a program.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/"
+    }
+   ],
+   "paths": {
+    "/program/{programId}/due-dates": {
+     "post": {
+      "summary": "Create a Program Due date",
+      "description": "Use this endpoint to create a due date for a program.",
+      "operationId": "create-duedate",
+      "parameters": [
+       {
+        "name": "programId",
+        "in": "path",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "description": "The unique identifier of the program.",
+         "example": "e4328fbe-db7b-4b7a-9b38-912b0e05a849"
+        }
+       },
+       {
+        "in": "header",
+        "name": "x-tenant-id",
+        "schema": {
+         "type": "string"
+        },
+        "required": true,
+        "example": "falcon"
+       },
+       {
+        "in": "header",
+        "name": "Authorization",
+        "schema": {
+         "type": "string"
+        },
+        "required": true,
+        "example": "Bearer {access_token}"
+       }
+      ],
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "day",
+           "active"
+          ],
+          "properties": {
+           "day": {
+            "type": "integer",
+            "description": "Day of the month for the due date.",
+            "example": 17
+           },
+           "active": {
+            "type": "boolean",
+            "description": "Indicates if the due date is active.",
+            "enum": [
+             true,
+             false
+            ],
+            "example": true
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "Due date assigned successfully.",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "properties": {
+            "programDueDateId": {
+             "type": "integer",
+             "description": "The unique identifier for the program due date.",
+             "example": 16631
+            },
+            "programId": {
+             "type": "string",
+             "description": "The unique identifier for the program.",
+             "example": "e4328fbe-db7b-4b7a-9b38-912b0e05a849"
+            },
+            "day": {
+             "type": "integer",
+             "description": "The day of the month for the due date.",
+             "example": 17
+            },
+            "active": {
+             "type": "boolean",
+             "description": "Indicates if the due date is active.",
+             "enum": [
+              true,
+              false
+             ],
+             "example": true
+            },
+            "existsAccount": {
+             "type": "boolean",
+             "description": "Indicates if the account exists.",
+             "enum": [
+              true,
+              false
+             ],
+             "example": false
+            }
+           }
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "Invalid request parameters."
+       },
+       "401": {
+        "description": "Unauthorized access."
+       },
+       "500": {
+        "description": "Internal server error."
+       }
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 103,
+     "1": 233,
+     "2": 75,
+     "3": 30,
+     "4": 29,
+     "5": 18,
+     "6": 207,
+     "7": 6,
+     "8": 237,
+     "9": 104,
+     "10": 242,
+     "11": 125
+    }
+   }
+  }
+ }
+]

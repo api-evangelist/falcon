@@ -1,0 +1,129 @@
+openapi: 3.0.0
+info:
+  title: Add an Aggregator
+  description: Use this endpoint to onboard a new aggregator.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+paths:
+  /aggregator:
+    post:
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - aggregatorName
+              - aggregatorType
+              - registeredName
+              - adminName
+              - adminEmail
+              - officialEmailID
+              properties:
+                aggregatorName:
+                  type: string
+                  description: The name of the aggregator you want to add.
+                  example: Volopay
+                aggregatorType:
+                  type: string
+                  description: The type of the aggregator.
+                  example: Corporate
+                registeredName:
+                  type: string
+                  description: The registered name of the aggregator.
+                  example: VP Technologies
+                officialDocumentType:
+                  type: string
+                  description: The CIN/TIN/PAN/GSTIN associated with the aggregator.
+                  example: CIN
+                officialDocumentID:
+                  type: string
+                  description: The CIN/TIN/PAN/GSTIN of the aggregator.
+                  example: 22AAAAA0000A1Z5
+                address:
+                  type: string
+                  description: The official address of the aggregator.
+                  example: 3rd floor, VV Complex, Sector 4
+                website:
+                  type: string
+                  description: The official website of the aggregator.
+                  example: vptech.com
+                adminName:
+                  type: string
+                  description: The name of the administrator/POC of the aggregator.
+                  example: Amit
+                adminTitle:
+                  type: string
+                  description: The title of administrator/POC of the aggregator that has to be onboarded.
+                  enum:
+                  - Master
+                  - Mr.
+                  - Mrs.
+                  - Ms.
+                  example: Mr.
+                adminNumber:
+                  type: string
+                  description: The contact number of administrator/POC of the aggregator.
+                  example: '9910101010'
+                adminEmail:
+                  type: string
+                  description: The email ID of administrator/POC of the aggregator.
+                  format: email
+                  example: amit@vptech.com
+                supportEmail:
+                  type: string
+                  description: The support email ID of the aggregator.
+                  format: email
+                  example: support@vptech.com
+                supportNumber:
+                  type: string
+                  description: The support contact number for the aggregator.
+                  example: 01204116782
+                agreement:
+                  type: string
+                  description: The duly signed agreement file.
+                  example: agfalvp.pdf
+                approvalLetter:
+                  type: string
+                  description: The duly signed approval letter.
+                  example: approval.pdf
+                officialEmailID:
+                  type: string
+                  description: The official email ID that has to be configured for the API Auth token.
+                  enum:
+                  - 'Yes'
+                  - 'No'
+                  example: abc@example.com
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  aggregatorID:
+                    type: string
+                    description: The unique identifier of the created aggregator.
+                    example: Volopay
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-aggregator.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

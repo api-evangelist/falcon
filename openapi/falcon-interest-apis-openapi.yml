@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: Interest APIs
+  description: APIs to manage and retrieve interest-related data for credit card accounts.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+paths:
+  /interest:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Post an Accrued Interest
+      description: Use this endpoint to post the accrued interest to an account.
+      operationId: post-accrued-interest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account to which the interest is posted.
+                  example: '1234567890'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  interestAmount:
+                    type: string
+                    description: The total interest amount posted to the account.
+                    example: '100.00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  /interest/{accountId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View an Accrued Interest
+      description: Use this endpoint to view total interest that is accrued on an account.
+      operationId: view-accrued-interest
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the account for which to view accrued interest.
+          example: '1234567890'
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  interestAmount:
+                    type: string
+                    description: The total interest amount accrued on the account.
+                    example: '100.00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/post-accrued-interest.md
+  - https://docs.falconfs.com/reference/view-accrued-interest.md
+  merge:
+    pages: 2
+    deduped: 1
+    conflicts_kept_first: 0

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-product-request-schema.json",
+  "title": "ProductRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-add-a-program-openapi.yml#/components/schemas/ProductRequest",
+  "type": "object",
+  "properties": {
+    "issuerName": {
+      "type": "string",
+      "description": "The name of the issuer."
+    },
+    "productCategories": {
+      "type": "string",
+      "description": "The categories of the product."
+    },
+    "product": {
+      "type": "string",
+      "description": "The name of the product."
+    },
+    "productVariant": {
+      "type": "string",
+      "description": "The variant of the product."
+    },
+    "program": {
+      "type": "string",
+      "description": "The name of the program."
+    },
+    "startDate": {
+      "type": "string",
+      "description": "The start date of the program."
+    },
+    "endDate": {
+      "type": "string",
+      "description": "The end date of the program."
+    },
+    "binValue": {
+      "type": "string",
+      "description": "The bin value of the card."
+    },
+    "binRangeStart": {
+      "type": "string",
+      "description": "The start of the bin range."
+    },
+    "binRangeEnd": {
+      "type": "string",
+      "description": "The end of the bin range."
+    },
+    "countryCode": {
+      "type": "string",
+      "description": "The country code."
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "The currency code."
+    },
+    "timeZone": {
+      "type": "string",
+      "description": "The time zone."
+    },
+    "dueDate": {
+      "type": "string",
+      "description": "The due date of the program."
+    },
+    "duration": {
+      "type": "string",
+      "description": "The duration of the program."
+    },
+    "emailCongif": {
+      "type": "string",
+      "description": "The email configuration."
+    },
+    "cardFormFactor": {
+      "type": "string",
+      "description": "The form factor of the card."
+    }
+  }
+}

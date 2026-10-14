@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-transaction-limits-schema.json",
+  "title": "TransactionLimits",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-credit-card-apis-openapi.yml#/components/schemas/TransactionLimits",
+  "type": "object",
+  "properties": {
+    "perTransactionLimit": {
+      "type": "integer",
+      "description": "Per transaction limit of the card."
+    },
+    "dailyTransactionAmount": {
+      "type": "integer",
+      "description": "Daily transaction amount limit of the card."
+    },
+    "dailyTransactionCount": {
+      "type": "integer",
+      "description": "Daily transaction count limit of the card."
+    },
+    "monthlyTransactionAmount": {
+      "type": "integer",
+      "description": "Monthly transaction amount limit of the card."
+    },
+    "monthlyTransactionCount": {
+      "type": "integer",
+      "description": "Monthly transaction count limit of the card."
+    }
+  }
+}

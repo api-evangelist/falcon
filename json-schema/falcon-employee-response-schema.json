@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-employee-response-schema.json",
+  "title": "EmployeeResponse",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-view-list-of-users-of-an-enterprise-openapi.yml#/components/schemas/EmployeeResponse",
+  "type": "object",
+  "properties": {
+    "enterpriseID": {
+      "type": "string",
+      "description": "The ID of the enterprise."
+    },
+    "enterpriseName": {
+      "type": "string",
+      "description": "The name of the enterprise."
+    },
+    "userDetails": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "userID": {
+            "type": "string",
+            "description": "The ID of the user."
+          },
+          "userFirstName": {
+            "type": "string",
+            "description": "The first name of the user."
+          },
+          "userLastName": {
+            "type": "string",
+            "description": "The last name of the user."
+          }
+        }
+      }
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "The total number of users in the enterprise."
+    }
+  }
+}

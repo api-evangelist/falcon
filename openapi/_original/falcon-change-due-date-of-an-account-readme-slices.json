@@ -1,0 +1,133 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/change-account-duedate.md",
+  "definition": {
+   "openapi": "3.0.1",
+   "info": {
+    "title": "Change Due Date of an Account",
+    "description": "Use this endpoint to change the due date of an account.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1"
+    }
+   ],
+   "paths": {
+    "/{accountId}/due-date": {
+     "post": {
+      "summary": "Change Due Date of an Account",
+      "description": "Use this endpoint to change the due date of an account.",
+      "operationId": "change-account-duedate",
+      "parameters": [
+       {
+        "name": "accountId",
+        "in": "path",
+        "required": true,
+        "schema": {
+         "type": "string"
+        },
+        "description": "The unique identifier of the account.",
+        "example": "ACC123456"
+       },
+       {
+        "name": "x-tenant-id",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string"
+        },
+        "example": "falcon"
+       },
+       {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string"
+        },
+        "example": "Bearer {{access_token}}"
+       }
+      ],
+      "requestBody": {
+       "required": true,
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "day"
+          ],
+          "properties": {
+           "day": {
+            "type": "string",
+            "description": "The new due date for the account.",
+            "example": "20"
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "example": {}
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "Invalid request payload"
+       },
+       "401": {
+        "description": "Unauthorized access"
+       },
+       "404": {
+        "description": "Account not found"
+       }
+      },
+      "security": [
+       {
+        "bearerAuth": []
+       }
+      ]
+     }
+    }
+   },
+   "components": {
+    "securitySchemes": {
+     "bearerAuth": {
+      "type": "http",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 103,
+     "1": 235,
+     "2": 155,
+     "3": 63,
+     "4": 4,
+     "5": 156,
+     "6": 225,
+     "7": 0,
+     "8": 17,
+     "9": 46,
+     "10": 186,
+     "11": 179
+    }
+   }
+  }
+ }
+]

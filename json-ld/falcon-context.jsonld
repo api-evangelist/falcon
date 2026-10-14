@@ -1,0 +1,570 @@
+{
+  "@context": {
+    "@vocab": "https://falconfs.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "falcon": "https://falconfs.com/schema#",
+    "ProductRequest": "falcon:ProductRequest",
+    "issuerName": {
+      "@id": "falcon:issuerName",
+      "@type": "xsd:string"
+    },
+    "productCategories": {
+      "@id": "falcon:productCategories",
+      "@type": "xsd:string"
+    },
+    "product": {
+      "@id": "falcon:product",
+      "@type": "xsd:string"
+    },
+    "productVariant": {
+      "@id": "falcon:productVariant",
+      "@type": "xsd:string"
+    },
+    "program": {
+      "@id": "falcon:program",
+      "@type": "xsd:string"
+    },
+    "startDate": {
+      "@id": "falcon:startDate",
+      "@type": "xsd:string"
+    },
+    "endDate": {
+      "@id": "falcon:endDate",
+      "@type": "xsd:string"
+    },
+    "binValue": {
+      "@id": "falcon:binValue",
+      "@type": "xsd:string"
+    },
+    "binRangeStart": {
+      "@id": "falcon:binRangeStart",
+      "@type": "xsd:string"
+    },
+    "binRangeEnd": {
+      "@id": "falcon:binRangeEnd",
+      "@type": "xsd:string"
+    },
+    "countryCode": {
+      "@id": "falcon:countryCode",
+      "@type": "xsd:string"
+    },
+    "currencyCode": {
+      "@id": "falcon:currencyCode",
+      "@type": "xsd:string"
+    },
+    "timeZone": {
+      "@id": "falcon:timeZone",
+      "@type": "xsd:string"
+    },
+    "dueDate": {
+      "@id": "falcon:dueDate",
+      "@type": "xsd:string"
+    },
+    "duration": {
+      "@id": "falcon:duration",
+      "@type": "xsd:string"
+    },
+    "emailCongif": {
+      "@id": "falcon:emailCongif",
+      "@type": "xsd:string"
+    },
+    "cardFormFactor": {
+      "@id": "falcon:cardFormFactor",
+      "@type": "xsd:string"
+    },
+    "ProductResponse": "falcon:ProductResponse",
+    "programeID": {
+      "@id": "falcon:programeID",
+      "@type": "xsd:string"
+    },
+    "Address": "falcon:Address",
+    "address1": {
+      "@id": "falcon:address1",
+      "@type": "xsd:string"
+    },
+    "address2": {
+      "@id": "falcon:address2",
+      "@type": "xsd:string"
+    },
+    "address3": {
+      "@id": "falcon:address3",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "falcon:city",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "falcon:state",
+      "@type": "xsd:string"
+    },
+    "pinCode": {
+      "@id": "falcon:pinCode",
+      "@type": "xsd:string"
+    },
+    "AddCorporateAdminRequest": "falcon:AddCorporateAdminRequest",
+    "enterpriseID": {
+      "@id": "falcon:enterpriseID",
+      "@type": "xsd:string"
+    },
+    "adminFullName": {
+      "@id": "falcon:adminFullName",
+      "@type": "xsd:string"
+    },
+    "adminContactNumber": {
+      "@id": "falcon:adminContactNumber",
+      "@type": "xsd:string"
+    },
+    "adminType": {
+      "@id": "falcon:adminType",
+      "@type": "xsd:string"
+    },
+    "adminEmail": {
+      "@id": "falcon:adminEmail",
+      "@type": "xsd:string"
+    },
+    "AddCorporateAdminResponse": "falcon:AddCorporateAdminResponse",
+    "Message": {
+      "@id": "falcon:Message",
+      "@type": "xsd:string"
+    },
+    "EnterpriseProgramActionRequest": "falcon:EnterpriseProgramActionRequest",
+    "enterpriseId": {
+      "@id": "falcon:enterpriseId",
+      "@type": "xsd:string"
+    },
+    "action": {
+      "@id": "falcon:action",
+      "@type": "xsd:string"
+    },
+    "mcc": {
+      "@id": "falcon:mcc",
+      "@type": "xsd:string"
+    },
+    "TransactionLimits": "falcon:TransactionLimits",
+    "perTransactionLimit": {
+      "@id": "falcon:perTransactionLimit",
+      "@type": "xsd:integer"
+    },
+    "dailyTransactionAmount": {
+      "@id": "falcon:dailyTransactionAmount",
+      "@type": "xsd:integer"
+    },
+    "dailyTransactionCount": {
+      "@id": "falcon:dailyTransactionCount",
+      "@type": "xsd:integer"
+    },
+    "monthlyTransactionAmount": {
+      "@id": "falcon:monthlyTransactionAmount",
+      "@type": "xsd:integer"
+    },
+    "monthlyTransactionCount": {
+      "@id": "falcon:monthlyTransactionCount",
+      "@type": "xsd:integer"
+    },
+    "SpendLimits": "falcon:SpendLimits",
+    "EnterpriseRequest": "falcon:EnterpriseRequest",
+    "name": {
+      "@id": "falcon:name",
+      "@type": "xsd:string"
+    },
+    "registeredName": {
+      "@id": "falcon:registeredName",
+      "@type": "xsd:string"
+    },
+    "incorporationDate": {
+      "@id": "falcon:incorporationDate",
+      "@type": "xsd:string"
+    },
+    "website": {
+      "@id": "falcon:website",
+      "@type": "xsd:string"
+    },
+    "mobile": {
+      "@id": "falcon:mobile",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "falcon:email",
+      "@type": "xsd:string"
+    },
+    "classification": {
+      "@id": "falcon:classification",
+      "@type": "xsd:string"
+    },
+    "industryType": {
+      "@id": "falcon:industryType",
+      "@type": "xsd:string"
+    },
+    "legalConstitution": {
+      "@id": "falcon:legalConstitution",
+      "@type": "xsd:string"
+    },
+    "relatedType": {
+      "@id": "falcon:relatedType",
+      "@type": "xsd:string"
+    },
+    "relationshipType": {
+      "@id": "falcon:relationshipType",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "falcon:type",
+      "@type": "xsd:string"
+    },
+    "cif": {
+      "@id": "falcon:cif",
+      "@type": "xsd:string"
+    },
+    "pan": {
+      "@id": "falcon:pan",
+      "@type": "xsd:string"
+    },
+    "cin": {
+      "@id": "falcon:cin",
+      "@type": "xsd:string"
+    },
+    "gstin": {
+      "@id": "falcon:gstin",
+      "@type": "xsd:string"
+    },
+    "addresses": {
+      "@id": "falcon:addresses",
+      "@container": "@list"
+    },
+    "programs": {
+      "@id": "falcon:programs",
+      "@container": "@list"
+    },
+    "directors": {
+      "@id": "falcon:directors",
+      "@container": "@list"
+    },
+    "EnterpriseResponse": "falcon:EnterpriseResponse",
+    "FeeWaiver": "falcon:FeeWaiver",
+    "fee": {
+      "@id": "falcon:fee",
+      "@type": "@id"
+    },
+    "waiver": {
+      "@id": "falcon:waiver",
+      "@type": "@id"
+    },
+    "Fee": "falcon:Fee",
+    "feeModelType": {
+      "@id": "falcon:feeModelType",
+      "@type": "xsd:string"
+    },
+    "fixedAmount": {
+      "@id": "falcon:fixedAmount",
+      "@type": "xsd:string"
+    },
+    "percentValue": {
+      "@id": "falcon:percentValue",
+      "@type": "xsd:string"
+    },
+    "startRange": {
+      "@id": "falcon:startRange",
+      "@type": "xsd:string"
+    },
+    "endRange": {
+      "@id": "falcon:endRange",
+      "@type": "xsd:string"
+    },
+    "precedence": {
+      "@id": "falcon:precedence",
+      "@type": "xsd:string"
+    },
+    "taxes": {
+      "@id": "falcon:taxes",
+      "@type": "@id"
+    },
+    "tierFees": {
+      "@id": "falcon:tierFees",
+      "@container": "@list"
+    },
+    "payload": {
+      "@id": "falcon:payload"
+    },
+    "Waiver": "falcon:Waiver",
+    "triggerType": {
+      "@id": "falcon:triggerType",
+      "@type": "xsd:string"
+    },
+    "triggerValues": {
+      "@id": "falcon:triggerValues",
+      "@container": "@list"
+    },
+    "status": {
+      "@id": "falcon:status",
+      "@type": "xsd:string"
+    },
+    "criteria": {
+      "@id": "falcon:criteria",
+      "@type": "@id"
+    },
+    "WaiverCriteria": "falcon:WaiverCriteria",
+    "value": {
+      "@id": "falcon:value",
+      "@container": "@list"
+    },
+    "minMaxOperand": {
+      "@id": "falcon:minMaxOperand",
+      "@type": "xsd:string"
+    },
+    "minTransactionAmount": {
+      "@id": "falcon:minTransactionAmount",
+      "@type": "xsd:string"
+    },
+    "maxTransactionAmount": {
+      "@id": "falcon:maxTransactionAmount",
+      "@type": "xsd:string"
+    },
+    "transactionPeriod": {
+      "@id": "falcon:transactionPeriod",
+      "@type": "xsd:string"
+    },
+    "transactionPeriodOperand": {
+      "@id": "falcon:transactionPeriodOperand",
+      "@type": "xsd:string"
+    },
+    "transactionPeriodWaiverMaxLimit": {
+      "@id": "falcon:transactionPeriodWaiverMaxLimit",
+      "@type": "xsd:string"
+    },
+    "transactionAmountOperand": {
+      "@id": "falcon:transactionAmountOperand",
+      "@type": "xsd:string"
+    },
+    "transactionAmountValue": {
+      "@id": "falcon:transactionAmountValue",
+      "@type": "xsd:string"
+    },
+    "excludeCashAdvance": {
+      "@id": "falcon:excludeCashAdvance",
+      "@type": "xsd:boolean"
+    },
+    "Taxes": "falcon:Taxes",
+    "cgst": {
+      "@id": "falcon:cgst",
+      "@type": "@id"
+    },
+    "igst": {
+      "@id": "falcon:igst",
+      "@type": "@id"
+    },
+    "sgst": {
+      "@id": "falcon:sgst",
+      "@type": "@id"
+    },
+    "Tax": "falcon:Tax",
+    "taxModelType": {
+      "@id": "falcon:taxModelType",
+      "@type": "xsd:string"
+    },
+    "TierFee": "falcon:TierFee",
+    "minAmount": {
+      "@id": "falcon:minAmount",
+      "@type": "xsd:string"
+    },
+    "maxAmount": {
+      "@id": "falcon:maxAmount",
+      "@type": "xsd:string"
+    },
+    "tierFeeModelType": {
+      "@id": "falcon:tierFeeModelType",
+      "@type": "xsd:string"
+    },
+    "chargeableReasons": {
+      "@id": "falcon:chargeableReasons",
+      "@container": "@list"
+    },
+    "TransactionCategory": "falcon:TransactionCategory",
+    "programCategory": {
+      "@id": "falcon:programCategory",
+      "@type": "xsd:string"
+    },
+    "refinancingRateAfterDueDate": {
+      "@id": "falcon:refinancingRateAfterDueDate",
+      "@type": "xsd:decimal"
+    },
+    "defaultRate": {
+      "@id": "falcon:defaultRate",
+      "@type": "xsd:decimal"
+    },
+    "fineRate": {
+      "@id": "falcon:fineRate",
+      "@type": "xsd:decimal"
+    },
+    "overdueRateAfterDueDate": {
+      "@id": "falcon:overdueRateAfterDueDate",
+      "@type": "xsd:decimal"
+    },
+    "minimumValue": {
+      "@id": "falcon:minimumValue",
+      "@type": "xsd:decimal"
+    },
+    "chargeOrder": {
+      "@id": "falcon:chargeOrder",
+      "@type": "xsd:decimal"
+    },
+    "npaChargeOrder": {
+      "@id": "falcon:npaChargeOrder",
+      "@type": "xsd:decimal"
+    },
+    "EnterpriseCreditLimitRequest": "falcon:EnterpriseCreditLimitRequest",
+    "creditLimit": {
+      "@id": "falcon:creditLimit"
+    },
+    "EnterpriseUpdateRequest": "falcon:EnterpriseUpdateRequest",
+    "identifierType": {
+      "@id": "falcon:identifierType",
+      "@type": "xsd:string"
+    },
+    "identifierValue": {
+      "@id": "falcon:identifierValue",
+      "@type": "xsd:string"
+    },
+    "Account": "falcon:Account",
+    "accountNumber": {
+      "@id": "falcon:accountNumber",
+      "@type": "xsd:string"
+    },
+    "branchName": {
+      "@id": "falcon:branchName",
+      "@type": "xsd:string"
+    },
+    "ifsc": {
+      "@id": "falcon:ifsc",
+      "@type": "xsd:string"
+    },
+    "AutoDebit": "falcon:AutoDebit",
+    "CreditLimit": "falcon:CreditLimit",
+    "max": {
+      "@id": "falcon:max",
+      "@type": "xsd:string"
+    },
+    "current": {
+      "@id": "falcon:current",
+      "@type": "xsd:string"
+    },
+    "Program": "falcon:Program",
+    "id": {
+      "@id": "falcon:id",
+      "@type": "xsd:string"
+    },
+    "account": {
+      "@id": "falcon:account",
+      "@type": "@id"
+    },
+    "autoDebit": {
+      "@id": "falcon:autoDebit",
+      "@type": "@id"
+    },
+    "Director": "falcon:Director",
+    "EnterpriseSummaryRequest": "falcon:EnterpriseSummaryRequest",
+    "programId": {
+      "@id": "falcon:programId",
+      "@type": "xsd:string"
+    },
+    "EnterpriseSummaryResponse": "falcon:EnterpriseSummaryResponse",
+    "Status": {
+      "@id": "falcon:Status",
+      "@type": "xsd:string"
+    },
+    "SubStatus": {
+      "@id": "falcon:SubStatus",
+      "@type": "xsd:string"
+    },
+    "programSubscriptionDate": {
+      "@id": "falcon:programSubscriptionDate",
+      "@type": "xsd:string"
+    },
+    "delinquencyCycle": {
+      "@id": "falcon:delinquencyCycle",
+      "@type": "xsd:integer"
+    },
+    "maxcreditLimit": {
+      "@id": "falcon:maxcreditLimit",
+      "@type": "xsd:string"
+    },
+    "availableCreditLimit": {
+      "@id": "falcon:availableCreditLimit",
+      "@type": "xsd:string"
+    },
+    "allocatedCreditLimit": {
+      "@id": "falcon:allocatedCreditLimit",
+      "@type": "xsd:string"
+    },
+    "unallocatedCreditLimit": {
+      "@id": "falcon:unallocatedCreditLimit",
+      "@type": "xsd:string"
+    },
+    "outstandingAmount": {
+      "@id": "falcon:outstandingAmount",
+      "@type": "xsd:string"
+    },
+    "cashAdvanceLimit": {
+      "@id": "falcon:cashAdvanceLimit",
+      "@type": "xsd:string"
+    },
+    "availableCashAdvanceLimit": {
+      "@id": "falcon:availableCashAdvanceLimit",
+      "@type": "xsd:string"
+    },
+    "unbilledCreditAmount": {
+      "@id": "falcon:unbilledCreditAmount",
+      "@type": "xsd:string"
+    },
+    "outstandingAuthorisationAmount": {
+      "@id": "falcon:outstandingAuthorisationAmount",
+      "@type": "xsd:string"
+    },
+    "minimumAmountDue": {
+      "@id": "falcon:minimumAmountDue",
+      "@type": "xsd:string"
+    },
+    "totalAmountDue": {
+      "@id": "falcon:totalAmountDue",
+      "@type": "xsd:string"
+    },
+    "overdueAmount": {
+      "@id": "falcon:overdueAmount",
+      "@type": "xsd:string"
+    },
+    "currentStatementStartDate": {
+      "@id": "falcon:currentStatementStartDate",
+      "@type": "xsd:string"
+    },
+    "currentStatementEndDate": {
+      "@id": "falcon:currentStatementEndDate",
+      "@type": "xsd:string"
+    },
+    "EmployeeResponse": "falcon:EmployeeResponse",
+    "enterpriseName": {
+      "@id": "falcon:enterpriseName",
+      "@type": "xsd:string"
+    },
+    "userDetails": {
+      "@id": "falcon:userDetails",
+      "@container": "@list"
+    },
+    "total_count": {
+      "@id": "falcon:total_count",
+      "@type": "xsd:integer"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Falcon API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Falcon's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-14) from openapi/falcon-add-a-program-openapi.yml, openapi/falcon-add-a-user-openapi.yml, openapi/falcon-add-an-aggregator-openapi.yml.",
+  "dcterms:created": "2026-10-14",
+  "dcterms:source": [
+    "openapi/falcon-add-a-program-openapi.yml",
+    "openapi/falcon-add-a-user-openapi.yml",
+    "openapi/falcon-add-an-aggregator-openapi.yml",
+    "openapi/falcon-add-an-enterprise-admin-openapi.yml",
+    "openapi/falcon-add-an-issuer-openapi.yml"
+  ]
+}

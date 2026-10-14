@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-enterprise-request-schema.json",
+  "title": "EnterpriseRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-onboard-an-enterprise-openapi.yml#/components/schemas/EnterpriseRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the enterprise you want to add."
+    },
+    "registeredName": {
+      "type": "string",
+      "description": "The registered name of the enterprise."
+    },
+    "incorporationDate": {
+      "type": "string",
+      "description": "The date of incorporation of the enterprise."
+    },
+    "website": {
+      "type": "string",
+      "description": "The official website of the enterprise."
+    },
+    "mobile": {
+      "type": "string",
+      "description": "The mobile number of the admin/POC of the enterprise."
+    },
+    "email": {
+      "type": "string",
+      "description": "The email ID of the admin/POC of the enterprise.",
+      "format": "email"
+    },
+    "classification": {
+      "type": "string",
+      "description": "The classification of the enterprise."
+    },
+    "industryType": {
+      "type": "string",
+      "description": "The industry type of the enterprise."
+    },
+    "legalConstitution": {
+      "type": "string",
+      "description": "The legal constitution of the enterprise."
+    },
+    "relatedType": {
+      "type": "string",
+      "description": "The related type of the enterprise."
+    },
+    "relationshipType": {
+      "type": "string",
+      "description": "The type of relationship of the admin/POC with the enterprise."
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of the enterprise."
+    },
+    "cif": {
+      "type": "string",
+      "description": "The CIF number of the enterprise."
+    },
+    "pan": {
+      "type": "string",
+      "description": "The PAN of the enterprise."
+    },
+    "cin": {
+      "type": "string",
+      "description": "The CIN of the enterprise."
+    },
+    "gstin": {
+      "type": "string",
+      "description": "The GSTIN of the enterprise."
+    },
+    "addresses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of the address. Along with this address type, you should also add the communication address.",
+            "enum": [
+              "REGISTERED",
+              "COMMUNICATION"
+            ]
+          },
+          "address": {
+            "type": "string",
+            "description": "The complete address of the enterprise."
+          },
+          "city": {
+            "type": "string",
+            "description": "The city of the enterprise."
+          },
+          "state": {
+            "type": "string",
+            "description": "The state of the enterprise."
+          },
+          "pinCode": {
+            "type": "string",
+            "description": "The pin code of the enterprise."
+          },
+          "country": {
+            "type": "string",
+            "description": "The country of the enterprise."
+          }
+        }
+      }
+    },
+    "programs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The ID of the program."
+          },
+          "dueDate": {
+            "type": "string",
+            "description": "The due date of the program."
+          },
+          "account": {
+            "type": "object",
+            "properties": {
+              "accountNumber": {
+                "type": "string",
+                "description": "The account number of the enterprise."
+              },
+              "branchName": {
+                "type": "string",
+                "description": "The branch name of the enterprise."
+              },
+              "ifsc": {
+                "type": "string",
+                "description": "The IFSC of the enterprise."
+              }
+            }
+          },
+          "autoDebit": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "description": "The status of auto debit.",
+                "enum": [
+                  "YES",
+                  "NO"
+                ]
+              },
+              "type": {
+                "type": "string",
+                "description": "The type of auto debit."
+              }
+            }
+          },
+          "creditLimit": {
+            "type": "object",
+            "properties": {
+              "max": {
+                "type": "string",
+                "description": "The maximum credit limit of the enterprise."
+              },
+              "current": {
+                "type": "string",
+                "description": "The current credit limit of the enterprise."
+              }
+            }
+          }
+        }
+      }
+    },
+    "directors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the director."
+          },
+          "email": {
+            "type": "string",
+            "description": "The email ID of the director.",
+            "format": "email"
+          }
+        }
+      }
+    }
+  }
+}

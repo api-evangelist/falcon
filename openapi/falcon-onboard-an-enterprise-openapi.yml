@@ -1,0 +1,257 @@
+openapi: 3.0.3
+info:
+  title: Onboard an Enterprise
+  description: This API is used by issuer/TSP to onboard an enterprise.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/open-api/falcon/v1
+paths:
+  /enterprise:
+    post:
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - registeredName
+              - mobile
+              - email
+              - classification
+              - type
+              - cif
+              - gstin
+              - addresses
+              - addresses[0].type
+              - addresses[0].address
+              - addresses[0].city
+              - addresses[0].state
+              - addresses[0].pinCode
+              - addresses[0].country
+              - addresses[1].type
+              - addresses[1].address
+              - addresses[1].city
+              - addresses[1].state
+              - addresses[1].pinCode
+              - addresses[1].country
+              - programs
+              - programs[0].id
+              - programs[0].creditLimit
+              - programs[0].creditLimit.max
+              - programs[0].creditLimit.current
+              - programs[0].dueDate
+              - directors
+              - directors[0].name
+              $ref: '#/components/schemas/EnterpriseRequest'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnterpriseResponse'
+components:
+  schemas:
+    EnterpriseRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the enterprise you want to add.
+          example: FALCON
+        registeredName:
+          type: string
+          description: The registered name of the enterprise.
+          example: FALCON ENTERPRISES
+        incorporationDate:
+          type: string
+          description: The date of incorporation of the enterprise.
+          example: '2021-01-01T00:00:00.000Z'
+        website:
+          type: string
+          description: The official website of the enterprise.
+          example: https://www.falconfs.com/
+        mobile:
+          type: string
+          description: The mobile number of the admin/POC of the enterprise.
+          example: 9876543210
+        email:
+          type: string
+          description: The email ID of the admin/POC of the enterprise.
+          format: email
+          example: abc@example.com
+        classification:
+          type: string
+          description: The classification of the enterprise.
+          example: MEDIUM
+        industryType:
+          type: string
+          description: The industry type of the enterprise.
+          example: MANUFACTURING
+        legalConstitution:
+          type: string
+          description: The legal constitution of the enterprise.
+          example: PRIVATE_LIMITED
+        relatedType:
+          type: string
+          description: The related type of the enterprise.
+          example: RESIDENT_INDIAN_INDIVIDUAL
+        relationshipType:
+          type: string
+          description: The type of relationship of the admin/POC with the enterprise.
+          example: HOLDING_COMPANY
+        type:
+          type: string
+          description: The type of the enterprise.
+          example: CORPORATE
+        cif:
+          type: string
+          description: The CIF number of the enterprise.
+          example: 123456789
+        pan:
+          type: string
+          description: The PAN of the enterprise.
+          example: ABCDE1234F
+        cin:
+          type: string
+          description: The CIN of the enterprise.
+          example: 223410000000000
+        gstin:
+          type: string
+          description: The GSTIN of the enterprise.
+          example: 33AAACT3373J1ZF
+        addresses:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The type of the address. Along with this address type, you should also add the communication address.
+                example: REGISTERED
+                enum:
+                - REGISTERED
+                - COMMUNICATION
+              address:
+                type: string
+                description: The complete address of the enterprise.
+                example: Wework, Blue 1 Sqaure
+              city:
+                type: string
+                description: The city of the enterprise.
+                example: Gurugram
+              state:
+                type: string
+                description: The state of the enterprise.
+                example: Haryana
+              pinCode:
+                type: string
+                description: The pin code of the enterprise.
+                example: 122001
+              country:
+                type: string
+                description: The country of the enterprise.
+                example: India
+        programs:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The ID of the program.
+                example: 1234567890
+              dueDate:
+                type: string
+                description: The due date of the program.
+                example: '2023-12-31T00:00:00.000Z'
+              account:
+                type: object
+                properties:
+                  accountNumber:
+                    type: string
+                    description: The account number of the enterprise.
+                    example: 123456789012
+                  branchName:
+                    type: string
+                    description: The branch name of the enterprise.
+                    example: Main Branch
+                  ifsc:
+                    type: string
+                    description: The IFSC of the enterprise.
+                    example: ABCD0123456
+              autoDebit:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The status of auto debit.
+                    example: 'YES'
+                    enum:
+                    - 'YES'
+                    - 'NO'
+                  type:
+                    type: string
+                    description: The type of auto debit.
+                    example: MAD
+              creditLimit:
+                type: object
+                properties:
+                  max:
+                    type: string
+                    description: The maximum credit limit of the enterprise.
+                    example: 1000000
+                  current:
+                    type: string
+                    description: The current credit limit of the enterprise.
+                    example: 500000
+        directors:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The name of the director.
+                example: John Doe
+              email:
+                type: string
+                description: The email ID of the director.
+                example: john.doe@example.com
+                format: email
+    EnterpriseResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        enterpriseId:
+          type: string
+          description: The unique ID of the onboarded enterprise.
+          format: uuid
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/onboard-enterprise.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

@@ -1,0 +1,130 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/view-issuer-programs.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "title": "View Issuer Programs",
+    "description": "Use this endpoint to fetch the list of programs of an issuer.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1"
+    }
+   ],
+   "paths": {
+    "/issuer/{issuerName}": {
+     "get": {
+      "security": [
+       {
+        "bearerAuth": []
+       }
+      ],
+      "summary": "View Issuer Programs",
+      "description": "Use this endpoint to fetch the list of programs of an issuer.",
+      "operationId": "view-issuer-programs",
+      "parameters": [
+       {
+        "name": "x-tenant-id",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "falcon"
+        }
+       },
+       {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "Bearer {{access_token}}"
+        }
+       },
+       {
+        "name": "issuerName",
+        "in": "path",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "description": "The name of the issuer.",
+         "example": "falcon"
+        }
+       }
+      ],
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "properties": {
+            "issuerProgram": {
+             "type": "object",
+             "description": "The issuer program details.",
+             "properties": {
+              "product": {
+               "type": "string",
+               "description": "The card type.",
+               "example": "Commercial Credit Card"
+              },
+              "productVariant": {
+               "type": "string",
+               "description": "The card variant.",
+               "example": "Shivalik Falcon Credit Card"
+              },
+              "program": {
+               "type": "string",
+               "description": "The program under which the card is issued.",
+               "example": "Classic Credit Card"
+              },
+              "programeID": {
+               "type": "string",
+               "description": "The unique program id.",
+               "example": "SFCC01"
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "components": {
+    "securitySchemes": {
+     "bearerAuth": {
+      "type": "http",
+      "scheme": "bearer"
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 104,
+     "1": 121,
+     "2": 240,
+     "3": 173,
+     "4": 96,
+     "5": 87,
+     "6": 110,
+     "7": 217,
+     "8": 135,
+     "9": 69,
+     "10": 253,
+     "11": 127
+    }
+   }
+  }
+ }
+]

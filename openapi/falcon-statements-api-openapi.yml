@@ -1,0 +1,767 @@
+openapi: 3.0.1
+info:
+  title: Statements API
+  description: APIs to retrieve and manage credit card statements.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+paths:
+  /statement-past/user/{statementId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View or Download Past User Account Statements
+      description: Use this endpoint to fetch or dowload particular statement for a user account.
+      operationId: get-past-user-account-statement
+      parameters:
+      - name: statementId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the user account statement.
+        example: statement123
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statementId:
+                    type: string
+                    description: The unique identifier for the statement.
+                    example: STAT1234
+                  statementEndDate:
+                    type: string
+                    description: The end date of the statement period.
+                    example: '2023-10-01T00:00:00.000Z'
+                  dueDate:
+                    type: string
+                    description: The due date for payment.
+                    example: '2023-10-15T00:00:00.000Z'
+                  totalAmountDue:
+                    type: string
+                    description: The total amount due in the statement.
+                    example: 1500
+                  minimumAmountDue:
+                    type: string
+                    description: The minimum amount due in the statement.
+                    example: 500
+                  availableCreditLimit:
+                    type: string
+                    description: The available credit limit of the user account.
+                    example: 3500
+                  totalCreditLimit:
+                    type: string
+                    description: The total credit limit of the user account.
+                    example: 5000
+                  availableCashLimit:
+                    type: string
+                    description: The available cash limit of the user account.
+                    example: 2000
+                  totalCashLimit:
+                    type: string
+                    description: The total cash limit of the user account.
+                    example: 3000
+                  openingBalance:
+                    type: string
+                    description: The opening balance of the statement.
+                    example: 1000
+                  amountPaid:
+                    type: string
+                    description: The amount paid by the user.
+                    example: 500
+                  purchases:
+                    type: string
+                    description: The total purchases made during the statement period.
+                    example: 3000
+                  financeCharges:
+                    type: string
+                    description: The finance charges applied during the statement period.
+                    example: 100
+                  overlimitAmount:
+                    type: string
+                    description: The overlimit amount if applicable.
+                    example: 200
+                  pastDues:
+                    type: object
+                    description: Details of past dues.
+                    properties:
+                      OneMonthPastDue:
+                        type: string
+                        description: The amount past due for one month.
+                        example: 100
+                      TwoMonthPastDue:
+                        type: string
+                        description: The amount past due for two months.
+                        example: 200
+                      ThreeMonthPastDue:
+                        type: string
+                        description: The amount past due for three months.
+                        example: 300
+                  totalRewardPoints:
+                    type: string
+                    description: The total reward points earned during the statement period.
+                    example: 1000
+                  pdfLink:
+                    type: string
+                    description: The link to download the PDF of the statement.
+                    example: https://example.com/statement123.pdf
+                    format: uri
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  /statement/enterprise/email:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Email an Enterprise Statement
+      description: Use this endpoint to send PDF statement to corporate on their registered email ID.
+      operationId: email-enterprise-statement
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - statementId
+              - email
+              properties:
+                statementId:
+                  type: string
+                  description: The unique identifier for the statement.
+                  example: statement123
+                email:
+                  type: string
+                  description: The email address to send the statement to.
+                  example: abc@example.com
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  /statement/user/{statementId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View or Download User Account Statement
+      description: Use this endpoint to fetch/dowload particular statement for a user account.
+      operationId: get-user-account-statement
+      parameters:
+      - name: statementId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the user account statement.
+        example: statement123
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statementId:
+                    type: string
+                    description: The unique identifier for the statement.
+                    example: STAT1234
+                  statementEndDate:
+                    type: string
+                    description: The end date of the statement period.
+                    example: '2023-10-01'
+                  dueDate:
+                    type: string
+                    description: The due date for payment.
+                    example: '2023-10-15'
+                  totalAmountDue:
+                    type: string
+                    description: The total amount due in the statement.
+                    example: '1500'
+                  minimumAmountDue:
+                    type: string
+                    description: The minimum amount due in the statement.
+                    example: '500'
+                  availableCreditLimit:
+                    type: string
+                    description: The available credit limit of the user account.
+                    example: '3500'
+                  totalCreditLimit:
+                    type: string
+                    description: The total credit limit of the user account.
+                    example: '5000'
+                  availableCashLimit:
+                    type: string
+                    description: The available cash limit of the user account.
+                    example: '2000'
+                  totalCashLimit:
+                    type: string
+                    description: The total cash limit of the user account.
+                    example: '3000'
+                  openingBalance:
+                    type: string
+                    description: The opening balance of the statement.
+                    example: '1000'
+                  amountPaid:
+                    type: string
+                    description: The amount paid by the user.
+                    example: '500'
+                  purchases:
+                    type: string
+                    description: The total purchases made during the statement period.
+                    example: '3000'
+                  financeCharges:
+                    type: string
+                    description: The finance charges applied during the statement period.
+                    example: '100'
+                  overlimitAmount:
+                    type: string
+                    description: The overlimit amount if applicable.
+                    example: '200'
+                  pastDues:
+                    type: array
+                    description: Details of past dues.
+                    items:
+                      type: object
+                      properties:
+                        oneMonthPastDue:
+                          type: string
+                          description: The amount past due for one month.
+                          example: '100'
+                        twoMonthPastDue:
+                          type: string
+                          description: The amount past due for two months.
+                          example: '200'
+                        threeMonthPastDue:
+                          type: string
+                          description: The amount past due for three months.
+                          example: '300'
+                  totalRewardPoints:
+                    type: string
+                    description: The total reward points earned during the statement period.
+                    example: '1000'
+                  pdfLink:
+                    type: string
+                    description: The link to download the PDF of the statement.
+                    example: https://example.com/statement123.pdf
+                    format: uri
+  /statementlist/corporate/{accountId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View the Enterprise Statement List
+      description: Use this endpoint to fetch list of statements for an enterprise account.
+      operationId: get-enterprise-statement-list
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the corporate account.
+        example: account123
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: integer
+                    description: The unique identifier of the corporate account.
+                    example: 202000004782
+                  statementLists:
+                    type: array
+                    description: List of statements for the corporate account.
+                    items:
+                      type: object
+                      properties:
+                        statementId:
+                          type: string
+                          description: The unique identifier of the statement.
+                          example: STAT1222
+                        openingDate:
+                          type: string
+                          description: The opening date of the statement.
+                          example: 02-09-2023
+                        closingDate:
+                          type: string
+                          description: The closing date of the statement.
+                          example: 02-10-2023
+                        statementDate:
+                          type: string
+                          description: The date of the statement.
+                          example: 02-10-2023
+                        period:
+                          type: integer
+                          description: The period of the statement in days.
+                          example: 31
+                        pdfLinkWithPassword:
+                          type: string
+                          description: The link to download the PDF of the statement with password.
+                          format: uri
+                          example: https://www.google.com/pdf_with_password
+                        pdfLinkWithoutPassword:
+                          type: string
+                          description: The link to download the PDF of the statement without password.
+                          format: uri
+                          example: https://www.google.com/pdf_without_password
+                  totalCount:
+                    type: integer
+                    description: The total number of statements available.
+                    example: 1
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  /statementlist/enterprise-past/{accountId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View or Download Past Enterprise Statements
+      description: Use this endpoint to fetch list of statements for a corporate account in a paginated way, starting from the latest statement.
+      operationId: get-enterprise-past-statements
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the corporate account.
+        example: account123
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseId:
+                    type: string
+                    description: The unique identifier for the enterprise.
+                    example: enterprise123
+                  statementList:
+                    type: array
+                    description: List of statements for the corporate account.
+                    items:
+                      type: object
+                      properties:
+                        statementId:
+                          type: string
+                          description: The unique identifier for the statement.
+                          example: statement123
+                        statementStartDate:
+                          type: string
+                          description: The start date of the statement period.
+                          example: '2023-09-01'
+                        statementEndDate:
+                          type: string
+                          description: The end date of the statement period.
+                          example: '2023-09-30'
+                        totalAmountDue:
+                          type: integer
+                          description: The total amount due of the statement.
+                          example: 2000
+                        minimumAmountDue:
+                          type: integer
+                          description: The minimum amount due of the statement.
+                          example: 500
+                        dueDate:
+                          type: string
+                          description: The due date for the statement.
+                          example: '2023-10-15'
+                        pdfLink:
+                          type: string
+                          description: The link to download the PDF of the statement.
+                          example: https://example.com/statement123.pdf
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  /statementlist/enterprise/{statementId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View or Download Enterprise Statement
+      description: Use this endpoint to fetch/download particular statement for a corporate account.
+      operationId: get-enterprise-statement
+      parameters:
+      - name: statementId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the corporate account statement.
+        example: statement123
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseId:
+                    type: string
+                    description: The unique identifier for the enterprise.
+                    example: enterprise123
+                  statementList:
+                    type: array
+                    description: List of statements for the corporate account.
+                    items:
+                      type: object
+                      properties:
+                        statementId:
+                          type: string
+                          description: The unique identifier for the statement.
+                          example: statement123
+                        statementStartDate:
+                          type: string
+                          description: The start date of the statement period.
+                          example: '2023-09-01'
+                        statementEndDate:
+                          type: string
+                          description: The end date of the statement period.
+                          example: '2023-09-30'
+                        totalAmountDue:
+                          type: integer
+                          description: The total amount due of the statement.
+                          example: 2000
+                        minimumAmountDue:
+                          type: integer
+                          description: The minimum amount due of the statement.
+                          example: 500
+                        dueDate:
+                          type: string
+                          description: The due date for the statement.
+                          example: '2023-10-15'
+                        pdfLink:
+                          type: string
+                          description: The link to download the PDF of the statement.
+                          example: https://example.com/statement123.pdf
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  /statementlist/{accountId}/user?pageOffset=2&pageSize=12':
+    get:
+      security:
+      - bearerAuth: []
+      summary: View the User Account Statement List
+      description: Use this endpoint to fetch a list of statements for a user account.
+      operationId: get-user-statement-list
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the user account.
+        example: account123
+      - name: pageOffset
+        in: query
+        required: true
+        schema:
+          type: integer
+          description: The offset for pagination.
+          example: 2
+      - name: pageSize
+        in: query
+        required: true
+        schema:
+          type: integer
+          description: The number of items per page.
+          example: 12
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: integer
+                    description: The unique identifier of the user account.
+                    example: 202000004784
+                  statementLists:
+                    type: array
+                    description: List of statements for the user account.
+                    items:
+                      type: object
+                      properties:
+                        statementId:
+                          type: string
+                          description: The unique identifier of the statement.
+                          example: STAT1222
+                        openingDate:
+                          type: string
+                          description: The opening date of the statement.
+                          format: date
+                          example: 02-09-2023
+                        closingDate:
+                          type: string
+                          description: The closing date of the statement.
+                          format: date
+                          example: 02-10-2023
+                        statementDate:
+                          type: string
+                          description: The date of the statement.
+                          format: date
+                          example: 02-10-2023
+                        period:
+                          type: integer
+                          description: The period of the statement in days.
+                          example: 31
+                        pdfLinkWithPassword:
+                          type: string
+                          description: The link to download the PDF of the statement with password.
+                          format: uri
+                          example: https://www.example.com/secure-pdf
+                        pdfLinkWithoutPassword:
+                          type: string
+                          description: The link to download the PDF of the statement without password.
+                          format: uri
+                          example: https://www.example.com/public-pdf
+                  totalCount:
+                    type: integer
+                    example: 1
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  /user/{bank}/{userId}/statement:
+    get:
+      security:
+      - bearerAuth: []
+      summary: Get a Credit Card Statement
+      description: Use this endpoint to fetch month's credit card statement for a user's credit card.
+      operationId: get-credit-card-statement
+      parameters:
+      - name: bank
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The bank name associated with the credit card.
+          example: HDFC
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The unique identifier for the user.
+          example: user123
+      - name: month
+        in: query
+        required: true
+        schema:
+          type: string
+          description: The month for which the statement is requested.
+          example: 2023-10
+      - name: fileType
+        in: query
+        required: true
+        schema:
+          type: string
+          description: The type of file to be returned (PDF or CSV).
+          example: PDF
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  openingBalance:
+                    type: integer
+                    description: The opening balance for the statement period.
+                    example: 1000
+                  closingBalance:
+                    type: integer
+                    description: The closing balance for the statement period.
+                    example: 1500
+                  statementDate:
+                    type: string
+                    description: The date of the statement.
+                    example: '2023-10-01'
+                  dueDate:
+                    type: string
+                    description: The due date for payment.
+                    example: '2023-10-15'
+                  creditLimit:
+                    type: integer
+                    description: The credit limit for the card.
+                    example: 5000
+                  availableCredit:
+                    type: integer
+                    description: The available credit limit.
+                    example: 3500
+                  pastDueAmount:
+                    type: integer
+                    description: The amount past due.
+                    example: 200
+                  purchases:
+                    type: integer
+                    description: The total purchases made during the statement period.
+                    example: 3000
+                  transactions:
+                    type: array
+                    description: List of transactions made during the statement period.
+                    items:
+                      type: object
+                      properties:
+                        transactionAmount:
+                          type: integer
+                          description: The amount of the transaction.
+                          example: 100
+                        transactionType:
+                          type: string
+                          description: The type of transaction.
+                          example: purchase
+                        transactionDescription:
+                          type: string
+                          description: The description of the transaction.
+                          example: Grocery Store
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/email-enterprise-statement.md
+  - https://docs.falconfs.com/reference/get-credit-card-statement.md
+  - https://docs.falconfs.com/reference/get-user-account-statement.md
+  - https://docs.falconfs.com/reference/view-enterprise-past-statements.md
+  - https://docs.falconfs.com/reference/view-enterprise-statement-list.md
+  - https://docs.falconfs.com/reference/view-enterprise-statement.md
+  - https://docs.falconfs.com/reference/view-past-user-account-statement.md
+  - https://docs.falconfs.com/reference/view-user-statement-list.md
+  merge:
+    pages: 8
+    deduped: 7
+    conflicts_kept_first: 0

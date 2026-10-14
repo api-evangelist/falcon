@@ -1,0 +1,216 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/update-user-details.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "title": "Update User Details",
+    "description": "Use this endpoint to update user details.",
+    "version": "2.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/"
+    }
+   ],
+   "paths": {
+    "/user/{userId}": {
+     "put": {
+      "summary": "Update User Details",
+      "description": "Use this endpoint to update user details.",
+      "operationId": "update-user-details",
+      "parameters": [
+       {
+        "name": "userId",
+        "in": "path",
+        "required": true,
+        "schema": {
+         "type": "string"
+        },
+        "description": "The unique user ID of the user you want to update the details.",
+        "example": "ac2b9817-726b-4453-befe-fb8bfdc7a3a3"
+       },
+       {
+        "name": "x-tenant-id",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string"
+        },
+        "example": "falcon"
+       },
+       {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string"
+        },
+        "example": "Bearer {{access_token}}"
+       }
+      ],
+      "requestBody": {
+       "required": true,
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "userMobileNumber",
+           "email"
+          ],
+          "properties": {
+           "userMobileNumber": {
+            "type": "string",
+            "description": "The user's mobile number.",
+            "example": "9999999999"
+           },
+           "email": {
+            "type": "string",
+            "description": "The user's email address.",
+            "example": "test@gmail.com"
+           },
+           "permanentAddress": {
+            "type": "object",
+            "properties": {
+             "houseNumber": {
+              "type": "string",
+              "description": "The house number.",
+              "example": "11k"
+             },
+             "address": {
+              "type": "string",
+              "description": "The permanent address.",
+              "example": "Permanent"
+             },
+             "locality": {
+              "type": "string",
+              "description": "The locality of the address.",
+              "example": "Udyog Vihar"
+             },
+             "city": {
+              "type": "string",
+              "description": "The city of the address.",
+              "example": "Gurgaon"
+             },
+             "state": {
+              "type": "string",
+              "description": "The state of the address.",
+              "example": "Haryana"
+             },
+             "pinCode": {
+              "type": "string",
+              "description": "The postal code of the address.",
+              "example": "122001"
+             },
+             "country": {
+              "type": "string",
+              "description": "The country of the address.",
+              "example": "INDIA"
+             }
+            }
+           },
+           "deliveryAddress": {
+            "type": "object",
+            "properties": {
+             "address": {
+              "type": "string",
+              "description": "The complete delivery address.",
+              "example": "Delivery"
+             },
+             "city": {
+              "type": "string",
+              "description": "The city of the delivery address.",
+              "example": "Gurgaon"
+             },
+             "state": {
+              "type": "string",
+              "description": "The state of the delivery address.",
+              "example": "Delhi"
+             },
+             "pinCode": {
+              "type": "string",
+              "description": "The postal code of the delivery address.",
+              "example": "122001"
+             },
+             "country": {
+              "type": "string",
+              "description": "The country of the delivery address.",
+              "example": "INDIA"
+             }
+            }
+           },
+           "officeAddress": {
+            "type": "object",
+            "properties": {
+             "address": {
+              "type": "string",
+              "description": "The complete office address.",
+              "example": "Delivery"
+             },
+             "city": {
+              "type": "string",
+              "description": "The city of the office address.",
+              "example": "Gurgaon"
+             },
+             "state": {
+              "type": "string",
+              "description": "The state of the office address.",
+              "example": "Delhi"
+             },
+             "pinCode": {
+              "type": "string",
+              "description": "The postal code of the office address.",
+              "example": "122001"
+             },
+             "country": {
+              "type": "string",
+              "description": "The country of the office address.",
+              "example": "INDIA"
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "example": {}
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 103,
+     "1": 234,
+     "2": 60,
+     "3": 168,
+     "4": 185,
+     "5": 79,
+     "6": 134,
+     "7": 218,
+     "8": 94,
+     "9": 210,
+     "10": 102,
+     "11": 164
+    }
+   }
+  }
+ }
+]

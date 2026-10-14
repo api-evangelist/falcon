@@ -1,0 +1,977 @@
+openapi: 3.0.0
+info:
+  title: Repayment APIs
+  description: API endpoints for credit card repayments, including bill payments, reversals, auto-debit configurations, and payment status checks.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+paths:
+  /FD/payment/PHONEPE/inquiry/order/{oderID}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: Fetch Payment Status
+      description: Use this endpoint to fetch the payment status.
+      operationId: fetch-payment-status
+      parameters:
+      - name: oderID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the order for the payment status.
+        example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: enterpriseId
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The ID of the enterprise.
+          example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+        example: nonjit
+      - name: userId
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The ID of the user.
+          example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The status of the payment.
+                    example: SUCCESS
+                    enum:
+                    - SUCCESS
+                    - FAILURE
+                    - PENDING
+                  message:
+                    type: string
+                    description: The message for the payment status.
+                    example: Your payment is successful
+                  state:
+                    type: string
+                    description: The state of the payment.
+                    example: PAYMENT_SUCCESS
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+  /account/auto-debit:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Set or Change Auto-Debit Configuration of an User Account
+      description: Use this endpoint to set a configuration of auto-pay/ standing instruction for an account.
+      operationId: set-auto-debit-configuration
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - amountConfig
+              - bank
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account for the auto-debit configuration.
+                  example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+                amountConfig:
+                  type: string
+                  description: The configuration for the auto-debit amount.
+                  example: MAD
+                bank:
+                  type: object
+                  description: The bank details for the auto-debit configuration.
+                  required:
+                  - accountnumber
+                  - Ifsc
+                  properties:
+                    accountnumber:
+                      type: string
+                      description: The account number for the auto-debit configuration.
+                      example: '12345678901'
+                    Ifsc:
+                      type: string
+                      description: The IFSC of the bank.
+                      example: HDFC00000056
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+  /account/reverse:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Reverse a Repayment Transaction
+      description: Use this endpoint to reverse a repayment transaction.
+      operationId: reverse-repayment-transaction
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - transactionId
+              - amount
+              properties:
+                transactionId:
+                  type: string
+                  description: The ID of the transaction to reverse.
+                  example: '20200000642'
+                amount:
+                  type: string
+                  description: The amount to reverse.
+                  example: '10000'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+  /account/{accountID}/net-banking/payment:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Repayment via Netbanking
+      description: Use this endpoint to initiate a payment via Netbanking.
+      operationId: initiate-payment-netbanking
+      parameters:
+      - name: accountID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the account for the repayment.
+        example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - txnAmt
+              - txnScAmt
+              properties:
+                txnAmt:
+                  type: number
+                  description: The transaction amount.
+                  example: 10
+                txnScAmt:
+                  type: number
+                  description: The transaction service charge amount.
+                  example: 0
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+  /banking/payment/PHONEPE/options:
+    get:
+      security:
+      - bearerAuth: []
+      summary: Fetch Payment Options
+      description: Use this endpoint to fetch all the payment modes available for the payment.
+      operationId: fetch-payment-options
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: enterpriseId
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The ID of the enterprise for the payment options.
+          example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  upiCollect:
+                    type: boolean
+                    description: Indicates if UPI collect is available.
+                    example: true
+                    enum:
+                    - true
+                    - false
+                  upiScanPay:
+                    type: boolean
+                    description: Indicates if UPI scan and pay is available.
+                    example: true
+                    enum:
+                    - true
+                    - false
+                  netBanking:
+                    type: boolean
+                    description: Indicates if net banking is available.
+                    example: true
+                    enum:
+                    - true
+                    - false
+                  popularBanks:
+                    type: array
+                    description: List of popular banks available for payment.
+                    items:
+                      type: object
+                      properties:
+                        bankId:
+                          type: string
+                          description: The ID of the bank.
+                          example: HDFC
+                        bankName:
+                          type: string
+                          description: The name of the bank.
+                          example: Hdfc Bank
+                        bankShortName:
+                          type: string
+                          description: The short name of the bank.
+                          example: 'null'
+                        bankLogo:
+                          type: string
+                          description: The logo of the bank.
+                          example: https://img.phonepe.com/images/banks/40/40/HDFC.png
+                example:
+                  upiCollect: true
+                  upiScanPay: true
+                  netBanking: true
+                  popularBanks:
+                  - bankId: HDFC
+                    bankName: Hdfc Bank
+                    bankShortName: 'null'
+                    bankLogo: https://img.phonepe.com/images/banks/40/40/HDFC.png
+                  - bankId: SBIN
+                    bankName: State bank Of India
+                    bankShortName: SBI
+                    bankLogo: https://img.phonepe.com/images/banks/40/40/SBIN.png
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+  /banking/payment/PHONEPE/validate/vpa:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Validate Virtual Payment Address
+      description: Use this endpoint to validate the virtual payment address entered by the user.
+      operationId: validate-vpa
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: enterpriseId
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The ID of the enterprise.
+          example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      - name: userId
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The ID of the user.
+          example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - vpa
+              properties:
+                vpa:
+                  type: string
+                  description: The virtual payment address to validate.
+                  example: abc08@ybl
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The status of the validation.
+                    example: SUCCESS
+                    enum:
+                    - SUCCESS
+                    - FAILURE
+                  message:
+                    type: string
+                    description: The message for the validation status.
+                    example: Your request has been successfully completed.
+                  name:
+                    type: string
+                    description: The name of the user associated with the VPA.
+                    example: ABC
+                  vpa:
+                    type: string
+                    description: The validated virtual payment address.
+                    example: abc08@ybl
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+  /enterprise/account/auto-debit:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Set or Change Auto-Debit Configuration of an Enterprise Account
+      description: Use this endpoint to set a configuration of auto-pay/ standing instruction for an enterprise account.
+      operationId: set-auto-debit-configuration-enterprise
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - enterpriseid
+              - programid
+              - amountConfig
+              - bank
+              properties:
+                enterpriseid:
+                  type: string
+                  description: The ID of the enterprise for the auto-debit configuration.
+                  example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+                programid:
+                  type: string
+                  description: The ID of the program for the auto-debit configuration.
+                  example: 123456yhtj
+                amountConfig:
+                  type: string
+                  description: The configuration for the auto-debit amount.
+                  example: MAD
+                bank:
+                  type: object
+                  description: The bank details for the auto-debit configuration.
+                  required:
+                  - accountnumber
+                  - Ifsc
+                  properties:
+                    accountnumber:
+                      type: string
+                      description: The account number for the auto-debit configuration.
+                      example: '12345678901'
+                    Ifsc:
+                      type: string
+                      description: The IFSC of the bank.
+                      example: HDFC00000056
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+  /enterprise/{enterpriseId}/auto-debit:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Enterprise Account Auto-Debit Configuration
+      description: Use this endpoint to view configuration of auto-pay/ standing instruction of an enterprise account.
+      operationId: view-enterprise-auto-debit-configuration
+      parameters:
+      - name: enterpriseId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the enterprise for the auto-debit configuration.
+        example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  programID:
+                    type: string
+                    description: The ID of the program for the auto-debit configuration.
+                    example: 123456yhtj
+                  opt:
+                    type: string
+                    description: Indicates if auto-debit is enabled.
+                    example: 'yes'
+                    enum:
+                    - 'yes'
+                    - 'no'
+                  amountConfig:
+                    type: string
+                    description: Amount configuration type.
+                    example: MAD
+                  bank:
+                    type: object
+                    description: Bank details for the auto-debit configuration.
+                    properties:
+                      accountnumber:
+                        type: string
+                        description: The bank account number.
+                        example: '12345678901'
+                      Ifsc:
+                        type: string
+                        description: The IFSC of the bank.
+                        example: HDFC00000056
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+  /initiate-payment:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Repayment via a Payment Gateway
+      description: Use this endpoint to make repayment using a payment gateway.
+      operationId: initiate-payment-pg
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - amountType
+              - amount
+              - redirectUrl
+              properties:
+                accountId:
+                  type: string
+                  description: The account ID for the repayment.
+                  example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+                amountType:
+                  type: string
+                  description: The type of amount for the repayment.
+                  example: OTHER
+                amount:
+                  type: string
+                  description: The repayment amount.
+                  example: '10000'
+                redirectUrl:
+                  type: string
+                  description: The URL to redirect to after the payment.
+                  example: https://creditkvbqa.tab.kitecash.in/home
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  /repayment:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Repay a User Account
+      description: Use this endpoint to pay a credit card bill.
+      operationId: repay-user-account
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - amountType
+              - currency
+              - amount
+              - repaymentMode
+              - purpose
+              - requestIdentifier
+              - identifierNumber
+              properties:
+                currency:
+                  type: string
+                  description: The currency of the repayment.
+                  example: INR
+                amount:
+                  type: string
+                  description: The repayment amount.
+                  example: '602.35'
+                repaymentMode:
+                  type: string
+                  description: The repayment mode.
+                  example: DIRECT_DEBIT
+                purpose:
+                  type: string
+                  description: The repayment pusrpose.
+                  example: CUSTOMER_BILL_PAYMENT
+                referenceNumber:
+                  type: string
+                  description: The repayment reference number.
+                  example: 8c16cg10-e1be-4dad-b7e1-eaa7501314k2
+                remarks:
+                  type: string
+                  description: The repayment remarks.
+                  example: Repayment for bill
+                requestIdentifier:
+                  type: string
+                  description: The repayment request identifier.
+                  example: ACCOUNT_NUMBER
+                identifierNumber:
+                  type: string
+                  description: The identifier number for the repayment.
+                  example: '234945601'
+                valueDate:
+                  type: string
+                  description: The value date for the repayment.
+                  example: '2025-01-17'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseAccount:
+                    type: string
+                    description: The enterprise account number.
+                    example: '202000004780'
+                  userAccount:
+                    type: string
+                    description: The user account number.
+                    example: '202000004782'
+                  currency:
+                    type: string
+                    description: The currency of the repayment.
+                    example: INR
+                  amount:
+                    type: string
+                    description: The repayment amount.
+                    example: '10000'
+                  transactionStatus:
+                    type: string
+                    description: The status of the transaction.
+                    example: Success
+                    enum:
+                    - Success
+                    - Failed
+                    - Pending
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+  /user/ICICI_BANK/{accountID}/repayment/getrepayment:
+    get:
+      security:
+      - bearerAuth: []
+      summary: Get All Repayments
+      description: Use this endpoint to fetch all repayments of an account.
+      operationId: get-all-repayments
+      parameters:
+      - name: accountID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the account for the repayments.
+        example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: startDate
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The start date for the repayments.
+        example: '2019-08-13 00:00:00'
+      - name: endDate
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The end date for the repayments.
+        example: '2019-09-13 00:00:00'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bankID:
+                    type: string
+                    description: The ID of the bank for the repayments.
+                    example: '600100484100'
+                  accountId:
+                    type: string
+                    description: The ID of the account for the repayments.
+                    example: INR
+                  paymentDate:
+                    type: string
+                    description: The date of the payment.
+                    example: '2021-05-15T18:14:55.000'
+                  currency:
+                    type: string
+                    description: The currency of the repayments.
+                    example: INR
+                  amount:
+                    type: number
+                    description: The repayment amount.
+                    format: float
+                    example: 1000.5
+                  referenceId:
+                    type: string
+                    description: The reference ID for the repayments.
+                    example: e6ef5e95-2bab-4ec2-a7cc-4d2bbd9840ab
+                  paymentSource:
+                    type: string
+                    description: The source of the payment.
+                    example: NET_BANKING
+                  sourceAccount:
+                    type: integer
+                    description: The source account number for the repayments.
+                    example: 1000109
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+  /user/account/{accountID}/auto-debit:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Auto-Debit Configuration of a User Account
+      description: Use this endpoint to view configuration of auto-pay/ standing instruction for an account.
+      operationId: view-user-auto-debit-configuration
+      parameters:
+      - name: accountID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the account for the auto-debit configuration.
+        example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  opt:
+                    type: string
+                    description: Indicates if auto-debit is enabled.
+                    example: 'yes'
+                  amountConfig:
+                    type: string
+                    description: Amount configuration type.
+                    example: MAD
+                  bank:
+                    type: object
+                    description: Bank details for the auto-debit configuration.
+                    properties:
+                      accountnumber:
+                        type: string
+                        description: The bank account number.
+                        example: '12345678901'
+                      Ifsc:
+                        type: string
+                        description: The IFSC of the bank.
+                        example: HDFC00000056
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+  /user/repayment/postrepayment:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Post Repayments
+      description: Use this endpoint to post a repayment to a user's credit card account.
+      operationId: post-repayment
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - bankName
+              - accountId
+              - paymentDate
+              - currency
+              - amount
+              - referenceId
+              properties:
+                bankName:
+                  type: string
+                  description: The name of the bank of the repayment.
+                  example: ICICI BANK
+                accountId:
+                  type: string
+                  description: The ID of the account of the repayment.
+                  example: ICICI BANK
+                paymentDate:
+                  type: string
+                  description: The date of the payment.
+                  example: '2021-05-15T18:14:55.000'
+                currency:
+                  type: string
+                  description: The currency of the repayment.
+                  example: INR
+                amount:
+                  type: number
+                  description: The repayment amount.
+                  format: float
+                  example: 1000.5
+                referenceId:
+                  type: string
+                  description: The reference ID for the repayments.
+                  example: e6ef5e95-2bab-4ec2-a7cc-4d2bbd9840ab
+                paymentSource:
+                  type: string
+                  description: The source of the payment.
+                  example: DEBIT_CARD
+                sourceAccount:
+                  type: integer
+                  description: The source account number for the repayments.
+                  example: 1000109
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/fetch-payment-options.md
+  - https://docs.falconfs.com/reference/fetch-payment-status.md
+  - https://docs.falconfs.com/reference/get-all-repayments.md
+  - https://docs.falconfs.com/reference/post-repayment.md
+  - https://docs.falconfs.com/reference/repay-user-account.md
+  - https://docs.falconfs.com/reference/repayment-via-netbanking.md
+  - https://docs.falconfs.com/reference/repayment-via-pg.md
+  - https://docs.falconfs.com/reference/reverse-repayment-transaction.md
+  - https://docs.falconfs.com/reference/set-auto-debit-configuration-enterprise.md
+  - https://docs.falconfs.com/reference/set-auto-debit-configuration.md
+  - https://docs.falconfs.com/reference/validate-vpa.md
+  - https://docs.falconfs.com/reference/view-enterprise-auto-debit-configuration.md
+  - https://docs.falconfs.com/reference/view-user-auto-debit-configuration.md
+  merge:
+    pages: 13
+    deduped: 0
+    conflicts_kept_first: 0

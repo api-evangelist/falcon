@@ -1,0 +1,184 @@
+openapi: 3.0.3
+info:
+  title: View Enterprise Summary
+  description: Use this endpoint to view summary of all accounts of an enterprise's employees of a program.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+paths:
+  /enterprise-summary:
+    get:
+      summary: View Enterprise Summary
+      description: Use this endpoint to view summary of all accounts of an enterprise's employees of a program.
+      operationId: viewEnterpriseSummary
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - identifierType
+              - identifierValue
+              - programId
+              $ref: '#/components/schemas/EnterpriseSummaryRequest'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnterpriseSummaryResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    EnterpriseSummaryRequest:
+      type: object
+      properties:
+        identifierType:
+          type: string
+          description: The type of identifier used to identify the enterprise. It can be either CIF or ENTERPRISE_ID.
+          enum:
+          - CIF
+          - ENTERPRISE_ID
+          example: CIF
+        identifierValue:
+          type: string
+          description: The value of the identifier used to identify the enterprise.
+          example: 123456789
+        programId:
+          type: string
+          description: The ID of the program for which the enterprise summary is being requested.
+          example: 123456
+    EnterpriseSummaryResponse:
+      type: object
+      properties:
+        enterpriseId:
+          type: string
+          description: The unique ID of the enterprise.
+          example: 123456
+        Status:
+          type: string
+          description: The status of the enterprise.
+          example: ACTIVE
+        SubStatus:
+          type: string
+          description: The sub-status of the enterprise. This parameter is will be returned only if the enterprise is NPA and delinquency.
+          example: ACTIVE
+        programeID:
+          type: string
+          description: The ID of the program associated with the enterprise.
+          example: SFCC01
+        programSubscriptionDate:
+          type: string
+          description: The date when the enterprise subscribed to the program.
+          example: '2023-01-01T00:00:00.000Z'
+        delinquencyCycle:
+          type: integer
+          description: The number of days the enterprise has been in delinquency.
+          example: 1
+        maxcreditLimit:
+          type: string
+          description: The maximum credit limit for the enterprise.
+          example: 100000
+        creditLimit:
+          type: string
+          description: The credit limit for the enterprise.
+          example: 50000
+        availableCreditLimit:
+          type: string
+          description: The available credit limit for the enterprise.
+          example: 20000
+        allocatedCreditLimit:
+          type: string
+          description: The allocated credit limit for the enterprise.
+          example: 30000
+        unallocatedCreditLimit:
+          type: string
+          description: The unallocated credit limit for the enterprise.
+          example: 20000
+        outstandingAmount:
+          type: string
+          description: The total outstanding amount of the enterprise.
+          example: 10000
+        cashAdvanceLimit:
+          type: string
+          description: The cash advance limit of the enterprise.
+          example: 5000
+        availableCashAdvanceLimit:
+          type: string
+          description: The available cash advance limit of the enterprise.
+          example: 2000
+        unbilledCreditAmount:
+          type: string
+          description: The unbilled credit amount of the enterprise.
+          example: 3000
+        outstandingAuthorisationAmount:
+          type: string
+          description: The outstanding authorisation amount of the enterprise.
+          example: 1000
+        minimumAmountDue:
+          type: string
+          description: The minimum amount due of the enterprise.
+          example: 500
+        totalAmountDue:
+          type: string
+          description: The total amount due of the enterprise.
+          example: 1500
+        overdueAmount:
+          type: string
+          description: The overdue amount of the enterprise.
+          example: 200
+        dueDate:
+          type: string
+          description: The due date for the enterprise.
+          example: '2023-01-15T00:00:00.000Z'
+        currentStatementStartDate:
+          type: string
+          description: The start date of the current statement of the enterprise.
+          example: '2023-01-01T00:00:00.000Z'
+        currentStatementEndDate:
+          type: string
+          description: The end date of the current statement of the enterprise.
+          example: '2023-01-31T00:00:00.000Z'
+        autoDebit:
+          type: object
+          properties:
+            status:
+              type: string
+              description: The status of the auto debit.
+              example: ACTIVE
+            type:
+              type: string
+              description: The type of the auto debit.
+              example: MAD
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/view-enterprise-summary.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

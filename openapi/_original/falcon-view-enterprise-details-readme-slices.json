@@ -1,0 +1,339 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/view-enterprise-details.md",
+  "definition": {
+   "openapi": "3.0.3",
+   "info": {
+    "title": "View Enterprise Details",
+    "description": "Use this endpoint to view enterprise details using CIF.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1"
+    }
+   ],
+   "paths": {
+    "/enterprise-details/cif/{cifNumber}": {
+     "get": {
+      "summary": "View Enterprise Details",
+      "description": "Use this endpoint to view enterprise details using CIF.",
+      "operationId": "getEnterpriseDetails",
+      "parameters": [
+       {
+        "name": "cifNumber",
+        "in": "path",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "description": "The CIF number of the enterprise.",
+         "example": "5146897006"
+        }
+       },
+       {
+        "name": "x-tenant-id",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "falcon"
+        }
+       },
+       {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "Bearer {{access_token}}"
+        }
+       }
+      ],
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "$ref": "#/components/schemas/EnterpriseResponse"
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "Bad request"
+       },
+       "401": {
+        "description": "Unauthorized"
+       },
+       "404": {
+        "description": "Enterprise not found"
+       },
+       "500": {
+        "description": "Internal server error"
+       }
+      }
+     }
+    }
+   },
+   "components": {
+    "schemas": {
+     "Address": {
+      "type": "object",
+      "properties": {
+       "type": {
+        "type": "string",
+        "description": "The address type.",
+        "example": "Registered"
+       },
+       "address": {
+        "type": "string",
+        "description": "The complete address.",
+        "example": "123 Main St, Apt 4B"
+       },
+       "city": {
+        "type": "string",
+        "description": "The city of the address.",
+        "example": "Gurgaon"
+       },
+       "state": {
+        "type": "string",
+        "description": "The state of the address.",
+        "example": "Haryana"
+       },
+       "pinCode": {
+        "type": "string",
+        "description": "The postal code of the address.",
+        "example": "122018"
+       },
+       "country": {
+        "type": "string",
+        "description": "The country of the address.",
+        "example": "India"
+       }
+      }
+     },
+     "Account": {
+      "type": "object",
+      "properties": {
+       "accountNumber": {
+        "type": "string",
+        "description": "The account number.",
+        "example": "123456789012"
+       },
+       "branchName": {
+        "type": "string",
+        "description": "The name of the branch.",
+        "example": "Main Branch"
+       },
+       "ifsc": {
+        "type": "string",
+        "description": "The IFSC.",
+        "example": "HDFC0001234"
+       }
+      }
+     },
+     "AutoDebit": {
+      "type": "object",
+      "properties": {
+       "status": {
+        "type": "string",
+        "description": "The status of the auto debit.",
+        "example": "Active"
+       },
+       "type": {
+        "type": "string",
+        "description": "The type of auto debit.",
+        "example": "Monthly"
+       }
+      }
+     },
+     "CreditLimit": {
+      "type": "object",
+      "properties": {
+       "max": {
+        "type": "string",
+        "description": "The maximum credit limit.",
+        "example": "1000000"
+       },
+       "current": {
+        "type": "string",
+        "description": "The current credit limit.",
+        "example": "500000"
+       }
+      }
+     },
+     "Program": {
+      "type": "object",
+      "properties": {
+       "id": {
+        "type": "string",
+        "description": "The program ID.",
+        "example": "program123"
+       },
+       "dueDate": {
+        "type": "string",
+        "description": "The due date for the program.",
+        "example": "2023-12-31"
+       },
+       "account": {
+        "$ref": "#/components/schemas/Account"
+       },
+       "autoDebit": {
+        "$ref": "#/components/schemas/AutoDebit"
+       },
+       "creditLimit": {
+        "$ref": "#/components/schemas/CreditLimit"
+       }
+      }
+     },
+     "Director": {
+      "type": "object",
+      "properties": {
+       "name": {
+        "type": "string",
+        "description": "The name of the director.",
+        "example": "John Doe"
+       },
+       "email": {
+        "type": "string",
+        "description": "The email of the director.",
+        "format": "email",
+        "example": "john.doe@example.com"
+       }
+      }
+     },
+     "EnterpriseResponse": {
+      "type": "object",
+      "properties": {
+       "enterpriseId": {
+        "type": "string",
+        "description": "The ID of the enterprise.",
+        "example": "enterprise123"
+       },
+       "name": {
+        "type": "string",
+        "description": "The name of the enterprise.",
+        "example": "ABC Enterprises"
+       },
+       "registeredName": {
+        "type": "string",
+        "description": "The registered name of the enterprise.",
+        "example": "ABC Pvt Ltd"
+       },
+       "incorporationDate": {
+        "type": "string",
+        "description": "The date of incorporation.",
+        "example": "2020-01-01"
+       },
+       "website": {
+        "type": "string",
+        "description": "The website of the enterprise.",
+        "example": "https://www.abc.com"
+       },
+       "mobile": {
+        "type": "string",
+        "description": "The mobile number of the admin/POC of the enterprise.",
+        "example": "+919876543210"
+       },
+       "email": {
+        "type": "string",
+        "description": "The email of the admin/POC of the enterprise.",
+        "format": "email",
+        "example": "abc@example.com"
+       },
+       "classification": {
+        "type": "string",
+        "description": "The classification of the enterprise.",
+        "example": "Private Limited"
+       },
+       "industryType": {
+        "type": "string",
+        "description": "The industry type of the enterprise.",
+        "example": "IT Services"
+       },
+       "legalConstitution": {
+        "type": "string",
+        "description": "The legal constitution of the enterprise.",
+        "example": "Private Limited Company"
+       },
+       "relatedType": {
+        "type": "string",
+        "description": "The related type of the enterprise.",
+        "example": "Parent Company"
+       },
+       "relationshipType": {
+        "type": "string",
+        "description": "The relationship type of the enterprise.",
+        "example": "Subsidiary"
+       },
+       "type": {
+        "type": "string",
+        "description": "The type of the enterprise.",
+        "example": "Corporate"
+       },
+       "cif": {
+        "type": "string",
+        "description": "The CIF number of the enterprise.",
+        "example": "5146897006"
+       },
+       "pan": {
+        "type": "string",
+        "description": "The PAN number of the enterprise.",
+        "example": "ABCDE1234F"
+       },
+       "cin": {
+        "type": "string",
+        "description": "The CIN number of the enterprise.",
+        "example": "U12345HR2020PTC123456"
+       },
+       "gstin": {
+        "type": "string",
+        "description": "The GSTIN number of the enterprise.",
+        "example": "06ABCDE1234F1Z5"
+       },
+       "addresses": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/Address"
+        }
+       },
+       "programs": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/Program"
+        }
+       },
+       "directors": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/Director"
+        }
+       }
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 103,
+     "1": 232,
+     "2": 238,
+     "3": 242,
+     "4": 141,
+     "5": 158,
+     "6": 245,
+     "7": 79,
+     "8": 57,
+     "9": 11,
+     "10": 27,
+     "11": 107
+    }
+   }
+  }
+ }
+]

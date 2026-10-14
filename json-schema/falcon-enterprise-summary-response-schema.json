@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-enterprise-summary-response-schema.json",
+  "title": "EnterpriseSummaryResponse",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-view-enterprise-summary-openapi.yml#/components/schemas/EnterpriseSummaryResponse",
+  "type": "object",
+  "properties": {
+    "enterpriseId": {
+      "type": "string",
+      "description": "The unique ID of the enterprise."
+    },
+    "Status": {
+      "type": "string",
+      "description": "The status of the enterprise."
+    },
+    "SubStatus": {
+      "type": "string",
+      "description": "The sub-status of the enterprise. This parameter is will be returned only if the enterprise is NPA and delinquency."
+    },
+    "programeID": {
+      "type": "string",
+      "description": "The ID of the program associated with the enterprise."
+    },
+    "programSubscriptionDate": {
+      "type": "string",
+      "description": "The date when the enterprise subscribed to the program."
+    },
+    "delinquencyCycle": {
+      "type": "integer",
+      "description": "The number of days the enterprise has been in delinquency."
+    },
+    "maxcreditLimit": {
+      "type": "string",
+      "description": "The maximum credit limit for the enterprise."
+    },
+    "creditLimit": {
+      "type": "string",
+      "description": "The credit limit for the enterprise."
+    },
+    "availableCreditLimit": {
+      "type": "string",
+      "description": "The available credit limit for the enterprise."
+    },
+    "allocatedCreditLimit": {
+      "type": "string",
+      "description": "The allocated credit limit for the enterprise."
+    },
+    "unallocatedCreditLimit": {
+      "type": "string",
+      "description": "The unallocated credit limit for the enterprise."
+    },
+    "outstandingAmount": {
+      "type": "string",
+      "description": "The total outstanding amount of the enterprise."
+    },
+    "cashAdvanceLimit": {
+      "type": "string",
+      "description": "The cash advance limit of the enterprise."
+    },
+    "availableCashAdvanceLimit": {
+      "type": "string",
+      "description": "The available cash advance limit of the enterprise."
+    },
+    "unbilledCreditAmount": {
+      "type": "string",
+      "description": "The unbilled credit amount of the enterprise."
+    },
+    "outstandingAuthorisationAmount": {
+      "type": "string",
+      "description": "The outstanding authorisation amount of the enterprise."
+    },
+    "minimumAmountDue": {
+      "type": "string",
+      "description": "The minimum amount due of the enterprise."
+    },
+    "totalAmountDue": {
+      "type": "string",
+      "description": "The total amount due of the enterprise."
+    },
+    "overdueAmount": {
+      "type": "string",
+      "description": "The overdue amount of the enterprise."
+    },
+    "dueDate": {
+      "type": "string",
+      "description": "The due date for the enterprise."
+    },
+    "currentStatementStartDate": {
+      "type": "string",
+      "description": "The start date of the current statement of the enterprise."
+    },
+    "currentStatementEndDate": {
+      "type": "string",
+      "description": "The end date of the current statement of the enterprise."
+    },
+    "autoDebit": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "The status of the auto debit."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the auto debit."
+        }
+      }
+    }
+  }
+}

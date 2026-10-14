@@ -1,0 +1,170 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/falcon-add-a-program-openapi.yml
+- openapi/falcon-add-a-user-openapi.yml
+- openapi/falcon-add-an-aggregator-openapi.yml
+- openapi/falcon-add-an-enterprise-admin-openapi.yml
+- openapi/falcon-add-an-issuer-openapi.yml
+vocabulary:
+  name: Falcon Domain Vocabulary
+  description: 'Terms declared by Falcon''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-14'
+  terms:
+  - term: ProductRequest
+    definition: 'Object declared by the contract with fields: issuerName, productCategories, product, productVariant, program, startDate, endDate,
+      binValue, binRangeStart, binRangeEnd, countryCode, currencyCode. (5 more)'
+    tags:
+    - Object
+    source: openapi/falcon-add-a-program-openapi.yml#/components/schemas/ProductRequest
+  - term: ProductResponse
+    definition: 'Object declared by the contract with fields: issuerName, productCategories, product, productVariant, program, programeID.'
+    tags:
+    - Object
+    source: openapi/falcon-add-a-program-openapi.yml#/components/schemas/ProductResponse
+  - term: Address
+    definition: 'Object declared by the contract with fields: address1, address2, address3, city, state, pinCode.'
+    tags:
+    - Object
+    source: openapi/falcon-add-a-user-openapi.yml#/components/schemas/Address
+  - term: AddCorporateAdminRequest
+    definition: 'Object declared by the contract with fields: enterpriseID, adminFullName, adminContactNumber, adminType, adminEmail.'
+    tags:
+    - Object
+    source: openapi/falcon-add-an-enterprise-admin-openapi.yml#/components/schemas/AddCorporateAdminRequest
+  - term: AddCorporateAdminResponse
+    definition: 'Object declared by the contract with fields: Message.'
+    tags:
+    - Object
+    source: openapi/falcon-add-an-enterprise-admin-openapi.yml#/components/schemas/AddCorporateAdminResponse
+  - term: EnterpriseProgramActionRequest
+    definition: 'Object declared by the contract with fields: enterpriseId, programeID, action, mcc.'
+    tags:
+    - Object
+    source: openapi/falcon-block-or-allow-mccs-for-enterprise-openapi.yml#/components/schemas/EnterpriseProgramActionRequest
+  - term: SuccessResponse
+    definition: Empty response for successful action
+    tags:
+    - Object
+    source: openapi/falcon-block-or-allow-mccs-for-enterprise-openapi.yml#/components/schemas/SuccessResponse
+  - term: TransactionLimits
+    definition: 'Object declared by the contract with fields: perTransactionLimit, dailyTransactionAmount, dailyTransactionCount, monthlyTransactionAmount,
+      monthlyTransactionCount.'
+    tags:
+    - Object
+    source: openapi/falcon-credit-card-apis-openapi.yml#/components/schemas/TransactionLimits
+  - term: SpendLimits
+    definition: 'Object declared by the contract with fields: perTransactionLimit, dailyTransactionAmount, dailyTransactionCount, monthlyTransactionAmount,
+      monthlyTransactionCount.'
+    tags:
+    - Object
+    source: openapi/falcon-credit-card-apis-openapi.yml#/components/schemas/SpendLimits
+  - term: EnterpriseRequest
+    definition: 'Object declared by the contract with fields: name, registeredName, incorporationDate, website, mobile, email, classification,
+      industryType, legalConstitution, relatedType, relationshipType, type. (7 more)'
+    tags:
+    - Object
+    source: openapi/falcon-onboard-an-enterprise-openapi.yml#/components/schemas/EnterpriseRequest
+  - term: EnterpriseResponse
+    definition: 'Object declared by the contract with fields: name, enterpriseId.'
+    tags:
+    - Object
+    source: openapi/falcon-onboard-an-enterprise-openapi.yml#/components/schemas/EnterpriseResponse
+  - term: FeeWaiver
+    definition: 'Object declared by the contract with fields: fee, waiver.'
+    tags:
+    - Object
+    source: openapi/falcon-program-configuration-honor-openapi.yml#/components/schemas/FeeWaiver
+  - term: Fee
+    definition: 'Object declared by the contract with fields: feeModelType, fixedAmount, percentValue, startRange, endRange, precedence, taxes,
+      tierFees, payload.'
+    tags:
+    - Object
+    source: openapi/falcon-program-configuration-honor-openapi.yml#/components/schemas/Fee
+  - term: Waiver
+    definition: 'Object declared by the contract with fields: triggerType, triggerValues, status, criteria.'
+    tags:
+    - Object
+    source: openapi/falcon-program-configuration-honor-openapi.yml#/components/schemas/Waiver
+  - term: WaiverCriteria
+    definition: 'Object declared by the contract with fields: type, value, minMaxOperand, minTransactionAmount, maxTransactionAmount, transactionPeriod,
+      transactionPeriodOperand, transactionPeriodWaiverMaxLimit, transactionAmountOperand, transactionAmountValue, excludeCashAdvance, startDate.
+      (1 more)'
+    tags:
+    - Object
+    source: openapi/falcon-program-configuration-honor-openapi.yml#/components/schemas/WaiverCriteria
+  - term: Taxes
+    definition: 'Object declared by the contract with fields: cgst, igst, sgst.'
+    tags:
+    - Object
+    source: openapi/falcon-program-configuration-honor-openapi.yml#/components/schemas/Taxes
+  - term: Tax
+    definition: 'Object declared by the contract with fields: taxModelType, percentValue.'
+    tags:
+    - Object
+    source: openapi/falcon-program-configuration-honor-openapi.yml#/components/schemas/Tax
+  - term: TierFee
+    definition: 'Object declared by the contract with fields: minAmount, maxAmount, tierFeeModelType, fixedAmount, chargeableReasons.'
+    tags:
+    - Object
+    source: openapi/falcon-program-configuration-honor-openapi.yml#/components/schemas/TierFee
+  - term: TransactionCategory
+    definition: 'Object declared by the contract with fields: programCategory, refinancingRateAfterDueDate, defaultRate, fineRate, overdueRateAfterDueDate,
+      minimumValue, chargeOrder, npaChargeOrder.'
+    tags:
+    - Object
+    source: openapi/falcon-program-configuration-honor-openapi.yml#/components/schemas/TransactionCategory
+  - term: EnterpriseCreditLimitRequest
+    definition: 'Object declared by the contract with fields: enterpriseId, programeID, creditLimit.'
+    tags:
+    - Object
+    source: openapi/falcon-update-enterprise-credit-limits-openapi.yml#/components/schemas/EnterpriseCreditLimitRequest
+  - term: EnterpriseUpdateRequest
+    definition: 'Object declared by the contract with fields: identifierType, identifierValue, name, registeredName, website, mobile, email, gstin,
+      directors.'
+    tags:
+    - Object
+    source: openapi/falcon-update-enterprise-details-openapi.yml#/components/schemas/EnterpriseUpdateRequest
+  - term: Account
+    definition: 'Object declared by the contract with fields: accountNumber, branchName, ifsc.'
+    tags:
+    - Object
+    source: openapi/falcon-view-enterprise-details-openapi.yml#/components/schemas/Account
+  - term: AutoDebit
+    definition: 'Object declared by the contract with fields: status, type.'
+    tags:
+    - Object
+    source: openapi/falcon-view-enterprise-details-openapi.yml#/components/schemas/AutoDebit
+  - term: CreditLimit
+    definition: 'Object declared by the contract with fields: max, current.'
+    tags:
+    - Object
+    source: openapi/falcon-view-enterprise-details-openapi.yml#/components/schemas/CreditLimit
+  - term: Program
+    definition: 'Object declared by the contract with fields: id, dueDate, account, autoDebit, creditLimit.'
+    tags:
+    - Object
+    source: openapi/falcon-view-enterprise-details-openapi.yml#/components/schemas/Program
+  - term: Director
+    definition: 'Object declared by the contract with fields: name, email.'
+    tags:
+    - Object
+    source: openapi/falcon-view-enterprise-details-openapi.yml#/components/schemas/Director
+  - term: EnterpriseSummaryRequest
+    definition: 'Object declared by the contract with fields: identifierType, identifierValue, programId.'
+    tags:
+    - Object
+    source: openapi/falcon-view-enterprise-summary-openapi.yml#/components/schemas/EnterpriseSummaryRequest
+  - term: EnterpriseSummaryResponse
+    definition: 'Object declared by the contract with fields: enterpriseId, Status, SubStatus, programeID, programSubscriptionDate, delinquencyCycle,
+      maxcreditLimit, creditLimit, availableCreditLimit, allocatedCreditLimit, unallocatedCreditLimit, outstandingAmount. (11 more)'
+    tags:
+    - Object
+    source: openapi/falcon-view-enterprise-summary-openapi.yml#/components/schemas/EnterpriseSummaryResponse
+  - term: EmployeeResponse
+    definition: 'Object declared by the contract with fields: enterpriseID, enterpriseName, userDetails, total_count.'
+    tags:
+    - Object
+    source: openapi/falcon-view-list-of-users-of-an-enterprise-openapi.yml#/components/schemas/EmployeeResponse

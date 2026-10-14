@@ -1,0 +1,196 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/add-issuer.md",
+  "definition": {
+   "openapi": "3.0.0",
+   "info": {
+    "title": "Add an Issuer",
+    "description": "Use this endpoint to add a new issuer.",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1"
+    }
+   ],
+   "paths": {
+    "/issuer": {
+     "post": {
+      "summary": "Add an Issuer",
+      "description": "Use this endpoint to add a new issuer.",
+      "security": [
+       {
+        "bearerAuth": []
+       }
+      ],
+      "operationId": "add-issuer",
+      "parameters": [
+       {
+        "name": "x-tenant-id",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "falcon"
+        }
+       },
+       {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "Bearer {{access_token}}"
+        }
+       }
+      ],
+      "requestBody": {
+       "required": true,
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "registeredName",
+           "contactEmail",
+           "contactNumber"
+          ],
+          "properties": {
+           "registeredName": {
+            "type": "string",
+            "description": "The issuer registered name.",
+            "example": "ABC Small Finance Bank"
+           },
+           "brandName": {
+            "type": "string",
+            "description": "The issuer brand name you want to add.",
+            "example": "ABC Small Finance Bank"
+           },
+           "brandLogo": {
+            "type": "string",
+            "description": "The issuer logo.",
+            "example": "ssfb.png"
+           },
+           "address": {
+            "type": "string",
+            "description": "The complete address of the issuer.",
+            "example": "6th Floor Infotech Tower Greater Noida"
+           },
+           "country": {
+            "type": "string",
+            "description": "The issuer country.",
+            "example": "India"
+           },
+           "website": {
+            "type": "string",
+            "format": "uri",
+            "description": "The issuer website.",
+            "example": "https://abcbank.com/"
+           },
+           "title": {
+            "type": "string",
+            "description": "The title of the administrator/POC of the issuer.",
+            "example": "Mr."
+           },
+           "personalDetails": {
+            "type": "object",
+            "description": "The personal details of the point of contact of the issuer.",
+            "properties": {
+             "contactName": {
+              "type": "string",
+              "description": "The name of the administrator/POC of the issuer.",
+              "example": "Keshav"
+             },
+             "contactEmail": {
+              "type": "string",
+              "format": "email",
+              "description": "The contact email of the administrator/POC of the issuer.",
+              "example": "keshav@abcb.com"
+             },
+             "contactNumber": {
+              "type": "string",
+              "description": "The contact number of the administrator/POC of the issuer.",
+              "example": 1234567890
+             },
+             "supportEmail": {
+              "type": "string",
+              "format": "email",
+              "description": "The support email ID of the issuer.",
+              "example": "support@abcb.com"
+             },
+             "supportNumber": {
+              "type": "string",
+              "description": "The support contact number of the issuer.",
+              "example": 1206756543
+             }
+            }
+           },
+           "agreement": {
+            "type": "string",
+            "description": "The duly signed agreement file.",
+            "example": "ABCSOP.pdf"
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "type": "object",
+           "properties": {
+            "issuerName": {
+             "type": "string",
+             "description": "The name of the added issuer.",
+             "example": "ABC Bank"
+            }
+           }
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "Bad Request"
+       },
+       "401": {
+        "description": "Unauthorized"
+       }
+      }
+     }
+    }
+   },
+   "components": {
+    "securitySchemes": {
+     "bearerAuth": {
+      "type": "http",
+      "scheme": "bearer"
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 104,
+     "1": 137,
+     "2": 183,
+     "3": 59,
+     "4": 19,
+     "5": 209,
+     "6": 34,
+     "7": 95,
+     "8": 254,
+     "9": 247,
+     "10": 15,
+     "11": 19
+    }
+   }
+  }
+ }
+]

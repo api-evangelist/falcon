@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-fee-waiver-schema.json",
+  "title": "FeeWaiver",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-program-configuration-honor-openapi.yml#/components/schemas/FeeWaiver",
+  "type": "object",
+  "properties": {
+    "fee": {
+      "$ref": "#/$defs/Fee"
+    },
+    "waiver": {
+      "$ref": "#/$defs/Waiver"
+    }
+  },
+  "$defs": {
+    "Fee": {
+      "type": "object",
+      "properties": {
+        "feeModelType": {
+          "type": "string",
+          "description": "The type of fee model.",
+          "enum": [
+            "FIXED",
+            "PERCENTAGE",
+            "GREATER",
+            "TIERED"
+          ]
+        },
+        "fixedAmount": {
+          "type": "string",
+          "description": "The fixed amount for the fee."
+        },
+        "percentValue": {
+          "type": "string",
+          "description": "The percentage value for the fee."
+        },
+        "startRange": {
+          "type": "string",
+          "description": "The start range for the fee."
+        },
+        "endRange": {
+          "type": "string",
+          "description": "The end range for the fee."
+        },
+        "precedence": {
+          "type": "string",
+          "description": "The precedence of the fee."
+        },
+        "taxes": {
+          "$ref": "#/$defs/Taxes"
+        },
+        "tierFees": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TierFee"
+          }
+        },
+        "payload": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "Tax": {
+      "type": "object",
+      "properties": {
+        "taxModelType": {
+          "type": "string",
+          "description": "The type of tax model.",
+          "enum": [
+            "PERCENTAGE",
+            "FIXED"
+          ]
+        },
+        "percentValue": {
+          "type": "string",
+          "description": "The percentage value for the tax."
+        }
+      }
+    },
+    "Taxes": {
+      "type": "object",
+      "properties": {
+        "cgst": {
+          "$ref": "#/$defs/Tax"
+        },
+        "igst": {
+          "$ref": "#/$defs/Tax"
+        },
+        "sgst": {
+          "$ref": "#/$defs/Tax"
+        }
+      }
+    },
+    "TierFee": {
+      "type": "object",
+      "properties": {
+        "minAmount": {
+          "type": "string",
+          "description": "The minimum amount for the tier fee."
+        },
+        "maxAmount": {
+          "type": "string",
+          "description": "The maximum amount for the tier fee."
+        },
+        "tierFeeModelType": {
+          "type": "string",
+          "description": "The type of tier fee model.",
+          "enum": [
+            "PERCENTAGE",
+            "FIXED"
+          ]
+        },
+        "fixedAmount": {
+          "type": "string",
+          "description": "The fixed amount for the tier fee."
+        },
+        "chargeableReasons": {
+          "type": "array",
+          "description": "The reasons for the chargeable fee.",
+          "enum": [
+            "REWARD_REDEMPTION",
+            "CASH_ADVANCE"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Waiver": {
+      "type": "object",
+      "properties": {
+        "triggerType": {
+          "type": "string",
+          "description": "The type of trigger for the waiver.",
+          "enum": [
+            "TRANSACTION",
+            "TIME_BASED",
+            "TRANSACTION_BASED"
+          ]
+        },
+        "triggerValues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the waiver.",
+          "enum": [
+            "ACTIVE",
+            "INACTIVE"
+          ]
+        },
+        "criteria": {
+          "$ref": "#/$defs/WaiverCriteria"
+        }
+      }
+    },
+    "WaiverCriteria": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of criteria for the waiver.",
+          "enum": [
+            "TRANSACTION",
+            "TIME_BASED",
+            "TRANSACTION_BASED"
+          ]
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "minMaxOperand": {
+          "type": "string",
+          "description": "The operand for the minimum and maximum values."
+        },
+        "minTransactionAmount": {
+          "type": "string",
+          "description": "The minimum transaction amount for the waiver."
+        },
+        "maxTransactionAmount": {
+          "type": "string",
+          "description": "The maximum transaction amount for the waiver."
+        },
+        "transactionPeriod": {
+          "type": "string",
+          "description": "The period for the transaction."
+        },
+        "transactionPeriodOperand": {
+          "type": "string",
+          "description": "The operand for the transaction period."
+        },
+        "transactionPeriodWaiverMaxLimit": {
+          "type": "string",
+          "description": "The maximum limit for the transaction period waiver."
+        },
+        "transactionAmountOperand": {
+          "type": "string",
+          "description": "The operand for the transaction amount."
+        },
+        "transactionAmountValue": {
+          "type": "string",
+          "description": "The value for the transaction amount."
+        },
+        "excludeCashAdvance": {
+          "type": "boolean",
+          "description": "Whether to exclude cash advance transactions.",
+          "enum": [
+            true,
+            false
+          ]
+        },
+        "startDate": {
+          "type": "string",
+          "description": "The start date for the waiver."
+        },
+        "endDate": {
+          "type": "string",
+          "description": "The end date for the waiver."
+        }
+      }
+    }
+  }
+}

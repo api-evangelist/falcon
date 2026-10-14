@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/falcon/main/json-schema/falcon-add-corporate-admin-request-schema.json",
+  "title": "AddCorporateAdminRequest",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/falcon-add-an-enterprise-admin-openapi.yml#/components/schemas/AddCorporateAdminRequest",
+  "type": "object",
+  "properties": {
+    "enterpriseID": {
+      "type": "string",
+      "description": "The ID of the enterprise for which the admin is being added."
+    },
+    "adminFullName": {
+      "type": "string",
+      "description": "The full name of the administrator being added."
+    },
+    "adminContactNumber": {
+      "type": "string",
+      "description": "The contact number of the administrator being added."
+    },
+    "adminType": {
+      "type": "string",
+      "description": "The type of administrator being added."
+    },
+    "adminEmail": {
+      "type": "string",
+      "description": "The email address of the administrator being added.",
+      "format": "email"
+    }
+  }
+}

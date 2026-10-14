@@ -1,0 +1,199 @@
+[
+ {
+  "page": "https://docs.falconfs.com/reference/update-enterprise.md",
+  "definition": {
+   "openapi": "3.0.3",
+   "info": {
+    "title": "Update Enterprise Details",
+    "description": "Use this endpoint to update the following details of an existing enterprise (corporate)",
+    "version": "1.0.0"
+   },
+   "servers": [
+    {
+     "url": "https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/enterprise"
+    }
+   ],
+   "paths": {
+    "/enterprise": {
+     "put": {
+      "summary": "Update Enterprise Details",
+      "description": "Use this endpoint to update the following details of an existing enterprise (corporate):\n- Name\n- Registered Name\n- Mobile number\n- Email\n- GSTIN\n- Address\n- Website\n- Director details\n\n**Note:**\nAll checks about validating the new mobile number, email or address (and any other proofs like FIR, etc.) for lost SIM are done by the bank and updated in the core banking solution (CBS) before updating in cash management services (CMS).\n\nYou should only pass those values that need to be updated. You cannot update the Identifier type and value parameters, they need to be taken as an input so as to identify a specific enterprise you are trying to update.\n",
+      "operationId": "updateEnterprise",
+      "parameters": [
+       {
+        "name": "x-tenant-id",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "falcon"
+        }
+       },
+       {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "example": "Bearer {{access_token}}"
+        }
+       }
+      ],
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "identifierType",
+           "identifierValue",
+           "name",
+           "registeredName",
+           "mobile",
+           "directors[0].name",
+           "directors[0].pan",
+           "directors[0].mobile"
+          ],
+          "$ref": "#/components/schemas/EnterpriseUpdateRequest"
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "ok",
+        "content": {
+         "application/json": {
+          "schema": {
+           "$ref": "#/components/schemas/EnterpriseResponse"
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "Bad request"
+       },
+       "401": {
+        "description": "Unauthorized"
+       },
+       "500": {
+        "description": "Internal server error"
+       }
+      }
+     }
+    }
+   },
+   "components": {
+    "schemas": {
+     "EnterpriseUpdateRequest": {
+      "type": "object",
+      "properties": {
+       "identifierType": {
+        "type": "string",
+        "description": "The type of identifier used to identify the enterprise. This can be a PAN, GSTIN, or any other identifier.",
+        "example": "PAN"
+       },
+       "identifierValue": {
+        "type": "string",
+        "description": "The value of the identifier used to identify the enterprise. This can be a PAN number, GSTIN number, or any other identifier.",
+        "example": "ABCDE1234F"
+       },
+       "name": {
+        "type": "string",
+        "description": "The name of the enterprise.",
+        "example": "UBER"
+       },
+       "registeredName": {
+        "type": "string",
+        "description": "The registered name of the enterprise.",
+        "example": "Alphabet LLC"
+       },
+       "website": {
+        "type": "string",
+        "description": "The website of the enterprise.",
+        "example": "www.google.alphabet.co245",
+        "format": "uri"
+       },
+       "mobile": {
+        "type": "string",
+        "description": "The mobile number of the admin/POC of the enterprise.",
+        "example": 9876543210
+       },
+       "email": {
+        "type": "string",
+        "description": "The email address of the admin/POC of the enterprise.",
+        "example": "abc@example.com",
+        "format": "email"
+       },
+       "gstin": {
+        "type": "string",
+        "description": "The GSTIN of the enterprise.",
+        "example": "27ABCDE1234F1Z5"
+       },
+       "directors": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "properties": {
+          "name": {
+           "type": "string",
+           "description": "The name of the director.",
+           "example": "John Doe"
+          },
+          "pan": {
+           "type": "string",
+           "description": "The PAN of the director.",
+           "example": "ABCDE1234F"
+          },
+          "mobile": {
+           "type": "string",
+           "description": "The mobile number of the director.",
+           "example": 9876543210
+          },
+          "email": {
+           "type": "string",
+           "description": "The email address of the director.",
+           "example": "john.doe@example.com",
+           "format": "email"
+          }
+         }
+        }
+       }
+      }
+     },
+     "EnterpriseResponse": {
+      "type": "object",
+      "properties": {
+       "enterpriseId": {
+        "type": "string",
+        "description": "The unique identifier of the enterprise.",
+        "example": "123e4567-e89b-12d3-a456-426614174000",
+        "format": "uuid"
+       }
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true
+   },
+   "_id": {
+    "buffer": {
+     "0": 103,
+     "1": 232,
+     "2": 45,
+     "3": 209,
+     "4": 23,
+     "5": 151,
+     "6": 24,
+     "7": 12,
+     "8": 235,
+     "9": 223,
+     "10": 224,
+     "11": 40
+    }
+   }
+  }
+ }
+]

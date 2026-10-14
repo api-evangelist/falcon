@@ -1,0 +1,48 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/falcon-add-a-program-openapi.yml
+- openapi/falcon-add-a-user-openapi.yml
+- openapi/falcon-add-an-aggregator-openapi.yml
+- openapi/falcon-add-an-enterprise-admin-openapi.yml
+- openapi/falcon-add-an-issuer-openapi.yml
+- openapi/falcon-assign-a-fee-model-to-a-program-openapi.yml
+- openapi/falcon-assign-a-program-to-an-aggregator-openapi.yml
+- openapi/falcon-assign-a-program-to-an-enterprise-openapi.yml
+- openapi/falcon-assign-a-program-to-an-user-openapi.yml
+- openapi/falcon-block-or-allow-mccs-for-enterprise-openapi.yml
+- openapi/falcon-change-due-date-of-an-account-openapi.yml
+- openapi/falcon-confirm-the-user-registration-openapi.yml
+format: custom
+envelope:
+  media_type: null
+  schema: null
+coverage:
+  operations: 119
+  statuses_declared: 4
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad Request
+  operations: 98
+  media_types: []
+  schema: null
+- status: 401
+  title: Unauthorized
+  description: Unauthorized
+  operations: 99
+  media_types: []
+  schema: null
+- status: 404
+  title: Not Found
+  description: Account not found
+  operations: 22
+  media_types: []
+  schema: null
+- status: 500
+  title: Internal Server Error
+  description: Internal server error
+  operations: 22
+  media_types: []
+  schema: null
