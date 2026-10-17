@@ -1,0 +1,94 @@
+openapi: 3.2.0
+info:
+  title: EMI Balance API
+  description: APIs for managing EMI plans and transactions
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+tags:
+- name: Balance
+paths:
+  /balance:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Convert Outstanding Balance to EMI
+      description: Use this endpoint to convert an outstanding user balance to EMI.
+      operationId: convert-outstanding-balance
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: accountID
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The ID of the account for which to convert the outstanding balance to EMI.
+          example: accountID123
+      - name: emiInterestRate
+        in: header
+        required: true
+        schema:
+          type: number
+          description: The interest rate for the EMI conversion.
+          example: 16
+      - name: emiTenure
+        in: header
+        required: true
+        schema:
+          type: integer
+          description: The tenure for the EMI conversion in months.
+          example: 6
+      - name: transactionID
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The ID of the transaction to convert to EMI.
+          example: transactionID123
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Balance
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-emi-plan.md
+  - https://docs.falconfs.com/reference/convert-outstanding-balance.md
+  - https://docs.falconfs.com/reference/convert-transactions-emi.md
+  - https://docs.falconfs.com/reference/foreclose-emi.md
+  - https://docs.falconfs.com/reference/foreclosure-quote.md
+  - https://docs.falconfs.com/reference/put_update-status-emi-plan.md
+  - https://docs.falconfs.com/reference/view-amortisation-schedule.md
+  - https://docs.falconfs.com/reference/view-emi-details.md
+  - https://docs.falconfs.com/reference/view-emi-list.md
+  - https://docs.falconfs.com/reference/view-emi-plan.md
+  - https://docs.falconfs.com/reference/view-transaction-eligibility.md
+  merge:
+    pages: 11
+    deduped: 0
+    conflicts_kept_first: 0

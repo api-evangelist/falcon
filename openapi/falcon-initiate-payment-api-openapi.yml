@@ -1,0 +1,96 @@
+openapi: 3.2.0
+info:
+  title: Repayment Initiate Payment API
+  description: API endpoints for credit card repayments, including bill payments, reversals, auto-debit configurations, and payment status checks.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+tags:
+- name: Initiate Payment
+paths:
+  /initiate-payment:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Repayment via a Payment Gateway
+      description: Use this endpoint to make repayment using a payment gateway.
+      operationId: initiate-payment-pg
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - amountType
+              - amount
+              - redirectUrl
+              properties:
+                accountId:
+                  type: string
+                  description: The account ID for the repayment.
+                  example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+                amountType:
+                  type: string
+                  description: The type of amount for the repayment.
+                  example: OTHER
+                amount:
+                  type: string
+                  description: The repayment amount.
+                  example: '10000'
+                redirectUrl:
+                  type: string
+                  description: The URL to redirect to after the payment.
+                  example: https://creditkvbqa.tab.kitecash.in/home
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Initiate Payment
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/fetch-payment-options.md
+  - https://docs.falconfs.com/reference/fetch-payment-status.md
+  - https://docs.falconfs.com/reference/get-all-repayments.md
+  - https://docs.falconfs.com/reference/post-repayment.md
+  - https://docs.falconfs.com/reference/repay-user-account.md
+  - https://docs.falconfs.com/reference/repayment-via-netbanking.md
+  - https://docs.falconfs.com/reference/repayment-via-pg.md
+  - https://docs.falconfs.com/reference/reverse-repayment-transaction.md
+  - https://docs.falconfs.com/reference/set-auto-debit-configuration-enterprise.md
+  - https://docs.falconfs.com/reference/set-auto-debit-configuration.md
+  - https://docs.falconfs.com/reference/validate-vpa.md
+  - https://docs.falconfs.com/reference/view-enterprise-auto-debit-configuration.md
+  - https://docs.falconfs.com/reference/view-user-auto-debit-configuration.md
+  merge:
+    pages: 13
+    deduped: 0
+    conflicts_kept_first: 0

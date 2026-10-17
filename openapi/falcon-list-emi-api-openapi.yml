@@ -1,0 +1,219 @@
+openapi: 3.2.0
+info:
+  title: List Emi API
+  description: APIs for managing EMI plans and transactions
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+tags:
+- name: List Emi
+paths:
+  /list-emi:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View List of EMIs
+      description: Use this endpoint to view a list of all EMI running under a parameter.
+      operationId: list-emi-list
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - ParameterType
+              - ParameterValue
+              properties:
+                ParameterType:
+                  type: string
+                  description: Type of the parameter to filter the EMI list.
+                  example: AccountID
+                ParameterValue:
+                  type: integer
+                  description: Value of the parameter to filter the EMI list.
+                  example:
+                  - 123456
+                Status:
+                  type: string
+                  description: Status of the EMI plan.
+                  example: Active
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    TransactionDetails:
+                      type: array
+                      description: Details of the transaction.
+                      items:
+                        type: object
+                        properties:
+                          TransactionID:
+                            type: integer
+                            description: ID of the transaction.
+                            example: 36121312
+                          TransactionDateTime:
+                            type: string
+                            description: Date and time of the transaction in DD/MM/YYYY HH:MM:SS format.
+                            example: 23/03/2024 16:10:34
+                          MerchantName:
+                            type: string
+                            description: Name of the merchant for the transaction.
+                            example: Amazon
+                          TransactionAmount:
+                            type: number
+                            description: Amount of the transaction.
+                            example: 1000
+                    LoanDetails:
+                      type: object
+                      description: Details of the loan.
+                      properties:
+                        InterestRate:
+                          type: number
+                          description: Interest rate for the loan.
+                          example: 32
+                        EMIAmount:
+                          type: number
+                          description: Amount of the EMI.
+                          example: 216.28
+                        TotalPrincipalAmount:
+                          type: number
+                          description: Total principal amount for the loan.
+                          example: 1000
+                        TotalInterestAmount:
+                          type: number
+                          description: Total interest amount for the loan.
+                          example: 81.4
+                        TotalInterestGST:
+                          type: number
+                          description: Total GST on interest for the loan.
+                          example: 14.65
+                        TotalInterestIGST:
+                          type:
+                          - number
+                          - 'null'
+                          description: Total IGST on interest for the loan.
+                          example: 0
+                        TotalInterestCGST:
+                          type: number
+                          description: Total CGST on interest for the loan.
+                          example: 7.33
+                        TotalInterestSGST:
+                          type: number
+                          description: Total SGST on interest for the loan.
+                          example: 7.33
+                        TotalInterestUGST:
+                          type:
+                          - number
+                          - 'null'
+                          description: Total UGST on interest for the loan.
+                          example: 0
+                        TotalTransactionCount:
+                          type: integer
+                          description: Total number of transactions for the loan.
+                          example: 1
+                        TotalInstallationCount:
+                          type: integer
+                          description: Total number of installations for the loan.
+                          example: 5
+                        EmiPlanID:
+                          type: string
+                          description: ID of the EMI plan used for conversion.
+                          example: asdf1233
+                        LoanID:
+                          type: integer
+                          description: ID of the loan.
+                          example: 37927858
+                        RequestDateTime:
+                          type: string
+                          description: Date and time of the request in DD/MM/YYYY HH:MM:SS format.
+                          example: 25/03/2024 16:04:23
+                        ConversionDateTime:
+                          type: string
+                          description: Date and time of the conversion in DD/MM/YYYY HH:MM:SS format.
+                          example: 25/03/2024 16:05:23
+                    TotalPayable:
+                      type: number
+                      description: Total amount payable for the loan.
+                      example: 1096.06
+                    ProcessingFee:
+                      type: array
+                      description: Details of the processing fee.
+                      items:
+                        type: object
+                        properties:
+                          ProcessingFee:
+                            type: number
+                            description: Amount of the processing fee.
+                            example: 200
+                          ProcessingFeeGST:
+                            type: number
+                            description: Amount of the GST on processing fee.
+                            example: 35
+                          ProcessingFeeIGST:
+                            type:
+                            - number
+                            - 'null'
+                            description: Amount of the IGST on processing fee.
+                            example: 0
+                          ProcessingFeeSGST:
+                            type: number
+                            description: Amount of the SGST on processing fee.
+                            example: 17.5
+                          ProcessingFeeCGST:
+                            type: number
+                            description: Amount of the CGST on processing fee.
+                            example: 17.5
+                          ProcessingFeeUGST:
+                            type:
+                            - number
+                            - 'null'
+                            description: Amount of the UGST on processing fee.
+                            example: 0
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - List Emi
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-emi-plan.md
+  - https://docs.falconfs.com/reference/convert-outstanding-balance.md
+  - https://docs.falconfs.com/reference/convert-transactions-emi.md
+  - https://docs.falconfs.com/reference/foreclose-emi.md
+  - https://docs.falconfs.com/reference/foreclosure-quote.md
+  - https://docs.falconfs.com/reference/put_update-status-emi-plan.md
+  - https://docs.falconfs.com/reference/view-amortisation-schedule.md
+  - https://docs.falconfs.com/reference/view-emi-details.md
+  - https://docs.falconfs.com/reference/view-emi-list.md
+  - https://docs.falconfs.com/reference/view-emi-plan.md
+  - https://docs.falconfs.com/reference/view-transaction-eligibility.md
+  merge:
+    pages: 11
+    deduped: 0
+    conflicts_kept_first: 0

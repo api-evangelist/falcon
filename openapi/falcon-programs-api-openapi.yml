@@ -1,0 +1,161 @@
+openapi: 3.2.0
+info:
+  title: Falcon Programs API
+  version: 1.0.0
+  description: 'Operations tagged Programs across 2 of this provider''s published API definitions: falcon-update-a-program-due-date-openapi.yml, falcon-view-list-of-programs-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+tags:
+- name: Programs
+paths:
+  /programs/{programId}/due-dates/{dueDateId}:
+    patch:
+      summary: Update a Program Due Date
+      description: Use this endpoint to update a due date of a program.
+      operationId: update-duedate
+      parameters:
+      - name: programId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The unique identifier for the credit card program.
+        example: 021239f1-9bbf-4919-bf8b-22aa48127e68
+      - name: dueDateId
+        in: path
+        required: true
+        schema:
+          type: integer
+          description: The unique identifier for the due date.
+        example: 31653
+      - in: header
+        name: x-tenant-id
+        schema:
+          type: string
+        required: true
+        example: falcon
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+        required: true
+        example: Bearer {access_token}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - active
+              - gracePeriodDays
+              properties:
+                active:
+                  type: boolean
+                  description: Indicates if the due date is active.
+                  enum:
+                  - true
+                  - false
+                  example: true
+                gracePeriodDays:
+                  type: integer
+                  description: Number of grace period days.
+                  example: 5
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request parameters.
+        '401':
+          description: Unauthorized access.
+        '404':
+          description: Program or due date not found.
+        '500':
+          description: Internal server error.
+      tags:
+      - Programs
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+  /programs:
+    get:
+      summary: View List of Programs
+      description: Use this endpoint to get a list of all programs.
+      operationId: view-programs
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+      tags:
+      - Programs
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+components:
+  schemas:
+    ProductResponse:
+      type: object
+      properties:
+        issuerName:
+          type: string
+          description: The name of the issuer.
+          example: Shivalik
+        productCategories:
+          type: string
+          description: The category of the product.
+          example: Credit
+        product:
+          type: string
+          description: The name of the product.
+          example: Commercial Credit Card
+        productVariant:
+          type: string
+          description: The variant of the product.
+          example: Shivalik Falcon Credit Card
+        program:
+          type: string
+          description: The name of the program.
+          example: Classic Credit Card
+        programeID:
+          type: string
+          description: The unique ID of the program.
+          example: SFCC01
+x-refined-from:
+- falcon-update-a-program-due-date-openapi.yml
+- falcon-view-list-of-programs-openapi.yml
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-program.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

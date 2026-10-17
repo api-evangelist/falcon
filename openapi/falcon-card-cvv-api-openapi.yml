@@ -1,0 +1,84 @@
+openapi: 3.2.0
+info:
+  title: Credit Card Card Cvv API
+  description: APIs for managing credit cards, including issuance, activation, limits, and transactions.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+tags:
+- name: Card Cvv
+paths:
+  /card-cvv/{cardId}:
+    post:
+      summary: View the CVV of a Card
+      description: Use this endpoint to view the Card CVV.
+      operationId: view-card-cvv
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the non-PCI card.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  encryptedCVV:
+                    type: string
+                    description: The encrypted CVV of the card.
+                    example: /tRqpi3aVf41+nitzRrdTQ==
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+      tags:
+      - Card Cvv
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/activate-card.md
+  - https://docs.falconfs.com/reference/add-card.md
+  - https://docs.falconfs.com/reference/add-on-card.md
+  - https://docs.falconfs.com/reference/block-card.md
+  - https://docs.falconfs.com/reference/change-channel-statuses.md
+  - https://docs.falconfs.com/reference/change-spend-limits.md
+  - https://docs.falconfs.com/reference/enable-disable-card.md
+  - https://docs.falconfs.com/reference/generate-otp.md
+  - https://docs.falconfs.com/reference/get_card-card-details-accountid.md
+  - https://docs.falconfs.com/reference/replace-blocked-card.md
+  - https://docs.falconfs.com/reference/set-pin.md
+  - https://docs.falconfs.com/reference/validate-card-details.md
+  - https://docs.falconfs.com/reference/view-add-on-card-limit.md
+  - https://docs.falconfs.com/reference/view-card-cvv.md
+  - https://docs.falconfs.com/reference/view-channel-status.md
+  - https://docs.falconfs.com/reference/view-non-pci-card-details.md
+  - https://docs.falconfs.com/reference/view-pci-card-details.md
+  - https://docs.falconfs.com/reference/view-spend-limits.md
+  merge:
+    pages: 18
+    deduped: 0
+    conflicts_kept_first: 0

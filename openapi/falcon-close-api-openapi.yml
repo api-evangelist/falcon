@@ -1,0 +1,72 @@
+openapi: 3.2.0
+info:
+  title: Falcon Credit Card Account Close API
+  description: API endpoints for managing user accounts in the Falcon credit card lifecycle.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+tags:
+- name: Close
+paths:
+  /close/account/{accountId}/{bankCode}:
+    post:
+      summary: Close an Account
+      description: Use this endpoint to close a credit card account with 0 balance and 0 accrued interest. All associated cards should be blocked before the account is closed.
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bankCode
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - remark
+              - closeStatus
+              properties:
+                remark:
+                  type: string
+                  description: The account closing remarks.
+                  example: close this account remark 1234 checking for special characters !@#$
+                closeStatus:
+                  type: string
+                  description: The close status.
+                  example: closed
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+      tags:
+      - Close
+      operationId: postCloseAccountByAccountIdByBankCode
+      x-operation-id-source: derived
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-user-account.md
+  - https://docs.falconfs.com/reference/close-account.md
+  - https://docs.falconfs.com/reference/tag-detag-account.md
+  - https://docs.falconfs.com/reference/update-user-accounts.md
+  - https://docs.falconfs.com/reference/view-user-account-details.md
+  - https://docs.falconfs.com/reference/view-user-account-list.md
+  merge:
+    pages: 6
+    deduped: 0
+    conflicts_kept_first: 0

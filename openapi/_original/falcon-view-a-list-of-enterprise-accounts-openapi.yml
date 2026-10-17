@@ -1,0 +1,79 @@
+# x-archived-from: falcon-view-a-list-of-enterprise-accounts-openapi.yml
+# x-archived-on: 2026-10-16
+openapi: 3.0.0
+info:
+  title: View a List of Enterprise Accounts
+  description: Use this endpoint to fetch all credit acounts opened for an enterprise.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+paths:
+  /account/{enterpriseID}:
+    get:
+      summary: View a List of Enterprise Accounts
+      description: Use this endpoint to fetch all credit acounts opened for an enterprise.
+      parameters:
+      - name: enterpriseID
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The unique identifier of the enterprise.
+          example: Wework
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseID:
+                    type: string
+                    description: The unique identifier of the enterprise.
+                    example: Wework
+                  accountlist:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        accountId:
+                          type: string
+                          description: The unique identifier of the account.
+                          example: '202000004780'
+                        accountType:
+                          type: string
+                          description: The type of the account.
+                          example: Domestic
+                        programeID:
+                          type: string
+                          description: The unique program identifier for the account.
+                          example: SFC01
+                  total_count:
+                    type: integer
+                    description: Total number of accounts.
+                    example: 1
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/get_account-enterpriseid.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

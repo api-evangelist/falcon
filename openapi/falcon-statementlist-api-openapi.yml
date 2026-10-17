@@ -1,0 +1,379 @@
+openapi: 3.2.0
+info:
+  title: Statements Statementlist API
+  description: APIs to retrieve and manage credit card statements.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+tags:
+- name: Statementlist
+paths:
+  /statementlist/corporate/{accountId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View the Enterprise Statement List
+      description: Use this endpoint to fetch list of statements for an enterprise account.
+      operationId: get-enterprise-statement-list
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the corporate account.
+        example: account123
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: integer
+                    description: The unique identifier of the corporate account.
+                    example: 202000004782
+                  statementLists:
+                    type: array
+                    description: List of statements for the corporate account.
+                    items:
+                      type: object
+                      properties:
+                        statementId:
+                          type: string
+                          description: The unique identifier of the statement.
+                          example: STAT1222
+                        openingDate:
+                          type: string
+                          description: The opening date of the statement.
+                          example: 02-09-2023
+                        closingDate:
+                          type: string
+                          description: The closing date of the statement.
+                          example: 02-10-2023
+                        statementDate:
+                          type: string
+                          description: The date of the statement.
+                          example: 02-10-2023
+                        period:
+                          type: integer
+                          description: The period of the statement in days.
+                          example: 31
+                        pdfLinkWithPassword:
+                          type: string
+                          description: The link to download the PDF of the statement with password.
+                          format: uri
+                          example: https://www.google.com/pdf_with_password
+                        pdfLinkWithoutPassword:
+                          type: string
+                          description: The link to download the PDF of the statement without password.
+                          format: uri
+                          example: https://www.google.com/pdf_without_password
+                  totalCount:
+                    type: integer
+                    description: The total number of statements available.
+                    example: 1
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Statementlist
+  /statementlist/enterprise-past/{accountId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View or Download Past Enterprise Statements
+      description: Use this endpoint to fetch list of statements for a corporate account in a paginated way, starting from the latest statement.
+      operationId: get-enterprise-past-statements
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the corporate account.
+        example: account123
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseId:
+                    type: string
+                    description: The unique identifier for the enterprise.
+                    example: enterprise123
+                  statementList:
+                    type: array
+                    description: List of statements for the corporate account.
+                    items:
+                      type: object
+                      properties:
+                        statementId:
+                          type: string
+                          description: The unique identifier for the statement.
+                          example: statement123
+                        statementStartDate:
+                          type: string
+                          description: The start date of the statement period.
+                          example: '2023-09-01'
+                        statementEndDate:
+                          type: string
+                          description: The end date of the statement period.
+                          example: '2023-09-30'
+                        totalAmountDue:
+                          type: integer
+                          description: The total amount due of the statement.
+                          example: 2000
+                        minimumAmountDue:
+                          type: integer
+                          description: The minimum amount due of the statement.
+                          example: 500
+                        dueDate:
+                          type: string
+                          description: The due date for the statement.
+                          example: '2023-10-15'
+                        pdfLink:
+                          type: string
+                          description: The link to download the PDF of the statement.
+                          example: https://example.com/statement123.pdf
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Statementlist
+  /statementlist/enterprise/{statementId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View or Download Enterprise Statement
+      description: Use this endpoint to fetch/download particular statement for a corporate account.
+      operationId: get-enterprise-statement
+      parameters:
+      - name: statementId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the corporate account statement.
+        example: statement123
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseId:
+                    type: string
+                    description: The unique identifier for the enterprise.
+                    example: enterprise123
+                  statementList:
+                    type: array
+                    description: List of statements for the corporate account.
+                    items:
+                      type: object
+                      properties:
+                        statementId:
+                          type: string
+                          description: The unique identifier for the statement.
+                          example: statement123
+                        statementStartDate:
+                          type: string
+                          description: The start date of the statement period.
+                          example: '2023-09-01'
+                        statementEndDate:
+                          type: string
+                          description: The end date of the statement period.
+                          example: '2023-09-30'
+                        totalAmountDue:
+                          type: integer
+                          description: The total amount due of the statement.
+                          example: 2000
+                        minimumAmountDue:
+                          type: integer
+                          description: The minimum amount due of the statement.
+                          example: 500
+                        dueDate:
+                          type: string
+                          description: The due date for the statement.
+                          example: '2023-10-15'
+                        pdfLink:
+                          type: string
+                          description: The link to download the PDF of the statement.
+                          example: https://example.com/statement123.pdf
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Statementlist
+  /statementlist/{accountId}/user?pageOffset=2&pageSize=12':
+    get:
+      security:
+      - bearerAuth: []
+      summary: View the User Account Statement List
+      description: Use this endpoint to fetch a list of statements for a user account.
+      operationId: get-user-statement-list
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier for the user account.
+        example: account123
+      - name: pageOffset
+        in: query
+        required: true
+        schema:
+          type: integer
+          description: The offset for pagination.
+          example: 2
+      - name: pageSize
+        in: query
+        required: true
+        schema:
+          type: integer
+          description: The number of items per page.
+          example: 12
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: integer
+                    description: The unique identifier of the user account.
+                    example: 202000004784
+                  statementLists:
+                    type: array
+                    description: List of statements for the user account.
+                    items:
+                      type: object
+                      properties:
+                        statementId:
+                          type: string
+                          description: The unique identifier of the statement.
+                          example: STAT1222
+                        openingDate:
+                          type: string
+                          description: The opening date of the statement.
+                          format: date
+                          example: 02-09-2023
+                        closingDate:
+                          type: string
+                          description: The closing date of the statement.
+                          format: date
+                          example: 02-10-2023
+                        statementDate:
+                          type: string
+                          description: The date of the statement.
+                          format: date
+                          example: 02-10-2023
+                        period:
+                          type: integer
+                          description: The period of the statement in days.
+                          example: 31
+                        pdfLinkWithPassword:
+                          type: string
+                          description: The link to download the PDF of the statement with password.
+                          format: uri
+                          example: https://www.example.com/secure-pdf
+                        pdfLinkWithoutPassword:
+                          type: string
+                          description: The link to download the PDF of the statement without password.
+                          format: uri
+                          example: https://www.example.com/public-pdf
+                  totalCount:
+                    type: integer
+                    example: 1
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Statementlist
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/email-enterprise-statement.md
+  - https://docs.falconfs.com/reference/get-credit-card-statement.md
+  - https://docs.falconfs.com/reference/get-user-account-statement.md
+  - https://docs.falconfs.com/reference/view-enterprise-past-statements.md
+  - https://docs.falconfs.com/reference/view-enterprise-statement-list.md
+  - https://docs.falconfs.com/reference/view-enterprise-statement.md
+  - https://docs.falconfs.com/reference/view-past-user-account-statement.md
+  - https://docs.falconfs.com/reference/view-user-statement-list.md
+  merge:
+    pages: 8
+    deduped: 7
+    conflicts_kept_first: 0

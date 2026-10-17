@@ -1,0 +1,159 @@
+openapi: 3.2.0
+info:
+  title: Credit Card Non Pci Card API
+  description: APIs for managing credit cards, including issuance, activation, limits, and transactions.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+tags:
+- name: Non Pci Card
+paths:
+  /non-pci-card/{cardId}:
+    post:
+      summary: View Card Details (Non-PCI)
+      description: Use this endpoint to get non-sensitive card details.
+      operationId: view-non-pci-card-details
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the non-PCI card.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  maskedCardNumber:
+                    type: string
+                    description: The masked card number.
+                    example: 807470XXXXXX3967
+                  encryptedExpiry:
+                    type: string
+                    description: The encrypted expiry of the card.
+                    example: bOI4YJU+QV3d8BBqXg4pFQ==
+                  cardHolderName:
+                    type: string
+                    description: The name of the cardholder.
+                    example: SOMNATH TRIPATHI
+                  cardStatus:
+                    type: string
+                    description: The status of the card.
+                    example: ACTIVE
+                    enum:
+                    - ACTIVE
+                    - BLOCKED
+                    - INACTIVE
+                    - EXPIRED
+                  usageStatus:
+                    type: string
+                    description: The usage status of the card.
+                    example: ACTIVE
+                    enum:
+                    - ACTIVE
+                    - BLOCKED
+                    - INACTIVE
+                    - EXPIRED
+                  deliveryStatus:
+                    type: string
+                    description: The delivery status of the card.
+                    example: DELIVERED
+                    enum:
+                    - DELIVERED
+                    - PENDING
+                    - RETURNED
+                  isPrimary:
+                    type: boolean
+                    description: Indicates if the card is a primary card.
+                    example: true
+                    enum:
+                    - true
+                    - false
+                  balance:
+                    type: string
+                    description: The balance available on the card.
+                    example: 1000
+                  cardType:
+                    type: string
+                    description: The type of card.
+                    example: PERSONALIZED
+                    enum:
+                    - PERSONALIZED
+                    - NON_PERSONALIZED
+                  formFactor:
+                    type: string
+                    description: The form factor of the card.
+                    example: PHYSICAL
+                    enum:
+                    - VIRTUAL
+                    - PHYSICAL
+                  cardMaterial:
+                    type: string
+                    description: The material of the card.
+                    example: METAL
+                    enum:
+                    - PLASTIC
+                    - METAL
+                  blockedReason:
+                    type: string
+                    description: The reason for blocking the card.
+                    example: LOST
+                    enum:
+                    - LOST
+                    - STOLEN
+                    - FRAUD
+                    - OTHER
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+      tags:
+      - Non Pci Card
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/activate-card.md
+  - https://docs.falconfs.com/reference/add-card.md
+  - https://docs.falconfs.com/reference/add-on-card.md
+  - https://docs.falconfs.com/reference/block-card.md
+  - https://docs.falconfs.com/reference/change-channel-statuses.md
+  - https://docs.falconfs.com/reference/change-spend-limits.md
+  - https://docs.falconfs.com/reference/enable-disable-card.md
+  - https://docs.falconfs.com/reference/generate-otp.md
+  - https://docs.falconfs.com/reference/get_card-card-details-accountid.md
+  - https://docs.falconfs.com/reference/replace-blocked-card.md
+  - https://docs.falconfs.com/reference/set-pin.md
+  - https://docs.falconfs.com/reference/validate-card-details.md
+  - https://docs.falconfs.com/reference/view-add-on-card-limit.md
+  - https://docs.falconfs.com/reference/view-card-cvv.md
+  - https://docs.falconfs.com/reference/view-channel-status.md
+  - https://docs.falconfs.com/reference/view-non-pci-card-details.md
+  - https://docs.falconfs.com/reference/view-pci-card-details.md
+  - https://docs.falconfs.com/reference/view-spend-limits.md
+  merge:
+    pages: 18
+    deduped: 0
+    conflicts_kept_first: 0

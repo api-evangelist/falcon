@@ -1,0 +1,310 @@
+openapi: 3.2.0
+info:
+  title: Falcon Product API
+  version: 1.0.0
+  description: 'Operations tagged Product across 5 of this provider''s published API definitions: falcon-assign-a-program-to-an-aggregator-openapi.yml, falcon-assign-a-program-to-an-enterprise-openapi.yml, falcon-view-aggregator-program-subscriptions-openapi.yml, falcon-view-enterprise-program-subscriptions-openapi.yml, falcon-view-user-program-subscriptions-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  variables:
+    serverBaseURL:
+      default: https://api.example.com
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+tags:
+- name: Product
+paths:
+  /product:
+    post:
+      summary: Assign a Program to an Aggregator
+      description: Use this endpoint to assign a new program to an aggegator.
+      operationId: assign-program-aggregator
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - aggregatorID
+              - programeID
+              properties:
+                aggregatorID:
+                  type: string
+                  description: The unique ID of the aggregator to which the program will be assigned.
+                  example: Volopay
+                programeID:
+                  type: string
+                  description: The unique ID of the program to be assigned.
+                  example: SFCC01
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+      tags:
+      - Product
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+      variables:
+        serverBaseURL:
+          default: https://api.example.com
+  /product/{aggregatorID}:
+    get:
+      summary: View Aggregator Program Subscriptions
+      description: Use this endpoint to fetch a list of all the programs subscribed by an aggregator.
+      operationId: view-aggregator-program
+      parameters:
+      - name: aggregatorID
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The unique identifier of the aggregator.
+          example: Volopay
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  aggregatorDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product:
+                          type: string
+                          description: The name of the product.
+                          example: Commercial Credit Card
+                        productVariant:
+                          type: string
+                          description: The variant of the product.
+                          example: Shivalik Falcon Credit Card
+                        program:
+                          type: string
+                          description: The name of the program.
+                          example: Classic Credit Card
+                        programeID:
+                          type: string
+                          description: The unique identifier of the program.
+                          example: SFCC01
+              example:
+                aggregatorDetails:
+                - product: Commercial Credit Card
+                  productVariant: Shivalik Falcon Credit Card
+                  program: Classic Credit Card
+                  programeID: SFCC01
+                - product: Commercial Credit Card
+                  productVariant: Shivalik Falcon Credit Card
+                  program: Platinum Credit Card
+                  programeID: SFCC02
+                - product: Commercial Credit Card
+                  productVariant: ICICI Falcon Credit Card
+                  program: Classic Credit Card
+                  programeID: ICICIFCC01
+                - product: Commercial Credit Card
+                  productVariant: Shivalik MMT Credit Card
+                  program: Travel Card
+                  programeID: MMTSCC01
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Aggregator not found
+        '500':
+          description: Internal server error
+      tags:
+      - Product
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /product/{enterpriseID}:
+    get:
+      summary: View Enterprise Program Subscriptions
+      description: Use this endpoint to check all the programs subscribed by an enterprise.
+      operationId: view-enterprise-program
+      parameters:
+      - name: enterpriseID
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the enterprise to retrieve product details for.
+          example: Wework
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseID:
+                    type: string
+                    description: The unique ID of the enterprise.
+                    example: Wework
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product:
+                          type: string
+                          description: The name of the product.
+                          example: Commercial Credit Card
+                        productVariant:
+                          type: string
+                          description: The variant of the product.
+                          example: Shivalik Falcon Credit Card
+                        program:
+                          type: string
+                          description: The name of the program.
+                          example: Classic Credit Card
+                        programeID:
+                          type: string
+                          description: The unique ID of the program.
+                          example: SFCC01
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+      tags:
+      - Product
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /product/{userID}:
+    get:
+      summary: View User Program Subscriptions
+      description: Use this endpoint to fetch a list of all the programs subscribed by a user.
+      operationId: view-user-programs
+      parameters:
+      - name: userID
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: The unique identifier of the user.
+          example: 9824c2dc-65ac-417a-a11c-43e47e8dfa7a
+      - in: header
+        name: x-tenant-id
+        schema:
+          type: string
+        required: true
+        example: falcon
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+        required: true
+        example: Bearer {access_token}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    format: uuid
+                    description: Unique identifier of the user.
+                    example: 9824c2dc-65ac-417a-a11c-43e47e8dfa7a
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product:
+                          type: string
+                          description: The name of the product.
+                          example: Commercial Credit Card
+                        productVariant:
+                          type: string
+                          description: The variant of the product.
+                          example: Shivalik Falcon Credit Card
+                        program:
+                          type: string
+                          description: The name of the program.
+                          example: Classic Credit Card
+                        programeID:
+                          type: string
+                          description: The unique identifier of the program.
+                          example: SFCC01
+        '400':
+          description: Bad Request - Invalid input parameters.
+        '401':
+          description: Unauthorized - Invalid or missing authentication token.
+        '500':
+          description: Internal Server Error - Unexpected server-side failure.
+      tags:
+      - Product
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+x-refined-from:
+- falcon-assign-a-program-to-an-aggregator-openapi.yml
+- falcon-assign-a-program-to-an-enterprise-openapi.yml
+- falcon-view-aggregator-program-subscriptions-openapi.yml
+- falcon-view-enterprise-program-subscriptions-openapi.yml
+- falcon-view-user-program-subscriptions-openapi.yml
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-program.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

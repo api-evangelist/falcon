@@ -1,0 +1,92 @@
+# x-archived-from: falcon-update-enterprise-credit-limits-openapi.yml
+# x-archived-on: 2026-10-16
+openapi: 3.0.3
+info:
+  title: Update Enterprise Credit Limits
+  description: Use this endpoint to update credit limits of an enterprise.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+paths:
+  /enterprise:
+    post:
+      summary: Update Enterprise Credit Limits
+      description: Use this endpoint to update credit limits of an enterprise.
+      operationId: setEnterpriseCreditLimit
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - enterpriseId
+              - programeID
+              - creditLimit
+              - creditLimit.Max
+              - creditLimit.creditLimit
+              $ref: '#/components/schemas/EnterpriseCreditLimitRequest'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    EnterpriseCreditLimitRequest:
+      type: object
+      properties:
+        enterpriseId:
+          type: string
+          description: The unique identifier for the enterprise.
+          format: uuid
+          example: 8a5364cd-e606-4328-8915-2bdf31c77ebe
+        programeID:
+          type: string
+          description: The unique identifier for the program.
+          example: SFCC02
+        creditLimit:
+          type: object
+          description: The credit limit details.
+          properties:
+            Max:
+              type: integer
+              description: The maximum credit limit for the enterprise.
+              example: 5000000
+            creditLimit:
+              type: integer
+              description: The credit limit amount.
+              example: 20000
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/update-enterprise-credit-limit.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

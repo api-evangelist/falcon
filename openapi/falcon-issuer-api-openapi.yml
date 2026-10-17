@@ -1,0 +1,460 @@
+openapi: 3.2.0
+info:
+  title: Falcon Issuer API
+  version: 1.0.0
+  description: 'Operations tagged Issuer across 5 of this provider''s published API definitions: falcon-add-an-issuer-openapi.yml, falcon-credit-card-apis-openapi.yml, falcon-update-an-issuer-openapi.yml, falcon-view-an-issuer-openapi.yml, falcon-view-issuer-programs-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+tags:
+- name: Issuer
+paths:
+  /issuer:
+    post:
+      summary: Add an Issuer
+      description: Use this endpoint to add a new issuer.
+      security:
+      - bearerAuth: []
+      operationId: add-issuer
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - registeredName
+              - contactEmail
+              - contactNumber
+              properties:
+                registeredName:
+                  type: string
+                  description: The issuer registered name.
+                  example: ABC Small Finance Bank
+                brandName:
+                  type: string
+                  description: The issuer brand name you want to add.
+                  example: ABC Small Finance Bank
+                brandLogo:
+                  type: string
+                  description: The issuer logo.
+                  example: ssfb.png
+                address:
+                  type: string
+                  description: The complete address of the issuer.
+                  example: 6th Floor Infotech Tower Greater Noida
+                country:
+                  type: string
+                  description: The issuer country.
+                  example: India
+                website:
+                  type: string
+                  format: uri
+                  description: The issuer website.
+                  example: https://abcbank.com/
+                title:
+                  type: string
+                  description: The title of the administrator/POC of the issuer.
+                  example: Mr.
+                personalDetails:
+                  type: object
+                  description: The personal details of the point of contact of the issuer.
+                  properties:
+                    contactName:
+                      type: string
+                      description: The name of the administrator/POC of the issuer.
+                      example: Keshav
+                    contactEmail:
+                      type: string
+                      format: email
+                      description: The contact email of the administrator/POC of the issuer.
+                      example: keshav@abcb.com
+                    contactNumber:
+                      type: string
+                      description: The contact number of the administrator/POC of the issuer.
+                      example: 1234567890
+                    supportEmail:
+                      type: string
+                      format: email
+                      description: The support email ID of the issuer.
+                      example: support@abcb.com
+                    supportNumber:
+                      type: string
+                      description: The support contact number of the issuer.
+                      example: 1206756543
+                agreement:
+                  type: string
+                  description: The duly signed agreement file.
+                  example: ABCSOP.pdf
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  issuerName:
+                    type: string
+                    description: The name of the added issuer.
+                    example: ABC Bank
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Issuer
+    patch:
+      summary: Update an Issuer
+      description: Use this endpoint to update issuer details.
+      operationId: update-issuer
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - registeredName
+              - contactName
+              - contactEmail
+              - contactNumber
+              - supportEmail
+              - supportNumber
+              properties:
+                productCategories:
+                  type: string
+                  description: The card category.
+                  example: Credit
+                registeredName:
+                  type: string
+                  description: The issuer registered name.
+                  example: Shivalik Small Finance Bank
+                brandName:
+                  type: string
+                  description: The issuer brand name you want to add.
+                  example: Shivalik Small Finance Bank
+                brandLogo:
+                  type: string
+                  description: The issuer logo.
+                  example: ssfb.png
+                address:
+                  type: string
+                  description: The complete address of the issuer.
+                  example: 6th Floor Infotech Tower Greater Noida
+                country:
+                  type: string
+                  description: The issuer country.
+                  example: India
+                website:
+                  type: string
+                  description: The issuer website.
+                  format: uri
+                  example: https://shivalikbank.com/
+                title:
+                  type: string
+                  description: The title of the administrator/POC of the issuer.
+                  example: Mr.
+                personalDetails:
+                  type: object
+                  description: The personal details.
+                  properties:
+                    contactName:
+                      type: string
+                      description: The name of the administrator/POC of the issuer.
+                      example: Keshav
+                    contactEmail:
+                      type: string
+                      description: The contact email of the administrator/POC of the issuer.
+                      format: email
+                      example: keshav@shivalikb.com
+                    contactNumber:
+                      type: string
+                      description: The contact number of the administrator/POC of the issuer.
+                      example: '9871323241'
+                    supportEmail:
+                      type: string
+                      description: The support email ID of the issuer.
+                      format: email
+                      example: support@shivalikb.com
+                    supportNumber:
+                      type: string
+                      description: The support contact number of the issuer.
+                      example: '01206756543'
+                agreement:
+                  type: string
+                  description: The duly signed agreement file.
+                  example: ShivalikSOP.pdf
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      tags:
+      - Issuer
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /issuer/card/activateCard:
+    post:
+      summary: Activate a Card
+      description: Use this endpoint to activate a added physical or virtual card.
+      operationId: activate-card
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - cardId
+              properties:
+                cardId:
+                  type: string
+                  description: The unique identifier for the card to be activated.
+                  example: 83f1492f-d00a-4417-bfbf-7de7e13507f9
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+      tags:
+      - Issuer
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+  /issuer/{issuerType}:
+    get:
+      summary: View an Issuer
+      description: Use this endpoint to view an issuer.
+      security:
+      - bearerAuth: []
+      operationId: view-issuer
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: issuerType
+        in: path
+        required: true
+        schema:
+          type: string
+          example: Small Finance Bank
+          description: The issuer type you want to see the details.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  issuerName:
+                    type: string
+                    description: The issuer name you want to add.
+                    example: Shivalik
+                  issuerType:
+                    type: string
+                    description: The issuer type you want to add.
+                    example: Small Finance Bank
+                  productCategories:
+                    type: string
+                    description: The card category.
+                    example: Credit
+                  registeredName:
+                    type: string
+                    description: The issuer registered name.
+                    example: Shivalik Small Finance Bank
+                  brandName:
+                    type: string
+                    description: The issuer brand name.
+                    example: Shivalik Small Finance Bank
+                  brandLogo:
+                    type: string
+                    description: The issuer logo.
+                    example: ssfb.png
+                  address:
+                    type: string
+                    description: The complete address of the issuer.
+                    example: 6th Floor Infotech Tower Greater Noida
+                  country:
+                    type: string
+                    description: The issuer country.
+                    example: India
+                  website:
+                    type: string
+                    format: uri
+                    description: The issuer website.
+                    example: https://shivalikbank.com/
+                  title:
+                    type: string
+                    description: The title of the administrator/POC.
+                    example: Mr.
+                  personalDetails:
+                    type: object
+                    description: The personal details of the point of contact of the issuer.
+                    properties:
+                      contactName:
+                        type: string
+                        description: The name of the administrator/POC of the issuer.
+                        example: Keshav
+                      contactEmail:
+                        type: string
+                        format: email
+                        description: The contact email of the administrator/POC of the issuer.
+                        example: keshav@shivalikb.com
+                      contactNumber:
+                        type: string
+                        description: The contact number of the administrator/POC of the issuer.
+                        example: 9871323241
+                      supportEmail:
+                        type: string
+                        format: email
+                        description: The support email ID of the issuer.
+                        example: support@shivalikb.com
+                      supportNumber:
+                        type: string
+                        description: The support contact number of the issuer.
+                        example: 1206756543
+                  agreement:
+                    type: string
+                    description: The duly signed agreement file.
+                    example: ShivalikSOP.pdf
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Issuer
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /issuer/{issuerName}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Issuer Programs
+      description: Use this endpoint to fetch the list of programs of an issuer.
+      operationId: view-issuer-programs
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: issuerName
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The name of the issuer.
+          example: falcon
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  issuerProgram:
+                    type: object
+                    description: The issuer program details.
+                    properties:
+                      product:
+                        type: string
+                        description: The card type.
+                        example: Commercial Credit Card
+                      productVariant:
+                        type: string
+                        description: The card variant.
+                        example: Shivalik Falcon Credit Card
+                      program:
+                        type: string
+                        description: The program under which the card is issued.
+                        example: Classic Credit Card
+                      programeID:
+                        type: string
+                        description: The unique program id.
+                        example: SFCC01
+      tags:
+      - Issuer
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-refined-from:
+- falcon-add-an-issuer-openapi.yml
+- falcon-credit-card-apis-openapi.yml
+- falcon-update-an-issuer-openapi.yml
+- falcon-view-an-issuer-openapi.yml
+- falcon-view-issuer-programs-openapi.yml
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-program.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

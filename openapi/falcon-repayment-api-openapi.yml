@@ -1,0 +1,144 @@
+openapi: 3.2.0
+info:
+  title: APIs Repayment API
+  description: API endpoints for credit card repayments, including bill payments, reversals, auto-debit configurations, and payment status checks.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+tags:
+- name: Repayment
+paths:
+  /repayment:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Repay a User Account
+      description: Use this endpoint to pay a credit card bill.
+      operationId: repay-user-account
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - amountType
+              - currency
+              - amount
+              - repaymentMode
+              - purpose
+              - requestIdentifier
+              - identifierNumber
+              properties:
+                currency:
+                  type: string
+                  description: The currency of the repayment.
+                  example: INR
+                amount:
+                  type: string
+                  description: The repayment amount.
+                  example: '602.35'
+                repaymentMode:
+                  type: string
+                  description: The repayment mode.
+                  example: DIRECT_DEBIT
+                purpose:
+                  type: string
+                  description: The repayment pusrpose.
+                  example: CUSTOMER_BILL_PAYMENT
+                referenceNumber:
+                  type: string
+                  description: The repayment reference number.
+                  example: 8c16cg10-e1be-4dad-b7e1-eaa7501314k2
+                remarks:
+                  type: string
+                  description: The repayment remarks.
+                  example: Repayment for bill
+                requestIdentifier:
+                  type: string
+                  description: The repayment request identifier.
+                  example: ACCOUNT_NUMBER
+                identifierNumber:
+                  type: string
+                  description: The identifier number for the repayment.
+                  example: '234945601'
+                valueDate:
+                  type: string
+                  description: The value date for the repayment.
+                  example: '2025-01-17'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseAccount:
+                    type: string
+                    description: The enterprise account number.
+                    example: '202000004780'
+                  userAccount:
+                    type: string
+                    description: The user account number.
+                    example: '202000004782'
+                  currency:
+                    type: string
+                    description: The currency of the repayment.
+                    example: INR
+                  amount:
+                    type: string
+                    description: The repayment amount.
+                    example: '10000'
+                  transactionStatus:
+                    type: string
+                    description: The status of the transaction.
+                    example: Success
+                    enum:
+                    - Success
+                    - Failed
+                    - Pending
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Repayment
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/fetch-payment-options.md
+  - https://docs.falconfs.com/reference/fetch-payment-status.md
+  - https://docs.falconfs.com/reference/get-all-repayments.md
+  - https://docs.falconfs.com/reference/post-repayment.md
+  - https://docs.falconfs.com/reference/repay-user-account.md
+  - https://docs.falconfs.com/reference/repayment-via-netbanking.md
+  - https://docs.falconfs.com/reference/repayment-via-pg.md
+  - https://docs.falconfs.com/reference/reverse-repayment-transaction.md
+  - https://docs.falconfs.com/reference/set-auto-debit-configuration-enterprise.md
+  - https://docs.falconfs.com/reference/set-auto-debit-configuration.md
+  - https://docs.falconfs.com/reference/validate-vpa.md
+  - https://docs.falconfs.com/reference/view-enterprise-auto-debit-configuration.md
+  - https://docs.falconfs.com/reference/view-user-auto-debit-configuration.md
+  merge:
+    pages: 13
+    deduped: 0
+    conflicts_kept_first: 0

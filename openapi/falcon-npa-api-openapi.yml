@@ -1,0 +1,87 @@
+openapi: 3.2.0
+info:
+  title: Falcon Credit Card Account Npa API
+  description: API endpoints for managing user accounts in the Falcon credit card lifecycle.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+tags:
+- name: Npa
+paths:
+  /npa/bank-induce-status:
+    post:
+      summary: Tag or Detag an Account with the Bank-Induced NPA
+      description: 'Use this endpoint to tag an enterprise (corporate) or a user as bank-induced NPA with a reason and with the following sub-status/reason
+
+        - Sub-standard
+
+        - Doubtful - 1
+
+        - Doubtful - 21
+
+        - Doubtful - 22
+
+        - Doubtful - 3
+
+        - Loss'
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                npaStatus:
+                  type: string
+                  description: The NPA status to be set.
+                  example: bank-induced
+                reason:
+                  type: string
+                  description: The reason for tagging the account as NPA.
+                  example: Sub-standard
+                npaSubStatus:
+                  type: string
+                  description: The sub-status of the NPA.
+                  example: Sub-standard
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+      tags:
+      - Npa
+      operationId: postNpaBankInduceStatus
+      x-operation-id-source: derived
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-user-account.md
+  - https://docs.falconfs.com/reference/close-account.md
+  - https://docs.falconfs.com/reference/tag-detag-account.md
+  - https://docs.falconfs.com/reference/update-user-accounts.md
+  - https://docs.falconfs.com/reference/view-user-account-details.md
+  - https://docs.falconfs.com/reference/view-user-account-list.md
+  merge:
+    pages: 6
+    deduped: 0
+    conflicts_kept_first: 0

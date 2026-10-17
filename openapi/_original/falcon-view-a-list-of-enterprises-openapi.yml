@@ -1,0 +1,92 @@
+# x-archived-from: falcon-view-a-list-of-enterprises-openapi.yml
+# x-archived-on: 2026-10-16
+openapi: 3.0.0
+info:
+  title: View a List of Enterprises
+  description: Use this endpoint to fetch a list of all the enterprises onboarded by an aggregator.
+  version: 1.1.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+paths:
+  /aggregator/{aggregatorId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View a List of Enterprises
+      description: Use this endpoint to fetch a list of all the enterprises onboarded by an aggregator.
+      operationId: view-enterprise-list
+      parameters:
+      - name: aggregatorId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: Unique identifier of the aggregator.
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: Enterprises fetched successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  aggregatorID:
+                    type: string
+                    example: agg_001
+                    description: The unique ID of an aggregator.
+                  aggregatorName:
+                    type: string
+                    example: Kite Aggregator Services
+                    description: The name of the aggregator.
+                  aggregatorType:
+                    type: string
+                    example: Fintech
+                    description: The type of the aggregator. Below are the possible values.
+                    enum:
+                    - Corporate
+                    - Fintech
+                    - Business
+                  enterpriseDetails:
+                    type: object
+                    description: Details of the onboarded enterprise.
+                    properties:
+                      enterpriseID:
+                        type: string
+                        example: ent_001
+                        description: The unique ID of the enterprise.
+                      enterpriseName:
+                        type: string
+                        example: Falcon Enterprises Pvt. Ltd.
+                        description: The name of the enterprise.
+                      enterpriseType:
+                        type: string
+                        example: SME
+                        description: The type of the enterprise.
+        '401':
+          description: Unauthorized access
+        '500':
+          description: Internal server error
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/view-enterprise-list.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

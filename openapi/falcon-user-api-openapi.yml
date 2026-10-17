@@ -1,0 +1,1161 @@
+openapi: 3.2.0
+info:
+  title: Falcon User API
+  version: '1.0'
+  description: 'Operations tagged User across 10 of this provider''s published API definitions: falcon-add-a-user-openapi.yml, falcon-assign-a-program-to-an-user-openapi.yml, falcon-confirm-the-user-registration-openapi.yml, falcon-credit-card-account-apis-openapi.yml, falcon-get-user-details-using-cif-openapi.yml, falcon-initiate-a-user-registration-openapi.yml, falcon-repayment-apis-openapi.yml, falcon-update-user-details-openapi.yml, falcon-view-user-details-openapi.yml, falcon-statements-api-openapi.yml.'
+servers:
+- url: https://stage1.tab.kitecash.in/open-api/falcon/v1
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+tags:
+- name: User
+paths:
+  /user:
+    post:
+      summary: Add a User
+      description: Use this endpoint to add a new user.
+      operationId: add-user
+      parameters:
+      - in: header
+        name: x-tenant-id
+        schema:
+          type: string
+        required: true
+        example: falcon
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+        required: true
+        example: Bearer {access_token}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - aggregatorName
+              - programId
+              - userFirstName
+              - userMiddleName
+              - userLastName
+              - userPAN
+              - countryCode
+              - userMobileNumber
+              - kycAddress
+              - kycAddress[].address1
+              - kycAddress[].address2
+              - kycAddress[].city
+              - kycAddress[].state
+              - kycAddress[].pinCode
+              - userOfficeAddress
+              - userOfficeAddress[].address1
+              - userOfficeAddress[].address2
+              - userOfficeAddress[].city
+              - userOfficeAddress[].state
+              - userOfficeAddress[].pinCode
+              - deliveryAddress
+              - deliveryAddress[].address1
+              - deliveryAddress[].address2
+              - deliveryAddress[].city
+              - deliveryAddress[].state
+              - deliveryAddress[].pinCode
+              properties:
+                address:
+                  type: object
+                  properties:
+                    kycAddress:
+                      $ref: '#/components/schemas/Address'
+                    userOfficeAddress:
+                      $ref: '#/components/schemas/Address'
+                    deliveryAddress:
+                      $ref: '#/components/schemas/Address'
+                enterpriseId:
+                  type: string
+                  description: The unique enterprise ID of the user.
+                  example: '1234567890'
+                aggregatorName:
+                  type: string
+                  description: The name of the aggregator.
+                  example: Volopay
+                programId:
+                  type: string
+                  description: The unique program ID of the user.
+                  example: SFCC01
+                userFirstName:
+                  type: string
+                  description: The first name of the user.
+                  example: John
+                userMiddleName:
+                  type: string
+                  description: The middle name of the user.
+                  example: Doe
+                userLastName:
+                  type: string
+                  description: The last name of the user.
+                  example: Smith
+                userPAN:
+                  type: string
+                  description: The PAN number of the user.
+                  example: ABCDE1234F
+                countryCode:
+                  type: integer
+                  description: The country code of the user.
+                  example: 91
+                userMobileNumber:
+                  type: string
+                  description: The mobile number of the user.
+                  example: '9876543210'
+                userDOB:
+                  type: string
+                  description: The date of birth of the user.
+                  example: '1990-01-01'
+                userGender:
+                  type: string
+                  description: The user gender.
+                  example: Male
+                  enum:
+                  - Male
+                  - Female
+                  - Other
+                fatherName:
+                  type: string
+                  description: The name of the user's father.
+                  example: Robert
+                motherName:
+                  type: string
+                  description: The name of the user's mother.
+                  example: Mary
+                userOVDType:
+                  type: string
+                  description: The type of OVD (Officially Valid Document).
+                  example: Passport
+                  enum:
+                  - Passport
+                  - Aadhar
+                  - VoterID
+                  - DrivingLicense
+                userOVDID:
+                  type: string
+                  description: The ID of the OVD.
+                  example: A123456789
+                salutation:
+                  type: string
+                  description: The salutation of the user.
+                  example: Mr.
+                  enum:
+                  - Mr
+                  - Mrs
+                  - Ms
+                profession:
+                  type: string
+                  description: The profession of the user.
+                  example: Software Engineer
+                spouseName:
+                  type: string
+                  description: The name of the user's spouse.
+                  example: Jane
+                totalLengthOfService:
+                  type: integer
+                  description: The total length of service of the user.
+                  example: 5
+                lengthOfService:
+                  type: string
+                  description: The length of service of the user.
+                  example: 2 years
+                income:
+                  type: integer
+                  description: The income of the user.
+                  example: 500000
+                dependents:
+                  type: integer
+                  description: The number of dependents of the user.
+                  example: 2
+                netWorth:
+                  type: integer
+                  description: The net worth of the user.
+                  example: 1000000
+                immovableAssetWorth:
+                  type: integer
+                  description: The worth of immovable assets of the user.
+                  example: 500000
+                movableAssetWorth:
+                  type: integer
+                  description: The worth of movable assets of the user.
+                  example: 300000
+                payslip:
+                  type: string
+                  description: The payslip of the user.
+                  example: payslip.pdf
+                incomeTaxReturn:
+                  type: string
+                  description: The income tax return of the user.
+                  example: ITR.pdf
+                nationality:
+                  type: string
+                  description: The nationality of the user.
+                  example: Indian
+                kycStatus:
+                  type: string
+                  description: The KYC status of the user.
+                  example: Verified
+                  enum:
+                  - Verified
+                  - Pending
+                  - Rejected
+                profilePicture:
+                  type: string
+                  description: The profile picture of the user.
+                  example: profile.jpg
+                status:
+                  type: string
+                  description: The status of the user.
+                  example: Active
+                  enum:
+                  - Active
+                  - Inactive
+                applicationId:
+                  type: string
+                  description: The application ID of the user.
+                  example: APP123456
+                userConsent:
+                  type: boolean
+                  description: The consent of the user.
+                  example: true
+                  enum:
+                  - true
+                  - false
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    description: The unique ID of the created user.
+                    example: USR123456
+                  vkycLink:
+                    type: string
+                    description: The link to the vKYC process.
+                    example: https://vkyc.example.com/user/USR123456
+      tags:
+      - User
+    servers:
+    - url: https://stage1.tab.kitecash.in/open-api/falcon/v1
+  /user/{userId}/account:
+    post:
+      summary: Add a User Account
+      description: Use this endpoint to create a new account for user when an user has to be added to a new program.
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - userId
+              - programId
+              - isAutoDebit
+              - autoDebitType
+              - savingsAccountNumber
+              - maxCreditLimit
+              - creditLimit
+              - enterpriseIdentifierType
+              - enterpriseIdentifierValue
+              - dueDate
+              properties:
+                programId:
+                  type: string
+                  description: The ID of the program to which the account belongs.
+                  example: SF001
+                isAutoDebit:
+                  type: string
+                  description: Indicates if auto debit is enabled for the account.
+                  example: 'true'
+                autoDebitType:
+                  type: string
+                  description: The type of auto debit.
+                  example: full
+                  enum:
+                  - full
+                  - partial
+                savingsAccountNumber:
+                  type: string
+                  description: The savings account number linked to the credit card.
+                  example: '123456789012'
+                maxCreditLimit:
+                  type: string
+                  description: The maximum credit limit for the account.
+                  example: '50000'
+                creditLimit:
+                  type: string
+                  description: The credit limit for the account.
+                  example: '30000'
+                nomineeName:
+                  type: string
+                  description: The name of the nominee for the account.
+                  example: John Doe
+                nomineeRelationship:
+                  type: string
+                  description: The relationship of the nominee to the account holder.
+                  example: Brother
+                overLimit:
+                  type: object
+                  properties:
+                    consent:
+                      type: boolean
+                      description: Indicates if the user consents to over-limit transactions.
+                      example: true
+                      enum:
+                      - 'true'
+                      - 'false'
+                    consentRemarks:
+                      type: string
+                      description: Remarks regarding the user's consent for over-limit transactions.
+                      example: User has agreed to over-limit transactions.
+                    flag:
+                      type: boolean
+                      description: Indicates if the account is flagged for over-limit transactions.
+                      example: true
+                      enum:
+                      - 'true'
+                      - 'true'
+                    percent:
+                      type: integer
+                      description: The percentage of the credit limit that can be exceeded.
+                      example: 10
+                branchId:
+                  type: string
+                  description: The ID of the branch where the account is opened.
+                  example: BR001
+                applicationReferenceNumber:
+                  type: string
+                  description: The reference number for the account application.
+                  example: APP123456
+                customInfo:
+                  type: object
+                  properties:
+                    additionalProperties:
+                      type: string
+                      description: Custom information related to the account.
+                      example: Custom data
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                    description: The ID of the newly created account.
+                    example: ACC123456
+      tags:
+      - User
+      operationId: postUserByUserIdAccount
+      x-operation-id-source: derived
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /user/cif-number/{cifNumber}:
+    get:
+      summary: Get User Details using CIF
+      description: Use this endpoint to fetch details of a particular user using CIF number.
+      operationId: get-user-by-cif
+      parameters:
+      - name: cifNumber
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The CIF number of the user.
+        example: '27123678314'
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseID:
+                    type: string
+                    description: The enterprise ID of the user.
+                    example: Wework
+                  aggregatorName:
+                    type: string
+                    description: The name of the aggregator.
+                    example: VoloPay
+                  programeID:
+                    type: string
+                    description: The program ID under which the user is registered.
+                    example: SFCC01
+                  creditLimit:
+                    type: string
+                    description: The credit limit of the user.
+                    example: '10000'
+                  cashAdvanceLimit:
+                    type: string
+                    description: The cash advance limit of the user.
+                    example: '500'
+                  personalDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        userFullName:
+                          type: string
+                          description: The full name of the user.
+                          example: Abhinav
+                        userMiddleName:
+                          type: string
+                          description: The middle name of the user.
+                          example: M S
+                        userLastName:
+                          type: string
+                          description: The last name of the user.
+                          example: Sharma
+                        userPAN:
+                          type: string
+                          description: The PAN of the user.
+                          example: ABPS1234C
+                        userMobileNumber:
+                          type: string
+                          description: The mobile number of the user.
+                          example: '9876543210'
+                        userDOB:
+                          type: string
+                          description: The date of birth of the user.
+                          example: 22-01-1990
+                        userGender:
+                          type: string
+                          description: The gender of the user.
+                          example: Male
+                          enum:
+                          - Male
+                          - Female
+                          - Other
+                        fatherName:
+                          type: string
+                          description: The name of the user's father.
+                          example: B. P. Sharma
+                        motherName:
+                          type: string
+                          description: The name of the user's mother.
+                          example: Shikha Sharma
+                        userOVDType:
+                          type: string
+                          description: The type of OVD (Officially Valid Document) of the user.
+                          enum:
+                          - Driving License
+                          - Passport
+                          - Voter ID
+                          - Aadhar
+                          example: Driving License
+                        userOVDID:
+                          type: string
+                          description: The ID of the OVD of the user.
+                          example: DL-1234567890123
+                        userKYCAddress:
+                          type: string
+                          description: The KYC address of the user.
+                          example: 1206/C2 Gurgaon
+                        deliveryAddress:
+                          type: string
+                          description: The delivery address of the user.
+                          example: 1208/C2 Gurgaon
+      tags:
+      - User
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /user/ICICI_BANK/{accountID}/repayment/getrepayment:
+    get:
+      security:
+      - bearerAuth: []
+      summary: Get All Repayments
+      description: Use this endpoint to fetch all repayments of an account.
+      operationId: get-all-repayments
+      parameters:
+      - name: accountID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the account for the repayments.
+        example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: startDate
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The start date for the repayments.
+        example: '2019-08-13 00:00:00'
+      - name: endDate
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The end date for the repayments.
+        example: '2019-09-13 00:00:00'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bankID:
+                    type: string
+                    description: The ID of the bank for the repayments.
+                    example: '600100484100'
+                  accountId:
+                    type: string
+                    description: The ID of the account for the repayments.
+                    example: INR
+                  paymentDate:
+                    type: string
+                    description: The date of the payment.
+                    example: '2021-05-15T18:14:55.000'
+                  currency:
+                    type: string
+                    description: The currency of the repayments.
+                    example: INR
+                  amount:
+                    type: number
+                    description: The repayment amount.
+                    format: float
+                    example: 1000.5
+                  referenceId:
+                    type: string
+                    description: The reference ID for the repayments.
+                    example: e6ef5e95-2bab-4ec2-a7cc-4d2bbd9840ab
+                  paymentSource:
+                    type: string
+                    description: The source of the payment.
+                    example: NET_BANKING
+                  sourceAccount:
+                    type: integer
+                    description: The source account number for the repayments.
+                    example: 1000109
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+      tags:
+      - User
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /user/account/{accountID}/auto-debit:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Auto-Debit Configuration of a User Account
+      description: Use this endpoint to view configuration of auto-pay/ standing instruction for an account.
+      operationId: view-user-auto-debit-configuration
+      parameters:
+      - name: accountID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the account for the auto-debit configuration.
+        example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  opt:
+                    type: string
+                    description: Indicates if auto-debit is enabled.
+                    example: 'yes'
+                  amountConfig:
+                    type: string
+                    description: Amount configuration type.
+                    example: MAD
+                  bank:
+                    type: object
+                    description: Bank details for the auto-debit configuration.
+                    properties:
+                      accountnumber:
+                        type: string
+                        description: The bank account number.
+                        example: '12345678901'
+                      Ifsc:
+                        type: string
+                        description: The IFSC of the bank.
+                        example: HDFC00000056
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+      tags:
+      - User
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /user/repayment/postrepayment:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Post Repayments
+      description: Use this endpoint to post a repayment to a user's credit card account.
+      operationId: post-repayment
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - bankName
+              - accountId
+              - paymentDate
+              - currency
+              - amount
+              - referenceId
+              properties:
+                bankName:
+                  type: string
+                  description: The name of the bank of the repayment.
+                  example: ICICI BANK
+                accountId:
+                  type: string
+                  description: The ID of the account of the repayment.
+                  example: ICICI BANK
+                paymentDate:
+                  type: string
+                  description: The date of the payment.
+                  example: '2021-05-15T18:14:55.000'
+                currency:
+                  type: string
+                  description: The currency of the repayment.
+                  example: INR
+                amount:
+                  type: number
+                  description: The repayment amount.
+                  format: float
+                  example: 1000.5
+                referenceId:
+                  type: string
+                  description: The reference ID for the repayments.
+                  example: e6ef5e95-2bab-4ec2-a7cc-4d2bbd9840ab
+                paymentSource:
+                  type: string
+                  description: The source of the payment.
+                  example: DEBIT_CARD
+                sourceAccount:
+                  type: integer
+                  description: The source account number for the repayments.
+                  example: 1000109
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+      tags:
+      - User
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /user/{userId}:
+    put:
+      summary: Update User Details
+      description: Use this endpoint to update user details.
+      operationId: update-user-details
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique user ID of the user you want to update the details.
+        example: ac2b9817-726b-4453-befe-fb8bfdc7a3a3
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - userMobileNumber
+              - email
+              properties:
+                userMobileNumber:
+                  type: string
+                  description: The user's mobile number.
+                  example: '9999999999'
+                email:
+                  type: string
+                  description: The user's email address.
+                  example: test@gmail.com
+                permanentAddress:
+                  type: object
+                  properties:
+                    houseNumber:
+                      type: string
+                      description: The house number.
+                      example: 11k
+                    address:
+                      type: string
+                      description: The permanent address.
+                      example: Permanent
+                    locality:
+                      type: string
+                      description: The locality of the address.
+                      example: Udyog Vihar
+                    city:
+                      type: string
+                      description: The city of the address.
+                      example: Gurgaon
+                    state:
+                      type: string
+                      description: The state of the address.
+                      example: Haryana
+                    pinCode:
+                      type: string
+                      description: The postal code of the address.
+                      example: '122001'
+                    country:
+                      type: string
+                      description: The country of the address.
+                      example: INDIA
+                deliveryAddress:
+                  type: object
+                  properties:
+                    address:
+                      type: string
+                      description: The complete delivery address.
+                      example: Delivery
+                    city:
+                      type: string
+                      description: The city of the delivery address.
+                      example: Gurgaon
+                    state:
+                      type: string
+                      description: The state of the delivery address.
+                      example: Delhi
+                    pinCode:
+                      type: string
+                      description: The postal code of the delivery address.
+                      example: '122001'
+                    country:
+                      type: string
+                      description: The country of the delivery address.
+                      example: INDIA
+                officeAddress:
+                  type: object
+                  properties:
+                    address:
+                      type: string
+                      description: The complete office address.
+                      example: Delivery
+                    city:
+                      type: string
+                      description: The city of the office address.
+                      example: Gurgaon
+                    state:
+                      type: string
+                      description: The state of the office address.
+                      example: Delhi
+                    pinCode:
+                      type: string
+                      description: The postal code of the office address.
+                      example: '122001'
+                    country:
+                      type: string
+                      description: The country of the office address.
+                      example: INDIA
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+      tags:
+      - User
+    get:
+      summary: View User Details
+      description: Use this endpoint to fetch details of a particular user.
+      operationId: view-user-details
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The unique ID of the user to fetch details for.
+          example: 9824c2dc-65ac-417a-a11c-43e47e8dfa7a
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseID:
+                    type: string
+                    description: The unique ID of the enterprise.
+                    example: Wework
+                  aggregatorName:
+                    type: string
+                    description: The name of the aggregator.
+                    example: VoloPay
+                  programeID:
+                    type: string
+                    description: The program ID under which the user is registered.
+                    example: SFCC01
+                  creditLimit:
+                    type: string
+                    description: The assigned credit limit.
+                    example: '10000'
+                  cashAdvanceLimit:
+                    type: string
+                    description: The assigned cash advance limit.
+                    example: '500'
+                  personalDetails:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        userFullName:
+                          type: string
+                          description: The full name of the user.
+                          example: Abhinav
+                        userMiddleName:
+                          type: string
+                          description: The middle name of the user.
+                          example: M S
+                        userLastName:
+                          type: string
+                          description: The last name of the user.
+                          example: Sharma
+                        userPAN:
+                          type: string
+                          description: The PAN of the user.
+                          example: ABHPS1234C
+                        userMobileNumber:
+                          type: string
+                          description: The mobile number of the user.
+                          example: '9876543210'
+                        userDOB:
+                          type: string
+                          description: The date of birth of the user.
+                          example: 22-01-1990
+                        userGender:
+                          type: string
+                          description: The gender of the user.
+                          example: Male
+                          enum:
+                          - Male
+                          - Female
+                          - Other
+                        fatherName:
+                          type: string
+                          description: The name of the user's father.
+                          example: B. P. Sharma
+                        motherName:
+                          type: string
+                          description: The name of the user's mother.
+                          example: Shikha Sharma
+                        userOVDType:
+                          type: string
+                          description: The type of Officially Valid Document (OVD).
+                          example: Driving License
+                        userOVDID:
+                          type: string
+                          description: The ID of the provided OVD.
+                          example: DL1234567890
+                        userKYCAddress:
+                          type: string
+                          description: The KYC address of the user.
+                          example: 1206/C2 Gurgaon
+                        deliveryAddress:
+                          type: string
+                          description: The delivery address of the user.
+                          example: 1206/C2 Gurgaon
+                  CIFNumber:
+                    type: string
+                    description: The Customer Information File (CIF) number.
+                    example: '231313298'
+      tags:
+      - User
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+  /user/{bank}/{userId}/statement:
+    get:
+      security:
+      - bearerAuth: []
+      summary: Get a Credit Card Statement
+      description: Use this endpoint to fetch month's credit card statement for a user's credit card.
+      operationId: get-credit-card-statement
+      parameters:
+      - name: bank
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The bank name associated with the credit card.
+          example: HDFC
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The unique identifier for the user.
+          example: user123
+      - name: month
+        in: query
+        required: true
+        schema:
+          type: string
+          description: The month for which the statement is requested.
+          example: 2023-10
+      - name: fileType
+        in: query
+        required: true
+        schema:
+          type: string
+          description: The type of file to be returned (PDF or CSV).
+          example: PDF
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  openingBalance:
+                    type: integer
+                    description: The opening balance for the statement period.
+                    example: 1000
+                  closingBalance:
+                    type: integer
+                    description: The closing balance for the statement period.
+                    example: 1500
+                  statementDate:
+                    type: string
+                    description: The date of the statement.
+                    example: '2023-10-01'
+                  dueDate:
+                    type: string
+                    description: The due date for payment.
+                    example: '2023-10-15'
+                  creditLimit:
+                    type: integer
+                    description: The credit limit for the card.
+                    example: 5000
+                  availableCredit:
+                    type: integer
+                    description: The available credit limit.
+                    example: 3500
+                  pastDueAmount:
+                    type: integer
+                    description: The amount past due.
+                    example: 200
+                  purchases:
+                    type: integer
+                    description: The total purchases made during the statement period.
+                    example: 3000
+                  transactions:
+                    type: array
+                    description: List of transactions made during the statement period.
+                    items:
+                      type: object
+                      properties:
+                        transactionAmount:
+                          type: integer
+                          description: The amount of the transaction.
+                          example: 100
+                        transactionType:
+                          type: string
+                          description: The type of transaction.
+                          example: purchase
+                        transactionDescription:
+                          type: string
+                          description: The description of the transaction.
+                          example: Grocery Store
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - User
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        address1:
+          type: string
+          description: The first line of the address.
+          example: 123 Main St
+        address2:
+          type: string
+          description: The second line of the address.
+          example: Apt 4B
+        address3:
+          type: string
+          description: The third line of the address.
+          example: Building 5
+        city:
+          type: string
+          description: The city of the address.
+          example: New York
+        state:
+          type: string
+          description: The state of the address.
+          example: NY
+        pinCode:
+          type: string
+          description: The postal code of the address.
+          example: '10001'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+x-refined-from:
+- falcon-add-a-user-openapi.yml
+- falcon-assign-a-program-to-an-user-openapi.yml
+- falcon-confirm-the-user-registration-openapi.yml
+- falcon-credit-card-account-apis-openapi.yml
+- falcon-get-user-details-using-cif-openapi.yml
+- falcon-initiate-a-user-registration-openapi.yml
+- falcon-repayment-apis-openapi.yml
+- falcon-update-user-details-openapi.yml
+- falcon-view-user-details-openapi.yml
+- falcon-statements-api-openapi.yml
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-program.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

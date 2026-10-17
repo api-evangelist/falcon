@@ -1,0 +1,343 @@
+openapi: 3.2.0
+info:
+  title: Credit Card Cc Open API
+  description: APIs for managing credit cards, including issuance, activation, limits, and transactions.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+tags:
+- name: Cc Open Api
+paths:
+  /cc-open-api/falcon/v1/card/{cardId}:
+    post:
+      summary: Block a Card
+      description: Use this endpoint to block a card permanently.
+      operationId: block-card
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the card to block.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {access_token}
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+        description: The user ID performing the action.
+        example: 123456789
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - reason
+              properties:
+                reason:
+                  type: string
+                  description: The reason for blocking the card.
+                  example: stolen
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: Invalid request, bad input or missing fields.
+        '401':
+          description: Unauthorized, invalid access token.
+        '404':
+          description: Card not found.
+      tags:
+      - Cc Open Api
+  /cc-open-api/falcon/v1/card/{cardId}/policy:
+    get:
+      summary: View Channel Status
+      description: USe this endpoint to fetch the status of a particular channel for a given card.
+      operationId: view-channel-status
+      parameters:
+      - name: cardId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique identifier of the card.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {access_token}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cardId:
+                    type: string
+                    description: The unique identifier of the card.
+                    example: 0cad620c-ebd7-4b52-b079-7d351ec86c13
+                  domestic:
+                    type: object
+                    description: Domestic transaction status details.
+                    properties:
+                      atm:
+                        type: string
+                        description: ATM transaction status.
+                        example: 'ON'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      online:
+                        type: string
+                        description: Online transaction status.
+                        example: 'OFF'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      pos:
+                        type: string
+                        description: POS transaction status.
+                        example: 'ON'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      contactless:
+                        type: string
+                        description: Contactless transaction status.
+                        example: 'OFF'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                  international:
+                    type: object
+                    description: International transaction status details.
+                    properties:
+                      atm:
+                        type: string
+                        description: ATM transaction status.
+                        example: 'ON'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      online:
+                        type: string
+                        description: Online transaction status.
+                        example: 'OFF'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      pos:
+                        type: string
+                        description: POS transaction status.
+                        example: 'ON'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+                      contactless:
+                        type: string
+                        description: Contactless transaction status.
+                        example: 'OFF'
+                        enum:
+                        - 'ON'
+                        - 'OFF'
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+      tags:
+      - Cc Open Api
+  /cc-open-api/falcon/v2/card/replace:
+    post:
+      summary: Replace Blocked Card
+      description: 'Use this endpoint to replace a permanently blocked card for the same user (primary or supplementary/add-on). If the blocked card is a physical card, the replaced card will be delivered at the delivery address of the user. If you want to get it to a different address, please change the delivery address before polling this API.
+
+
+        **Note:**
+
+        Channel statuses and spend limits will be reset for the replaced card to default.'
+      operationId: replace-blocked-card
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {access_token}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - oldCardId
+              properties:
+                oldCardId:
+                  type: string
+                  description: The ID of the blocked card to be replaced.
+                  example: 83f1492f-d00a-4417-bfbf-7de7e13507f9
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cardId:
+                    type: string
+                    description: The ID of the newly issued card.
+                    example: 83f1492f-d00a-4417-bfbf-7de7e13507f9
+        '400':
+          description: Invalid request, bad input or missing fields.
+        '401':
+          description: Unauthorized, invalid access token.
+        '404':
+          description: Blocked card not found.
+      tags:
+      - Cc Open Api
+  /cc-open-api/falcon/v2/card/{cardID}:
+    post:
+      summary: Validate Card Details
+      description: Use this endpoint to validate card details like card number, 6-digit card code, expiry date, and CVV.
+      operationId: validate-card-details
+      parameters:
+      - name: cardID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The card ID for which the validation is being performed.
+        example: 9824c2dc-65ac-417a-a11c-43e47e8dfa6t
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {access_token}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - cardnumber
+              - card6digit
+              - Card4digit
+              - expiry
+              - Cvv
+              properties:
+                cardnumber:
+                  type: string
+                  description: The full 16-digit card number to validate.
+                  example: '1234567890123456'
+                card6digit:
+                  type: string
+                  description: The 6-digit code associated with the card.
+                  example: '123456'
+                Card4digit:
+                  type: string
+                  description: The last 4 digits of the card number.
+                  example: '3456'
+                expiry:
+                  type: string
+                  description: The expiry date of the card.
+                  example: ''
+                Cvv:
+                  type: string
+                  description: The CVV code for the card.
+                  example: '159'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  match:
+                    type: string
+                    description: The validation result, indicating whether the card details match.
+                    example: 'yes'
+        '400':
+          description: Invalid request or missing required fields.
+        '401':
+          description: Unauthorized, invalid access token.
+        '404':
+          description: Card not found.
+      tags:
+      - Cc Open Api
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/activate-card.md
+  - https://docs.falconfs.com/reference/add-card.md
+  - https://docs.falconfs.com/reference/add-on-card.md
+  - https://docs.falconfs.com/reference/block-card.md
+  - https://docs.falconfs.com/reference/change-channel-statuses.md
+  - https://docs.falconfs.com/reference/change-spend-limits.md
+  - https://docs.falconfs.com/reference/enable-disable-card.md
+  - https://docs.falconfs.com/reference/generate-otp.md
+  - https://docs.falconfs.com/reference/get_card-card-details-accountid.md
+  - https://docs.falconfs.com/reference/replace-blocked-card.md
+  - https://docs.falconfs.com/reference/set-pin.md
+  - https://docs.falconfs.com/reference/validate-card-details.md
+  - https://docs.falconfs.com/reference/view-add-on-card-limit.md
+  - https://docs.falconfs.com/reference/view-card-cvv.md
+  - https://docs.falconfs.com/reference/view-channel-status.md
+  - https://docs.falconfs.com/reference/view-non-pci-card-details.md
+  - https://docs.falconfs.com/reference/view-pci-card-details.md
+  - https://docs.falconfs.com/reference/view-spend-limits.md
+  merge:
+    pages: 18
+    deduped: 0
+    conflicts_kept_first: 0

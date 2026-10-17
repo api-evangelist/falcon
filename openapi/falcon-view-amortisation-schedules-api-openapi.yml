@@ -1,0 +1,203 @@
+openapi: 3.2.0
+info:
+  title: EMI View Amortisation Schedules API
+  description: APIs for managing EMI plans and transactions
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+tags:
+- name: View Amortisation Schedules
+paths:
+  /view-amortisation-schedules:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Amortisation Schedule
+      description: Use this endpoint to view the amortization schedules.
+      operationId: view-amortisation-schedules
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - TransactionID
+              - EMIplanID
+              - tenure
+              properties:
+                TransactionID:
+                  type: string
+                  description: ID of the transaction to view amortization schedules for.
+                  example: '123456'
+                EMIplanID:
+                  type: string
+                  description: ID of the EMI plan to view amortization schedules for.
+                  example: 123asd
+                tenure:
+                  type: integer
+                  description: Tenure for the amortization schedule in months.
+                  example: 5
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  TransactionDetails:
+                    type: array
+                    description: Details of the transaction.
+                    items:
+                      type: object
+                      properties:
+                        TransactionID:
+                          type: integer
+                          description: ID of the transaction.
+                          example: 36121312
+                        TransactionDateTime:
+                          type: string
+                          description: Date and time of the transaction in DD/MM/YYYY HH:MM:SS format.
+                          example: 23/03/2024 16:10:34
+                        MerchantName:
+                          type: string
+                          description: Name of the merchant for the transaction.
+                          example: Amazon
+                        TransactionAmount:
+                          type: number
+                          description: Amount of the transaction.
+                          example: 1000
+                  LoanDetails:
+                    type: object
+                    description: Details of the loan.
+                    properties:
+                      InterestRate:
+                        type: number
+                        description: Interest rate for the loan.
+                        example: 32
+                      EMIAmount:
+                        type: number
+                        description: Amount of the EMI.
+                        example: 216.28
+                      TotalPrincipalAmount:
+                        type: number
+                        description: Total principal amount for the loan.
+                        example: 1000
+                      TotalTransactionCount:
+                        type: integer
+                        description: Total number of transactions for the loan.
+                        example: 1
+                      TotalInstallationCount:
+                        type: integer
+                        description: Total number of installations for the loan.
+                        example: 5
+                      EmiPlanID:
+                        type: string
+                        description: ID of the EMI plan used for conversion.
+                        example: asdf1233
+                  TotalPayable:
+                    type: number
+                    description: Total amount payable for the loan.
+                    example: 1096.06
+                  LoanSchedules:
+                    type: array
+                    description: Details of the loan schedules.
+                    items:
+                      type: object
+                      properties:
+                        InstallmentNumber:
+                          type: integer
+                          description: Number of the installment.
+                          example: 1
+                        PrincipalAmount:
+                          type: number
+                          description: Amount of the principal for the installment.
+                          example: 189.61
+                        InterestAmount:
+                          type: number
+                          description: Amount of the interest for the installment.
+                          example: 26.67
+                        InterestGST:
+                          type: number
+                          description: Amount of the GST on interest for the installment.
+                          example: 4.8
+                        BillingDate:
+                          type: string
+                          description: Billing date for the installment in DD/MM/YYYY format.
+                          example: 25/03/2024
+                  ProcessingFee:
+                    type: array
+                    description: Details of the processing fee.
+                    items:
+                      type: object
+                      properties:
+                        ProcessingFeeRule:
+                          type: object
+                          description: Details of the processing fee rule.
+                          properties:
+                            ProcessingChargesType:
+                              type: string
+                              description: Type of processing charges.
+                              example: PercentageWithMinAndMax
+                            Percentage:
+                              type: number
+                              description: Percentage of the processing charges.
+                              example: 16
+                            MinAmount:
+                              type: number
+                              description: Minimum amount for the processing charges.
+                              example: 100
+                            MaxAmount:
+                              type: number
+                              description: Maximum amount for the processing charges.
+                              example: 2000
+                        ProcessingFee:
+                          type: number
+                          description: Amount of the processing fee.
+                          example: 200
+                        ProcessingFeeGST:
+                          type: number
+                          description: Amount of the GST on processing fee.
+                          example: 35
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - View Amortisation Schedules
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-emi-plan.md
+  - https://docs.falconfs.com/reference/convert-outstanding-balance.md
+  - https://docs.falconfs.com/reference/convert-transactions-emi.md
+  - https://docs.falconfs.com/reference/foreclose-emi.md
+  - https://docs.falconfs.com/reference/foreclosure-quote.md
+  - https://docs.falconfs.com/reference/put_update-status-emi-plan.md
+  - https://docs.falconfs.com/reference/view-amortisation-schedule.md
+  - https://docs.falconfs.com/reference/view-emi-details.md
+  - https://docs.falconfs.com/reference/view-emi-list.md
+  - https://docs.falconfs.com/reference/view-emi-plan.md
+  - https://docs.falconfs.com/reference/view-transaction-eligibility.md
+  merge:
+    pages: 11
+    deduped: 0
+    conflicts_kept_first: 0

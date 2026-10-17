@@ -1,0 +1,789 @@
+# x-archived-from: falcon-transaction-apis-openapi.yml
+# x-archived-on: 2026-10-16
+openapi: 3.0.1
+info:
+  title: Transaction APIs
+  description: APIs for managing transactions in a credit card lifecycle.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+paths:
+  /account/chargeback:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Post a Chargeback
+      description: "Use this endpoint to post chargeback credits to an account.  \n\n**Note:** Reward reversal will automatically happen on this action.\n"
+      operationId: post-chargeback
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - amount
+              - transactionId
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account to which the chargeback will be applied.
+                  example: '202000004783'
+                amount:
+                  type: number
+                  description: The amount to be charged back to the account.
+                  example: 5000
+                transactionId:
+                  type: string
+                  description: The ID of the transaction for which the chargeback is being processed.
+                  example: 123ert
+                remarks:
+                  type: string
+                  description: A narration or description of the chargeback transaction.
+                  example: chargeback
+                referenceId:
+                  type: string
+                  description: A unique reference ID for the chargeback transaction.
+                  example: 1234567890w
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  referenceId:
+                    type: string
+                    description: A unique reference ID of the chargeback transaction.
+                    example: 1234567890w
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /account/credit:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Add a Manual Credit
+      description: Use this endpoint to post manual credit to an account, for cashback, interest reversal, surcharge reversal, tax reversal, or fee reversal.
+      operationId: add-manual-credit
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - creditAmount
+              - feeCategory
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account to which the credit will be applied.
+                  example: '1234567890'
+                creditAmount:
+                  type: number
+                  description: The amount to be credited to the account.
+                  example: 100
+                feeCategory:
+                  type: string
+                  description: The category of the fee.
+                  example: cashback
+                date:
+                  type: string
+                  description: The date of the credit transaction.
+                  example: '2023-10-01'
+                narration:
+                  type: string
+                  description: A narration or description of the credit transaction.
+                  example: Manual credit for cashback
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /account/debit:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Add a Manual Debit
+      description: Use this endpoint to post a manual debit to an account.
+      operationId: add-manual-debit
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - debitAmount
+              - feeAmount
+              - feeCategory
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account to which the debit will be applied.
+                  example: '1234567890'
+                debitAmount:
+                  type: number
+                  description: The amount to be debited from the account.
+                  example: 100
+                feeAmount:
+                  type: number
+                  description: The fee amount associated with the debit.
+                  example: 5
+                feeCategory:
+                  type: string
+                  description: The category of the fee.
+                  example: service
+                date:
+                  type: string
+                  description: The date of the debit transaction.
+                  example: '2023-10-01'
+                narration:
+                  type: string
+                  description: A narration or description of the debit transaction.
+                  example: Manual debit for service fee
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /account/refund:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Post a Bank Refund
+      description: "Use this endpoint to post debit to account for the amount that has been refunded to the bank account of the customer by the bank. \n\n**Note:** The transaction type of such debit will be the same as a purchase transaction. Default txn type (if txn id not provised) should be for a purchase.\n"
+      operationId: post-bank-refund
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - amount
+              - transactionid
+              - referenceid
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account to which the refund will be applied.
+                  example: '202000004783'
+                amount:
+                  type: number
+                  description: The amount to be refunded to the account.
+                  example: 5000
+                transactionid:
+                  type: string
+                  description: The ID of the transaction for which the refund is being processed.
+                  example: 123ert
+                narration:
+                  type: string
+                  description: A narration or description of the refund transaction.
+                  example: Bank refund
+                referenceid:
+                  type: string
+                  description: A unique reference ID for the refund transaction.
+                  example: 1234567890w
+                bank:
+                  type: object
+                  required:
+                  - name
+                  - accountnumber
+                  - ifsc
+                  description: Bank details for the refund.
+                  properties:
+                    name:
+                      type: string
+                      description: The name of the bank.
+                      example: ABC
+                    accountnumber:
+                      type: string
+                      description: The account number of the bank.
+                      example: '123456789012'
+                    ifsc:
+                      type: string
+                      description: The IFSC of the bank.
+                      example: HDFC00006
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  referenceid:
+                    type: string
+                    description: A unique reference ID of the refund transaction.
+                    example: 1234567890w
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /account/{accountId}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: Search a Transaction
+      description: Use this endpoint to fetch details of a transaction based on a transaction ID.
+      operationId: get-transaction-details
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the account for which to fetch transaction details.
+        example: '202000004783'
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                    description: The ID of the account.
+                    example: '202000004783'
+                  transactionId:
+                    type: string
+                    description: The unique identifier of the transaction.
+                    example: txn_1234567890
+                  transactionDate:
+                    type: string
+                    description: The date of the transaction.
+                    example: '2023-10-01T12:00:00Z'
+                  transactionType:
+                    type: string
+                    description: The type of transaction.
+                    example: purchase
+                  transactionStatus:
+                    type: string
+                    description: The status of the transaction.
+                    example: Authorised
+                    enum:
+                    - Authorised
+                    - Declined
+                    - Pending
+                  cardId:
+                    type: string
+                    description: The ID of the card used for the transaction.
+                    example: card_1234567890
+                  merchantName:
+                    type: string
+                    description: The name of the merchant where the transaction occurred.
+                    example: ABC Store
+                  channel:
+                    type: string
+                    description: The channel through which the transaction was made.
+                    example: online
+                  mcc:
+                    type: string
+                    description: The Merchant Category Code for the transaction.
+                    example: '5411'
+                  mid:
+                    type: string
+                    description: The Merchant ID for the transaction.
+                    example: mid_1234567890
+                  externalReferenceId:
+                    type: string
+                    description: An external reference ID of the transaction.
+                    example: ext_ref_1234567890
+                  totalAmount:
+                    type: number
+                    description: The total amount of the transaction.
+                    example: 100.5
+                  transactionAmount:
+                    type: number
+                    description: The amount of the transaction.
+                    example: 95
+                  transactionFee:
+                    type: number
+                    description: The fee associated with the transaction.
+                    example: 5.5
+                  transactionTax:
+                    type: number
+                    description: The tax associated with the transaction.
+                    example: 0.5
+                  narration:
+                    type: string
+                    description: A narration or description of the transaction.
+                    example: Purchase at ABC Store
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /account/{accountId}/enterprise/unbilled:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Enterprise Unbilled Transactions
+      description: Use this endpoint to fetch a list of unbilled transactions of an enterprise account.
+      operationId: view-enterprise-unbilled-transactions
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the account for which to fetch unbilled transactions.
+          example: '1234567890'
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    transactionId:
+                      type: string
+                      description: The unique identifier of the transaction.
+                      example: txn_1234567890
+                    transactionDate:
+                      type: string
+                      description: The date of the transaction.
+                      example: '2023-10-01T12:00:00Z'
+                    transactionType:
+                      type: string
+                      description: The type of transaction.
+                      example: purchase
+                    transactionStatus:
+                      type: string
+                      description: The status of the transaction.
+                      example: Authorised
+                      enum:
+                      - Authorised
+                      - Declined
+                      - Pending
+                    cardId:
+                      type: string
+                      description: The ID of the card used for the transaction.
+                      example: card_1234567890
+                    merchantName:
+                      type: string
+                      description: The name of the merchant where the transaction occurred.
+                      example: ABC Store
+                    channel:
+                      type: string
+                      description: The channel through which the transaction was made.
+                      example: online
+                    mcc:
+                      type: string
+                      description: The Merchant Category Code for the transaction.
+                      example: '5411'
+                    mid:
+                      type: string
+                      description: The Merchant ID for the transaction.
+                      example: mid_1234567890
+                    externalReferenceId:
+                      type: string
+                      description: An external reference ID of the transaction.
+                      example: ext_ref_1234567890
+                    totalAmount:
+                      type: number
+                      description: The total amount of the transaction.
+                      example: 100.5
+                    transactionAmount:
+                      type: number
+                      description: The amount of the transaction.
+                      example: 95
+                    transactionFee:
+                      type: number
+                      description: The fee associated with the transaction.
+                      example: 5.5
+                    transactionTax:
+                      type: number
+                      description: The tax associated with the transaction.
+                      example: 0.5
+                    narration:
+                      type: string
+                      description: A narration or description of the transaction.
+                      example: Purchase at ABC Store
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /account/{accountId}/unbilled:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View User Account Unbilled Transactions
+      description: use this endpoint to fetch unbilled transactions for a user account.
+      operationId: view-user-unbilled-transactions
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the account for which to fetch unbilled transactions.
+          example: '1234567890'
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                    description: The ID of the account.
+                    example: '1234567890'
+                  transactionDetails:
+                    type: object
+                    description: Details of the unbilled transactions.
+                    properties:
+                      transactionId:
+                        type: string
+                        description: The unique identifier of the transaction.
+                        example: txn_1234567890
+                      transactionDate:
+                        type: string
+                        description: The date of the transaction.
+                        example: '2023-10-01T12:00:00Z'
+                      transactionType:
+                        type: string
+                        description: The type of the transaction.
+                        example: purchase
+                      transactionStatus:
+                        type: string
+                        description: The status of the transaction.
+                        example: Authorised
+                        enum:
+                        - Authorised
+                        - Declined
+                        - Pending
+                      cardId:
+                        type: string
+                        description: The ID of the card used for the transaction.
+                        example: card_1234567890
+                      merchantName:
+                        type: string
+                        description: The name of the merchant where the transaction occurred.
+                        example: ABC Store
+                      channel:
+                        type: string
+                        description: The channel through which the transaction was made.
+                        example: online
+                      mcc:
+                        type: string
+                        description: The Merchant Category Code for the transaction.
+                        example: '5411'
+                      mid:
+                        type: string
+                        description: The Merchant ID for the transaction.
+                        example: mid_1234567890
+                      externalReferenceId:
+                        type: string
+                        description: An external reference ID of the transaction.
+                        example: ext_ref_1234567890
+                      totalAmount:
+                        type: number
+                        description: The total amount of the transaction.
+                        example: 100.5
+                      transactionAmount:
+                        type: number
+                        description: The amount of the transaction.
+                        example: 95
+                      transactionFee:
+                        type: number
+                        description: The fee associated with the transaction.
+                        example: 5.5
+                      transactionTax:
+                        type: number
+                        description: The tax associated with the transaction.
+                        example: 0.5
+                      narration:
+                        type: string
+                        description: A narration or description of the transaction.
+                        example: Purchase at ABC Store
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /account/{statementId}/billed:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Account Billed Transactions
+      description: Use this endpoint to fetch billed transactions of an account using a statement ID.
+      operationId: view-account-billed-transactions
+      parameters:
+      - name: statementId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The unique statement ID.
+          example: stmt_1234567890
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statementId:
+                    type: string
+                    description: The ID of the statement.
+                    example: stmt_1234567890
+                  accountId:
+                    type: string
+                    description: The ID of the account.
+                    example: '1234567890'
+                  outstandingAmount:
+                    type: string
+                    description: The outstanding amount on the account.
+                    example: '1000.00'
+                  minimumAmountDue:
+                    type: string
+                    description: The minimum amount due on the account.
+                    example: '100.00'
+                  totalAmountDue:
+                    type: string
+                    description: The total amount due on the account.
+                    example: '1100.00'
+                  statementStartDate:
+                    type: string
+                    description: The start date of the statement period.
+                    example: '2023-09-01'
+                  statementEndDate:
+                    type: string
+                    description: The end date of the statement period.
+                    example: '2023-09-30'
+                  dueDate:
+                    type: string
+                    description: The due date for payment.
+                    example: '2023-10-15'
+                  transactionList:
+                    type: array
+                    description: List of transactions in the statement.
+                    items:
+                      type: object
+                      properties:
+                        transactionId:
+                          type: string
+                          description: The unique identifier of the transaction.
+                          example: txn_1234567890
+                        transactionDate:
+                          type: string
+                          description: The date of the transaction.
+                          example: '2023-10-01T12:00:00Z'
+                        transactionType:
+                          type: string
+                          description: The type of the transaction.
+                          example: purchase
+                        transactionStatus:
+                          type: string
+                          description: The status of the transaction.
+                          example: Authorised
+                          enum:
+                          - Authorised
+                          - Declined
+                          - Pending
+                        cardId:
+                          type: string
+                          description: The ID of the card used for the transaction.
+                          example: card_1234567890
+                        merchantName:
+                          type: string
+                          description: The name of the merchant where the transaction occurred.
+                          example: ABC Store
+                        channel:
+                          type: string
+                          description: The channel through which the transaction was made.
+                          example: online
+                        mcc:
+                          type: string
+                          description: The Merchant Category Code for the transaction.
+                          example: '5411'
+                        mid:
+                          type: string
+                          description: The Merchant ID for the transaction.
+                          example: mid_1234567890
+                        externalReferenceId:
+                          type: string
+                          description: An external reference ID of the transaction.
+                          example: ext_ref_1234567890
+                        totalAmount:
+                          type: number
+                          description: The total amount of the transaction.
+                          example: 100.5
+                        transactionAmount:
+                          type: number
+                          description: The amount of the transaction.
+                          example: 95
+                        transactionFee:
+                          type: number
+                          description: The fee associated with the transaction.
+                          example: 5.5
+                        transactionTax:
+                          type: number
+                          description: The tax associated with the transaction.
+                          example: 0.5
+                        narration:
+                          type: string
+                          description: A narration or description of the transaction.
+                          example: Purchase at ABC Store
+                  total_count:
+                    type: integer
+                    description: The total number of transactions in the statement.
+                    example: 1
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-manual-credit.md
+  - https://docs.falconfs.com/reference/add-manual-debit.md
+  - https://docs.falconfs.com/reference/get-transaction-details.md
+  - https://docs.falconfs.com/reference/post-bank-refund.md
+  - https://docs.falconfs.com/reference/post-chargeback.md
+  - https://docs.falconfs.com/reference/view-account-billed-transactions.md
+  - https://docs.falconfs.com/reference/view-enterprise-unbilled-transactions.md
+  - https://docs.falconfs.com/reference/view-user-unbilled-transactions.md
+  merge:
+    pages: 8
+    deduped: 7
+    conflicts_kept_first: 0

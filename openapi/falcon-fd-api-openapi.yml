@@ -1,0 +1,106 @@
+openapi: 3.2.0
+info:
+  title: Repayment FD API
+  description: API endpoints for credit card repayments, including bill payments, reversals, auto-debit configurations, and payment status checks.
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+tags:
+- name: FD
+paths:
+  /FD/payment/PHONEPE/inquiry/order/{oderID}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: Fetch Payment Status
+      description: Use this endpoint to fetch the payment status.
+      operationId: fetch-payment-status
+      parameters:
+      - name: oderID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the order for the payment status.
+        example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: enterpriseId
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The ID of the enterprise.
+          example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+        example: nonjit
+      - name: userId
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The ID of the user.
+          example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The status of the payment.
+                    example: SUCCESS
+                    enum:
+                    - SUCCESS
+                    - FAILURE
+                    - PENDING
+                  message:
+                    type: string
+                    description: The message for the payment status.
+                    example: Your payment is successful
+                  state:
+                    type: string
+                    description: The state of the payment.
+                    example: PAYMENT_SUCCESS
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+      tags:
+      - FD
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/fetch-payment-options.md
+  - https://docs.falconfs.com/reference/fetch-payment-status.md
+  - https://docs.falconfs.com/reference/get-all-repayments.md
+  - https://docs.falconfs.com/reference/post-repayment.md
+  - https://docs.falconfs.com/reference/repay-user-account.md
+  - https://docs.falconfs.com/reference/repayment-via-netbanking.md
+  - https://docs.falconfs.com/reference/repayment-via-pg.md
+  - https://docs.falconfs.com/reference/reverse-repayment-transaction.md
+  - https://docs.falconfs.com/reference/set-auto-debit-configuration-enterprise.md
+  - https://docs.falconfs.com/reference/set-auto-debit-configuration.md
+  - https://docs.falconfs.com/reference/validate-vpa.md
+  - https://docs.falconfs.com/reference/view-enterprise-auto-debit-configuration.md
+  - https://docs.falconfs.com/reference/view-user-auto-debit-configuration.md
+  merge:
+    pages: 13
+    deduped: 0
+    conflicts_kept_first: 0

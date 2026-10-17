@@ -1,0 +1,1653 @@
+openapi: 3.2.0
+info:
+  title: Falcon Account API
+  version: 1.0.0
+  description: 'Operations tagged Account across 8 of this provider''s published API definitions: falcon-credit-card-account-apis-openapi.yml, falcon-credit-card-apis-openapi.yml, falcon-fee-apis-openapi.yml, falcon-funding-apis-openapi.yml, falcon-repayment-apis-openapi.yml, falcon-transaction-apis-openapi.yml, falcon-view-a-list-of-enterprise-accounts-openapi.yml, falcon-view-enterprise-account-details-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+tags:
+- name: Account
+paths:
+  /account:
+    put:
+      summary: Update User Accounts
+      description: Use this endpoint to update an account's parameters like credit limit, overlimit, or billing cycle.
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - creditLimit
+              - dueDate
+              - overLimit
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account to be updated.
+                  example: ACC123456
+                creditLimit:
+                  type: string
+                  description: The new credit limit for the account.
+                  example: '40000'
+                dueDate:
+                  type: string
+                  description: The new due date for the account.
+                  example: '2023-10-15'
+                nomineeName:
+                  type: string
+                  description: The name of the nominee for the account.
+                  example: Jane Doe
+                nomineeRelationship:
+                  type: string
+                  description: The relationship of the nominee to the account holder.
+                  example: Sister
+                overLimit:
+                  type: object
+                  properties:
+                    consent:
+                      type: boolean
+                      description: Indicates if the user consents to over-limit transactions.
+                      example: true
+                      enum:
+                      - true
+                      - false
+                    consentRemarks:
+                      type: string
+                      description: Remarks regarding the user's consent for over-limit transactions.
+                      example: User has agreed to over-limit transactions.
+                    flag:
+                      type: boolean
+                      description: Indicates if the account is flagged for over-limit transactions.
+                      example: true
+                      enum:
+                      - true
+                      - false
+                    percent:
+                      type: integer
+                      description: The percentage of the credit limit that can be exceeded.
+                      example: 15
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+      tags:
+      - Account
+      operationId: putAccount
+      x-operation-id-source: derived
+    post:
+      security:
+      - bearerAuth: []
+      summary: Fund a User Account
+      description: Use this endpoint to add money to user account.
+      operationId: fund-user-account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - currency
+              - enterpriseAccount
+              - userAccount
+              - amount
+              - remarks
+              properties:
+                currency:
+                  type: string
+                  description: The currency in which the amount is specified.
+                  example: INR
+                enterpriseAccount:
+                  type: integer
+                  description: The enterprise account number from which the funds will be debited.
+                  example: 202000004780
+                userAccount:
+                  type: integer
+                  description: The user account number to which the funds will be credited.
+                  example: 202000004782
+                amount:
+                  type: integer
+                  description: The amount to be funded to the user account.
+                  example: 10000
+                remarks:
+                  type: string
+                  description: Remarks or notes regarding the funding transaction.
+                  example: Funding
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseAccount:
+                    type: integer
+                    description: The enterprise account number from which the funds were debited.
+                    example: 202000004780
+                  userAccount:
+                    type: integer
+                    description: The user account number to which the funds were credited.
+                    example: 202000004782
+                  currency:
+                    type: string
+                    description: The currency in which the amount is specified.
+                    example: INR
+                  amount:
+                    type: integer
+                    description: The amount that was funded to the user account.
+                    example: 10000
+                  transactionStatus:
+                    type: string
+                    description: The status of the transaction.
+                    example: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/users:
+    get:
+      summary: View List of User Accounts
+      description: Use this endpoint to fetch a list of user accounts.
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    description: The ID of the user whose accounts are being fetched.
+                    example: USR123456
+                  enterpriseId:
+                    type: string
+                    description: The ID of the enterprise associated with the user.
+                    example: ENT123456
+                  accountList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        programID:
+                          type: string
+                          description: The ID of the program associated with the account.
+                          example: SF001
+                        accountId:
+                          type: string
+                          description: The ID of the account.
+                          example: ACC123456
+                        programName:
+                          type: string
+                          description: The name of the program associated with the account.
+                          example: Super Finance Program
+                        primaryCardNumberMasked:
+                          type: string
+                          description: The masked primary card number.
+                          example: XXXX-XXXX-XXXX-1234
+                        availableCreditLimit:
+                          type: integer
+                          description: The available credit limit for the account.
+                          example: 20000
+                        outstandingAmount:
+                          type: integer
+                          description: The outstanding amount on the account.
+                          example: 5000
+                  totalCount:
+                    type: integer
+                    description: The total number of accounts associated with the user.
+                    example: 1
+      tags:
+      - Account
+      operationId: getAccountUsers
+      x-operation-id-source: derived
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/{accountId}:
+    get:
+      summary: View User Account Details
+      description: Use this endpoint to fetch details of a particular user account.
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique ID of the account.
+        example: ACC123456
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                    description: The ID of the account.
+                    example: ACC123456
+                  status:
+                    type: string
+                    description: The status of the account.
+                    example: active
+                    enum:
+                    - active
+                    - inactive
+                    - closed
+                  programID:
+                    type: string
+                    description: The ID of the program associated with the account.
+                    example: SF001
+                  openingDate:
+                    type: string
+                    description: The date the account was opened.
+                    example: '2023-01-01'
+                  billingCycleFrequency:
+                    type: string
+                    description: The frequency of the billing cycle.
+                    example: monthly
+                  linkedFormFactors:
+                    type: string
+                    description: The linked form factors.
+                    example: physical
+                    enum:
+                    - physical
+                    - virtual
+                  primaryCardId:
+                    type: string
+                    description: The primary card ID.
+                    example: CARD123456
+                  primaryCardNumberMasked:
+                    type: string
+                    description: The masked primary card number.
+                    example: XXXX-XXXX-XXXX-1234
+                  currency:
+                    type: string
+                    description: The currency of the account.
+                    example: INR
+                  grantedCreditLimit:
+                    type: string
+                    description: The granted credit limit for the account.
+                    example: '30000'
+                  availableCreditLimit:
+                    type: string
+                    description: The available credit limit for the account.
+                    example: '20000'
+                  outstandingAmount:
+                    type: string
+                    description: The outstanding amount on the account.
+                    example: '5000'
+      tags:
+      - Account
+      operationId: getAccountByAccountId
+      x-operation-id-source: derived
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/{accountId}/card:
+    post:
+      summary: Add a Credit Card
+      description: Use this endpoint to issue a new credit card (Virtual/Physical) to an active primary user.
+      operationId: add-card
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique account ID to which the card will be issued.
+        example: 202000004784
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+        example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - formFactor
+              properties:
+                formFactor:
+                  type: string
+                  description: The type of card to be issued.
+                  example: PHYSICAL
+                  enum:
+                  - VIRTUAL
+                  - PHYSICAL
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cardId:
+                    type: string
+                    description: The unique identifier for the card.
+                    example: 83f1492f-d00a-4417-bfbf-7de7e13507f9
+        '400':
+          description: Invalid request payload
+        '401':
+          description: Unauthorized access
+        '404':
+          description: Account not found
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1/
+  /account/debit:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Post a Fee
+      description: Use this endpoint to post a fee to an account. Configured GST will be posted to the account automatically.
+      operationId: post-fee
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - feeType
+              - amount
+              - narration
+              properties:
+                accountId:
+                  type: string
+                  description: ID of the account to be debited.
+                  example: '202000004782'
+                feeType:
+                  type: string
+                  description: Type of fee to be debited.
+                  example: Reward Redemption Fee
+                amount:
+                  type: string
+                  description: Amount to be debited.
+                  example: '200'
+                narration:
+                  type: string
+                  description: Narration for the fee.
+                  example: Annual fee for the card
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/{accountId}/fees:
+    get:
+      security:
+      - bearerAuth: []
+      summary: Get the Fees of an Account
+      description: Use this endpoint to fetch details of fees of an account.
+      operationId: get-account-fees
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the account to be fetched.
+          example: '12345'
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  joiningFee:
+                    type: string
+                    description: Joining fee for the card
+                    example: '0'
+                  joiningFeeTax:
+                    type: string
+                    description: Tax on joining fee
+                    example: '0'
+                  annualFee:
+                    type: string
+                    description: Annual fee of the card
+                    example: '0'
+                  annualFeeTax:
+                    type: string
+                    description: Tax on annual fee
+                    example: '0'
+                  latePaymentFee:
+                    type: string
+                    description: Late payment fee
+                    example: '100'
+                  latePaymentFeeTax:
+                    type: string
+                    description: Tax on late payment fee
+                    example: '10'
+                  cashAdvanceFee:
+                    type: string
+                    description: Cash advance fee
+                    example: '0'
+                  cashAdvanceFeeTax:
+                    type: string
+                    description: Tax on cash advance fee
+                    example: '0'
+                  overLimitFee:
+                    type: string
+                    description: Over limit fee
+                    example: '100'
+                  overLimitFeeTax:
+                    type: string
+                    description: Tax on over limit fee
+                    example: '10'
+                  cardReplacementFees:
+                    type: string
+                    description: Card replacement fee
+                    example: '100'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/funds:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Reverse a Funding
+      description: Use this endpoint to reverse funds from a user account to an enterprise account.
+      operationId: reverse-funding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - currency
+              - enterpriseAccount
+              - userAccount
+              - amount
+              - remarks
+              properties:
+                enterpriseAccount:
+                  type: integer
+                  description: The enterprise account number from which the funds will be debited.
+                  example: 202000004780
+                userAccount:
+                  type: integer
+                  description: The user account number to which the funds will be credited.
+                  example: 202000004782
+                currency:
+                  type: string
+                  description: The currency in which the amount is specified.
+                  example: INR
+                amount:
+                  type: integer
+                  description: The amount to be reversed from the user account.
+                  example: 10000
+                remarks:
+                  type: string
+                  description: Remarks or notes regarding the reverse transaction.
+                  example: Reversing funds
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseAccount:
+                    type: integer
+                    description: The enterprise account number from which the funds were debited.
+                    example: 202000004780
+                  userAccount:
+                    type: integer
+                    description: The user account number to which the funds were credited.
+                    example: 202000004782
+                  currency:
+                    type: string
+                    description: The currency in which the amount is specified.
+                    example: INR
+                  amount:
+                    type: integer
+                    description: The amount that was reversed from the user account.
+                    example: 10000
+                  transactionStatus:
+                    type: string
+                    description: The status of the transaction.
+                    example: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/auto-debit:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Set or Change Auto-Debit Configuration of an User Account
+      description: Use this endpoint to set a configuration of auto-pay/ standing instruction for an account.
+      operationId: set-auto-debit-configuration
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - amountConfig
+              - bank
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account for the auto-debit configuration.
+                  example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+                amountConfig:
+                  type: string
+                  description: The configuration for the auto-debit amount.
+                  example: MAD
+                bank:
+                  type: object
+                  description: The bank details for the auto-debit configuration.
+                  required:
+                  - accountnumber
+                  - Ifsc
+                  properties:
+                    accountnumber:
+                      type: string
+                      description: The account number for the auto-debit configuration.
+                      example: '12345678901'
+                    Ifsc:
+                      type: string
+                      description: The IFSC of the bank.
+                      example: HDFC00000056
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/reverse:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Reverse a Repayment Transaction
+      description: Use this endpoint to reverse a repayment transaction.
+      operationId: reverse-repayment-transaction
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - transactionId
+              - amount
+              properties:
+                transactionId:
+                  type: string
+                  description: The ID of the transaction to reverse.
+                  example: '20200000642'
+                amount:
+                  type: string
+                  description: The amount to reverse.
+                  example: '10000'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/{accountID}/net-banking/payment:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Repayment via Netbanking
+      description: Use this endpoint to initiate a payment via Netbanking.
+      operationId: initiate-payment-netbanking
+      parameters:
+      - name: accountID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the account for the repayment.
+        example: b3488889-5a07-48d5-99b4-fa963fdfbb02
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - txnAmt
+              - txnScAmt
+              properties:
+                txnAmt:
+                  type: number
+                  description: The transaction amount.
+                  example: 10
+                txnScAmt:
+                  type: number
+                  description: The transaction service charge amount.
+                  example: 0
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized request
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/chargeback:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Post a Chargeback
+      description: 'Use this endpoint to post chargeback credits to an account.
+
+
+        **Note:** Reward reversal will automatically happen on this action.'
+      operationId: post-chargeback
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - amount
+              - transactionId
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account to which the chargeback will be applied.
+                  example: '202000004783'
+                amount:
+                  type: number
+                  description: The amount to be charged back to the account.
+                  example: 5000
+                transactionId:
+                  type: string
+                  description: The ID of the transaction for which the chargeback is being processed.
+                  example: 123ert
+                remarks:
+                  type: string
+                  description: A narration or description of the chargeback transaction.
+                  example: chargeback
+                referenceId:
+                  type: string
+                  description: A unique reference ID for the chargeback transaction.
+                  example: 1234567890w
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  referenceId:
+                    type: string
+                    description: A unique reference ID of the chargeback transaction.
+                    example: 1234567890w
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/credit:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Add a Manual Credit
+      description: Use this endpoint to post manual credit to an account, for cashback, interest reversal, surcharge reversal, tax reversal, or fee reversal.
+      operationId: add-manual-credit
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - creditAmount
+              - feeCategory
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account to which the credit will be applied.
+                  example: '1234567890'
+                creditAmount:
+                  type: number
+                  description: The amount to be credited to the account.
+                  example: 100
+                feeCategory:
+                  type: string
+                  description: The category of the fee.
+                  example: cashback
+                date:
+                  type: string
+                  description: The date of the credit transaction.
+                  example: '2023-10-01'
+                narration:
+                  type: string
+                  description: A narration or description of the credit transaction.
+                  example: Manual credit for cashback
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/refund:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Post a Bank Refund
+      description: 'Use this endpoint to post debit to account for the amount that has been refunded to the bank account of the customer by the bank.
+
+
+        **Note:** The transaction type of such debit will be the same as a purchase transaction. Default txn type (if txn id not provised) should be for a purchase.'
+      operationId: post-bank-refund
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - amount
+              - transactionid
+              - referenceid
+              properties:
+                accountId:
+                  type: string
+                  description: The ID of the account to which the refund will be applied.
+                  example: '202000004783'
+                amount:
+                  type: number
+                  description: The amount to be refunded to the account.
+                  example: 5000
+                transactionid:
+                  type: string
+                  description: The ID of the transaction for which the refund is being processed.
+                  example: 123ert
+                narration:
+                  type: string
+                  description: A narration or description of the refund transaction.
+                  example: Bank refund
+                referenceid:
+                  type: string
+                  description: A unique reference ID for the refund transaction.
+                  example: 1234567890w
+                bank:
+                  type: object
+                  required:
+                  - name
+                  - accountnumber
+                  - ifsc
+                  description: Bank details for the refund.
+                  properties:
+                    name:
+                      type: string
+                      description: The name of the bank.
+                      example: ABC
+                    accountnumber:
+                      type: string
+                      description: The account number of the bank.
+                      example: '123456789012'
+                    ifsc:
+                      type: string
+                      description: The IFSC of the bank.
+                      example: HDFC00006
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  referenceid:
+                    type: string
+                    description: A unique reference ID of the refund transaction.
+                    example: 1234567890w
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/{accountId}/enterprise/unbilled:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Enterprise Unbilled Transactions
+      description: Use this endpoint to fetch a list of unbilled transactions of an enterprise account.
+      operationId: view-enterprise-unbilled-transactions
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the account for which to fetch unbilled transactions.
+          example: '1234567890'
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    transactionId:
+                      type: string
+                      description: The unique identifier of the transaction.
+                      example: txn_1234567890
+                    transactionDate:
+                      type: string
+                      description: The date of the transaction.
+                      example: '2023-10-01T12:00:00Z'
+                    transactionType:
+                      type: string
+                      description: The type of transaction.
+                      example: purchase
+                    transactionStatus:
+                      type: string
+                      description: The status of the transaction.
+                      example: Authorised
+                      enum:
+                      - Authorised
+                      - Declined
+                      - Pending
+                    cardId:
+                      type: string
+                      description: The ID of the card used for the transaction.
+                      example: card_1234567890
+                    merchantName:
+                      type: string
+                      description: The name of the merchant where the transaction occurred.
+                      example: ABC Store
+                    channel:
+                      type: string
+                      description: The channel through which the transaction was made.
+                      example: online
+                    mcc:
+                      type: string
+                      description: The Merchant Category Code for the transaction.
+                      example: '5411'
+                    mid:
+                      type: string
+                      description: The Merchant ID for the transaction.
+                      example: mid_1234567890
+                    externalReferenceId:
+                      type: string
+                      description: An external reference ID of the transaction.
+                      example: ext_ref_1234567890
+                    totalAmount:
+                      type: number
+                      description: The total amount of the transaction.
+                      example: 100.5
+                    transactionAmount:
+                      type: number
+                      description: The amount of the transaction.
+                      example: 95
+                    transactionFee:
+                      type: number
+                      description: The fee associated with the transaction.
+                      example: 5.5
+                    transactionTax:
+                      type: number
+                      description: The tax associated with the transaction.
+                      example: 0.5
+                    narration:
+                      type: string
+                      description: A narration or description of the transaction.
+                      example: Purchase at ABC Store
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/{accountId}/unbilled:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View User Account Unbilled Transactions
+      description: use this endpoint to fetch unbilled transactions for a user account.
+      operationId: view-user-unbilled-transactions
+      parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the account for which to fetch unbilled transactions.
+          example: '1234567890'
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                    description: The ID of the account.
+                    example: '1234567890'
+                  transactionDetails:
+                    type: object
+                    description: Details of the unbilled transactions.
+                    properties:
+                      transactionId:
+                        type: string
+                        description: The unique identifier of the transaction.
+                        example: txn_1234567890
+                      transactionDate:
+                        type: string
+                        description: The date of the transaction.
+                        example: '2023-10-01T12:00:00Z'
+                      transactionType:
+                        type: string
+                        description: The type of the transaction.
+                        example: purchase
+                      transactionStatus:
+                        type: string
+                        description: The status of the transaction.
+                        example: Authorised
+                        enum:
+                        - Authorised
+                        - Declined
+                        - Pending
+                      cardId:
+                        type: string
+                        description: The ID of the card used for the transaction.
+                        example: card_1234567890
+                      merchantName:
+                        type: string
+                        description: The name of the merchant where the transaction occurred.
+                        example: ABC Store
+                      channel:
+                        type: string
+                        description: The channel through which the transaction was made.
+                        example: online
+                      mcc:
+                        type: string
+                        description: The Merchant Category Code for the transaction.
+                        example: '5411'
+                      mid:
+                        type: string
+                        description: The Merchant ID for the transaction.
+                        example: mid_1234567890
+                      externalReferenceId:
+                        type: string
+                        description: An external reference ID of the transaction.
+                        example: ext_ref_1234567890
+                      totalAmount:
+                        type: number
+                        description: The total amount of the transaction.
+                        example: 100.5
+                      transactionAmount:
+                        type: number
+                        description: The amount of the transaction.
+                        example: 95
+                      transactionFee:
+                        type: number
+                        description: The fee associated with the transaction.
+                        example: 5.5
+                      transactionTax:
+                        type: number
+                        description: The tax associated with the transaction.
+                        example: 0.5
+                      narration:
+                        type: string
+                        description: A narration or description of the transaction.
+                        example: Purchase at ABC Store
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/{statementId}/billed:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Account Billed Transactions
+      description: Use this endpoint to fetch billed transactions of an account using a statement ID.
+      operationId: view-account-billed-transactions
+      parameters:
+      - name: statementId
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The unique statement ID.
+          example: stmt_1234567890
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statementId:
+                    type: string
+                    description: The ID of the statement.
+                    example: stmt_1234567890
+                  accountId:
+                    type: string
+                    description: The ID of the account.
+                    example: '1234567890'
+                  outstandingAmount:
+                    type: string
+                    description: The outstanding amount on the account.
+                    example: '1000.00'
+                  minimumAmountDue:
+                    type: string
+                    description: The minimum amount due on the account.
+                    example: '100.00'
+                  totalAmountDue:
+                    type: string
+                    description: The total amount due on the account.
+                    example: '1100.00'
+                  statementStartDate:
+                    type: string
+                    description: The start date of the statement period.
+                    example: '2023-09-01'
+                  statementEndDate:
+                    type: string
+                    description: The end date of the statement period.
+                    example: '2023-09-30'
+                  dueDate:
+                    type: string
+                    description: The due date for payment.
+                    example: '2023-10-15'
+                  transactionList:
+                    type: array
+                    description: List of transactions in the statement.
+                    items:
+                      type: object
+                      properties:
+                        transactionId:
+                          type: string
+                          description: The unique identifier of the transaction.
+                          example: txn_1234567890
+                        transactionDate:
+                          type: string
+                          description: The date of the transaction.
+                          example: '2023-10-01T12:00:00Z'
+                        transactionType:
+                          type: string
+                          description: The type of the transaction.
+                          example: purchase
+                        transactionStatus:
+                          type: string
+                          description: The status of the transaction.
+                          example: Authorised
+                          enum:
+                          - Authorised
+                          - Declined
+                          - Pending
+                        cardId:
+                          type: string
+                          description: The ID of the card used for the transaction.
+                          example: card_1234567890
+                        merchantName:
+                          type: string
+                          description: The name of the merchant where the transaction occurred.
+                          example: ABC Store
+                        channel:
+                          type: string
+                          description: The channel through which the transaction was made.
+                          example: online
+                        mcc:
+                          type: string
+                          description: The Merchant Category Code for the transaction.
+                          example: '5411'
+                        mid:
+                          type: string
+                          description: The Merchant ID for the transaction.
+                          example: mid_1234567890
+                        externalReferenceId:
+                          type: string
+                          description: An external reference ID of the transaction.
+                          example: ext_ref_1234567890
+                        totalAmount:
+                          type: number
+                          description: The total amount of the transaction.
+                          example: 100.5
+                        transactionAmount:
+                          type: number
+                          description: The amount of the transaction.
+                          example: 95
+                        transactionFee:
+                          type: number
+                          description: The fee associated with the transaction.
+                          example: 5.5
+                        transactionTax:
+                          type: number
+                          description: The tax associated with the transaction.
+                          example: 0.5
+                        narration:
+                          type: string
+                          description: A narration or description of the transaction.
+                          example: Purchase at ABC Store
+                  total_count:
+                    type: integer
+                    description: The total number of transactions in the statement.
+                    example: 1
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/{enterpriseID}:
+    get:
+      summary: View a List of Enterprise Accounts
+      description: Use this endpoint to fetch all credit acounts opened for an enterprise.
+      parameters:
+      - name: enterpriseID
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The unique identifier of the enterprise.
+          example: Wework
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enterpriseID:
+                    type: string
+                    description: The unique identifier of the enterprise.
+                    example: Wework
+                  accountlist:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        accountId:
+                          type: string
+                          description: The unique identifier of the account.
+                          example: '202000004780'
+                        accountType:
+                          type: string
+                          description: The type of the account.
+                          example: Domestic
+                        programeID:
+                          type: string
+                          description: The unique program identifier for the account.
+                          example: SFC01
+                  total_count:
+                    type: integer
+                    description: Total number of accounts.
+                    example: 1
+      tags:
+      - Account
+      operationId: getAccountByEnterpriseID
+      x-operation-id-source: derived
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+  /account/{programID}/{enterpriseID}:
+    get:
+      summary: View Enterprise Account Details
+      description: Use this endpoint to fetch details of a particular enterprise account.
+      operationId: view-enterprise-account-details
+      parameters:
+      - name: enterpriseID
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The unique identifier of the enterprise.
+          example: Wework
+      - name: programID
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The program ID under which the account is managed.
+          example: SFC01
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                    description: The unique identifier of the account.
+                    example: '202000004784'
+                  accountStatus:
+                    type: string
+                    description: The current status of the account.
+                    example: ACTIVE
+                    enum:
+                    - ACTIVE
+                    - INACTIVE
+                  programeID:
+                    type: string
+                    description: The associated program ID.
+                    example: SFCC01
+                  openingDate:
+                    type: string
+                    format: date
+                    description: Date when the account was opened.
+                    example: 22/11/2021
+                  billingCycleFrequency:
+                    type: string
+                    description: The frequency of billing cycle.
+                    example: Monthly
+                  formFactor:
+                    type: string
+                    description: The type of the card issued.
+                    example: Virtual
+                  primaryCardNumberMasked:
+                    type: string
+                    description: Masked primary card number.
+                    example: 807470XXXXXX3967
+                  status:
+                    type: string
+                    description: The status of the account.
+                    example: ACTIVE
+                    enum:
+                    - ACTIVE
+                    - INACTIVE
+                  currency:
+                    type: string
+                    description: The currency of the account.
+                    example: INR
+                  cardId:
+                    type: string
+                    description: The unique identifier for the card.
+                    example: 431a7211-b269-4c9a-9fb6-d9d3a087acf6
+                  creditLimit:
+                    type: number
+                    description: The credit limit assigned to the account.
+                    example: 10000
+                  cashAdvanceLimit:
+                    type: number
+                    description: Cash advance limit assigned to the account.
+                    example: 1000
+                  availableCashAdvanceLimit:
+                    type: number
+                    description: Available cash advance limit.
+                    example: 1000
+                  availableCreditLimit:
+                    type: number
+                    description: Available credit limit.
+                    example: 3000
+                  outstandingAmount:
+                    type: number
+                    description: Outstanding amount on the account.
+                    example: 4000
+                  unbilledCreditAmount:
+                    type: number
+                    description: Unbilled credit amount.
+                    example: 1000
+                  outstandingAuthorisationAmount:
+                    type: number
+                    description: Outstanding authorization amount.
+                    example: 2000
+                  minimumAmountDue:
+                    type: number
+                    description: Minimum amount due.
+                    example: 300
+                  totalAmountDue:
+                    type: string
+                    description: Total amount due on the account.
+                    example: '7000'
+                  dueDate:
+                    type: string
+                    format: date
+                    description: Due date for the payment.
+                    example: '2023-08-05'
+                  currentstatementStartDate:
+                    type: string
+                    format: date
+                    description: Start date of the current statement period.
+                    example: '2023-11-05'
+                  currentstatementEndDate:
+                    type: string
+                    format: date
+                    description: End date of the current statement period.
+                    example: '2023-12-05'
+      tags:
+      - Account
+    servers:
+    - url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+x-refined-from:
+- falcon-credit-card-account-apis-openapi.yml
+- falcon-credit-card-apis-openapi.yml
+- falcon-fee-apis-openapi.yml
+- falcon-funding-apis-openapi.yml
+- falcon-repayment-apis-openapi.yml
+- falcon-transaction-apis-openapi.yml
+- falcon-view-a-list-of-enterprise-accounts-openapi.yml
+- falcon-view-enterprise-account-details-openapi.yml
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-program.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

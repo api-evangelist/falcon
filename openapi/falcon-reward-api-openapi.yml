@@ -1,0 +1,244 @@
+openapi: 3.2.0
+info:
+  title: Rewards Reward API
+  description: APIs to manage reward points in a credit card lifecycle
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+tags:
+- name: Reward
+paths:
+  /reward/balance/{accountID}:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Reward Point Balance
+      description: Use this endpoint to fetch reward point balance for an account.
+      operationId: get-reward-point-balance
+      parameters:
+      - name: accountID
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The account ID for which to fetch the reward point balance.
+          example: '1234567890'
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                    description: The account ID for which the reward point balance is fetched.
+                    example: '1234567890'
+                  rewardPointBalance:
+                    type: integer
+                    description: The total reward point balance for the account.
+                    example: 1000
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Reward
+  /reward/detail:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Reward Point Details
+      description: Use this endpoint to fetch reward point details for an account.
+      operationId: get-reward-point-details
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: accountID
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The account ID for which to fetch the reward point details.
+          example: '1234567890'
+      - name: startDate
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The start date for the reward point details.
+          example: '2023-01-01T00:00:00Z'
+      - name: endDate
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The end date for the reward point details.
+          example: '2023-12-31T23:59:59Z'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Reward point details for the specified account.
+                properties:
+                  accountId:
+                    type: string
+                    description: The account ID for which the reward point details are fetched.
+                    example: '1234567890'
+                  rewardPointDetail:
+                    type: array
+                    description: List of reward point transactions.
+                    items:
+                      type: object
+                      properties:
+                        transactionAmount:
+                          type: number
+                          description: The amount of the transaction.
+                          example: 100
+                        merchantName:
+                          type: string
+                          description: The name of the merchant where the transaction occurred.
+                          example: Amazon
+                        transactionDate:
+                          type: string
+                          description: The date of the transaction.
+                          example: '2023-01-01T00:00:00Z'
+                        rewardCategory:
+                          type: string
+                          description: The category of the reward.
+                          example: Shopping
+                        normalRewardPoints:
+                          type: integer
+                          description: The normal reward points earned from the transaction.
+                          example: 10
+                        acceleratedRewardPoints:
+                          type: integer
+                          description: The accelerated reward points earned from the transaction.
+                          example: 5
+                  totalRewardCount:
+                    type: integer
+                    description: The total number of reward transactions.
+                    example: 50
+                  totalRewardPoints:
+                    type: integer
+                    description: The total reward points earned.
+                    example: 500
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Reward
+  /reward/redeem/history:
+    get:
+      security:
+      - bearerAuth: []
+      summary: View Redemption History
+      description: Fetch redemption history for an account
+      operationId: get-reward-redemption-history
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      - name: accountID
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The account ID for which to fetch the redemption history.
+          example: '1234567890'
+      - name: startDate
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The start date for the redemption history.
+          example: '2023-01-01T00:00:00Z'
+      - name: endDate
+        in: header
+        required: true
+        schema:
+          type: string
+          description: The end date for the redemption history.
+          example: '2023-12-31T23:59:59Z'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    redemptionAmount:
+                      type: number
+                      description: The amount redeemed.
+                      example: 100
+                    redemptionDate:
+                      type: string
+                      description: The date of redemption.
+                      example: '2023-01-01T00:00:00Z'
+                    redemptionType:
+                      type: string
+                      description: The type of redemption.
+                      example: Cashback
+                    redemptionStatus:
+                      type: string
+                      description: The status of the redemption.
+                      example: Completed
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Reward
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/view-reward-point-balance.md
+  - https://docs.falconfs.com/reference/view-reward-point-details.md
+  - https://docs.falconfs.com/reference/view-reward-redemption-history.md
+  merge:
+    pages: 3
+    deduped: 0
+    conflicts_kept_first: 0

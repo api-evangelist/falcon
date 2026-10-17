@@ -1,0 +1,169 @@
+openapi: 3.2.0
+info:
+  title: EMI Foreclose API
+  description: APIs for managing EMI plans and transactions
+  version: 1.0.0
+servers:
+- url: https://stage1.tab.kitecash.in/cc-open-api/falcon/v1
+tags:
+- name: Foreclose
+paths:
+  /foreclose:
+    post:
+      security:
+      - bearerAuth: []
+      summary: Foreclose an EMI
+      description: Use this endpoint to raise a foreclosure request.
+      operationId: foreclose-emi
+      parameters:
+      - name: x-tenant-id
+        in: header
+        required: true
+        schema:
+          type: string
+          example: falcon
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          example: Bearer {{access_token}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - EmiID
+              properties:
+                EmiID:
+                  type: string
+                  description: ID of the EMI plan to foreclose.
+                  example: 123asd
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  TransactionDetails:
+                    type: array
+                    description: Details of the transaction.
+                    items:
+                      type: object
+                      properties:
+                        TransactionID:
+                          type: integer
+                          description: ID of the transaction.
+                          example: 36121312
+                        TransactionDateTime:
+                          type: string
+                          description: Date and time of the transaction in DD/MM/YYYY HH:MM:SS format.
+                          example: 23/03/2024 16:10:34
+                        MerchantName:
+                          type: string
+                          description: Name of the merchant for the transaction.
+                          example: Amazon
+                        TransactionAmount:
+                          type: number
+                          description: Amount of the transaction.
+                          example: 1000
+                  LoanDetails:
+                    type: object
+                    description: Details of the loan.
+                    properties:
+                      InterestRate:
+                        type: number
+                        description: Interest rate for the loan.
+                        example: 32
+                      EMIAmount:
+                        type: number
+                        description: Amount of the EMI.
+                        example: 216.28
+                      TotalPrincipalAmount:
+                        type: number
+                        description: Total principal amount for the loan.
+                        example: 1000
+                      TotalInterestAmount:
+                        type: number
+                        description: Total interest amount for the loan.
+                        example: 81.4
+                      TotalTransactionCount:
+                        type: integer
+                        description: Total number of transactions for the loan.
+                        example: 1
+                      TotalInstallationCount:
+                        type: integer
+                        description: Total number of installations for the loan.
+                        example: 5
+                      EmiPlanID:
+                        type: string
+                        description: ID of the EMI plan used for conversion.
+                        example: asdf1233
+                      LoanID:
+                        type: integer
+                        description: ID of the loan.
+                        example: 37927858
+                      RequestDateTime:
+                        type: string
+                        description: Date and time of the request in DD/MM/YYYY HH:MM:SS format.
+                        example: 25/03/2024 16:04:23
+                      ConversionDateTime:
+                        type: string
+                        description: Date and time of the conversion in DD/MM/YYYY HH:MM:SS format.
+                        example: 25/03/2024 16:05:23
+                      ForeclosureDateTime:
+                        type: string
+                        description: Date and time of the foreclosure in DD/MM/YYYY HH:MM:SS format.
+                        example: 25/03/2024 16:05:23
+                      NextBillingDate:
+                        type: string
+                        description: Next billing date for the installment in DD/MM/YYYY format.
+                        example: 25/04/2024
+                      BilledInstallmentCount:
+                        type: integer
+                        description: Number of billed installments.
+                        example: 0
+                      Status:
+                        type: string
+                        description: Status of the loan.
+                        example: '{$status}'
+                      CloseReason:
+                        type: string
+                        description: Reason for closing the loan.
+                        example: '{$reason}'
+                  TotalPayable:
+                    type: number
+                    description: Total amount payable for the loan.
+                    example: 1096.06
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      tags:
+      - Foreclose
+x-provenance:
+  method: searched
+  source: https://docs.falconfs.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://docs.falconfs.com/reference/add-emi-plan.md
+  - https://docs.falconfs.com/reference/convert-outstanding-balance.md
+  - https://docs.falconfs.com/reference/convert-transactions-emi.md
+  - https://docs.falconfs.com/reference/foreclose-emi.md
+  - https://docs.falconfs.com/reference/foreclosure-quote.md
+  - https://docs.falconfs.com/reference/put_update-status-emi-plan.md
+  - https://docs.falconfs.com/reference/view-amortisation-schedule.md
+  - https://docs.falconfs.com/reference/view-emi-details.md
+  - https://docs.falconfs.com/reference/view-emi-list.md
+  - https://docs.falconfs.com/reference/view-emi-plan.md
+  - https://docs.falconfs.com/reference/view-transaction-eligibility.md
+  merge:
+    pages: 11
+    deduped: 0
+    conflicts_kept_first: 0
