@@ -277,6 +277,8 @@ apis:
   humanURL: https://docs.falconfs.com/reference
   baseURL: https://credituat.falconfs.com
   tags:
+  - Balances
+  tags_raw:
   - Balance
   properties:
   - type: OpenAPI
@@ -369,6 +371,8 @@ apis:
   humanURL: https://docs.falconfs.com/reference
   baseURL: https://credituat.falconfs.com
   tags:
+  - Cards
+  tags_raw:
   - Card
   properties:
   - type: OpenAPI
@@ -415,6 +419,8 @@ apis:
   humanURL: https://docs.falconfs.com/reference
   baseURL: https://credituat.falconfs.com
   tags:
+  - Card - CVV
+  tags_raw:
   - Card Cvv
   properties:
   - type: OpenAPI
