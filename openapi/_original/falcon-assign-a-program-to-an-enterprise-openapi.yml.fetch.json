@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.falconfs.com/openapi/67e939df162383421d8f08ad",
+ "requested_url": "https://docs.falconfs.com/openapi/67e939df162383421d8f08ad",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 1409,
+ "sha256": "6f1a162a0b48dcba9450ad51e56fce2004ecf0a501328548a65fda8032c0b123",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
